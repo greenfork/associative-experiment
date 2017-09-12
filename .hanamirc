@@ -1,0 +1,4 @@
+project=assoc
+architecture=container
+test=minitest
+template=erb
