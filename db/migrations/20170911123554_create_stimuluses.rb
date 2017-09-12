@@ -1,6 +1,6 @@
 Hanami::Model.migration do
   change do
-    create_table :stimuli do
+    create_table :stimuluses do
       primary_key :id
 
       column :stimulus, String, null: false, unique: true
