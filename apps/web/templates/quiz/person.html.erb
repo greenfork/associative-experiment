@@ -1,0 +1,97 @@
+<div class="container">
+  <div class="page-header">
+    <h1></h1>
+  </div>
+  <p>
+    Пожалуйста, заполните личную информацию. От вас не требуется указывать Ваше имя и фамилию, Ваша личность останется анонимной.
+  </p>
+  <%=
+  attributes = Hash.new
+  person_attributes.each do |att|
+    attributes[att] = quiz.send("#{att}_flag")
+  end
+  languages = Hash.new
+
+  form_for :person, routes.test_path, class: 'form-horizontal' do
+    attributes.each do |att, flag|
+      if flag
+        case att
+        when :sex
+          div(class: 'form-group') do
+            div(class: 'col-md-2') {label att}
+            div(class: 'col-md-10') do
+              radio_button att, 'male', id: 'person-male'
+              label 'male'
+              radio_button att, 'female', id: 'person-female'
+              label 'female'
+            end
+          end
+        when :age
+          div(class: 'form-group') do
+            div(class: 'col-md-2') {label att}
+            div(class: 'col-md-10') do
+              values = Hash['--' => '--']
+              (1..100).each do |i|
+                values[i] = i
+              end
+              select :age, values, class: 'form-control'
+            end
+          end
+        when :region
+          div(class: 'form-group') do
+            div(class: 'col-md-2') {label att}
+            div(class: 'col-md-10') do
+              values = Hash[
+                '--' => '--', 'Москва' => 'Москва', 'Татарстан' => 'Татарстан',
+                'Бурятия' => 'Бурятия', 'Коми' => 'Коми', 'Якутия' => 'Якутия'
+              ]
+              select :region, values, class: 'form-control'
+            end
+          end
+        when :nationality1
+          div(class: 'form-group') do
+            div(class: 'col-md-2') {label att}
+            div(class: 'col-md-10') {text_field att, class: 'form-control', placeholder: 'ед. число, муж. род, напр.: татарин'}
+          end
+        when :nationality2
+          div(class: 'form-group') do
+            div(class: 'col-md-2') {label att}
+            div(class: 'col-md-10') {text_field att, class: 'form-control', placeholder: 'ед. число, муж. род, напр.: татарин'}
+          end
+        when :spoken_languages
+          div(class: 'form-group') do
+            div(class: 'col-md-2') {label att}
+            div(class: 'col-md-10') do
+              values = Hash.new
+              (1..100).each do |i|
+                values[i] = i
+              end
+              select :age, values, class: 'form-control'
+            end
+          end
+        when :quiz_language_level
+          div(class: 'form-group') do
+            div(class: 'col-md-2') {label att}
+            div(class: 'col-md-10') do
+              values = Hash[
+                '--' => '--',
+                'Свободно пишу и разговариваю' => 'Свободно пишу и разговариваю',
+                'Свободно пишу' => 'Свободно пишу',
+                'Свободно разговариваю' => 'Свободно разговариваю',
+                'Перевожу со словарем' => 'Перевожу со словарем'
+              ]
+              select :age, values, class: 'form-control'
+            end
+          end
+        else
+          div(class: 'form-group') do
+            div(class: 'col-md-2') {label att}
+            div(class: 'col-md-10') {text_field att, class: 'form-control'}
+          end
+        end
+      end
+    end
+    submit 'Продолжить', class: 'btn btn-primary'
+  end
+  %>
+</div>
