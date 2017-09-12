@@ -3,6 +3,7 @@ Hanami::Model.migration do
     create_table :people do
       primary_key :id
 
+      # attributes
       column :sex, String, null: true
       column :age, Integer, null: true
       column :profession, String, null: true
@@ -15,9 +16,13 @@ Hanami::Model.migration do
       column :native_language, String, null: true
       column :communication_language, String, null: true
       column :education_language, String, null: true
+      column :quiz_language_level, String, null: true
+      # quiz results
       column :date, DateTime, null: true
-      column :viewed, TrueClass, defualt: 0
+      column :is_reviewed, TrueClass, defualt: 0, null: false
       column :total_time, Integer, null: true
+
+      foreign_key :quiz_id, :quizzes, on_delete: :set_null, on_update: :cascade, null: true
 
       column :created_at, DateTime, null: false
       column :updated_at, DateTime, null: false
