@@ -5,6 +5,7 @@ gem 'hanami',       '~> 1.0'
 gem 'hanami-model', '~> 1.0'
 gem 'jquery-hanami'
 gem 'hanami-bootstrap'
+gem 'i18n'
 
 gem 'sqlite3'
 
