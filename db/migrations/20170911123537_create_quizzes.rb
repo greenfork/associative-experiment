@@ -20,6 +20,7 @@ Hanami::Model.migration do
       column :native_language_flag, TrueClass, default: 1, null: false
       column :communication_language_flag, TrueClass, default: 1, null: false
       column :education_language_flag, TrueClass, default: 1, null: false
+      column :quiz_language_level_flag, TrueClass, default: 1, null: false
 
       column :created_at, DateTime, null: false
       column :updated_at, DateTime, null: false
