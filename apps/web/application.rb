@@ -8,7 +8,7 @@ module LocaleHelper
       scope    = "#{app}.#{controller}"
       defaults = [:"#{scope}#{key}"]
       scope    << ".#{action}"
-      defaults << [:"#{scope}#{key}"]
+      defaults << :"#{scope}#{key}"
       defaults << options[:default] if options[:default]
 
       options[:default] = defaults
