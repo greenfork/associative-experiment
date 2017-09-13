@@ -3,6 +3,7 @@ require 'hanami/setup'
 require 'hanami/model'
 require_relative '../lib/assoc'
 require_relative '../apps/web/application'
+require_relative 'initializers/inflector.rb'
 
 Hanami.configure do
   mount Web::Application, at: '/'
