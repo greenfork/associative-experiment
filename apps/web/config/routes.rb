@@ -3,9 +3,8 @@
 #
 # Example:
 # get '/hello', to: ->(env) { [200, {}, ['Hello from Hanami!']] }
-get '/person/:id', to: 'quiz#person', as: :person
+get '/:id/person', to: 'quiz#person', as: :person
 post '/thank-you', to: 'quiz#thanks', as: :thanks
-get '/quiz/:id', to: 'quiz#main', as: :quiz
+get '/quiz', to: 'quiz#main', as: :quiz
 post '/test-quiz', to: 'quiz#test', as: :test
-get '/personaldata/:id', id: /\d/, to: 'quiz#personalData', as: :personal_data
 root to: 'home#index'

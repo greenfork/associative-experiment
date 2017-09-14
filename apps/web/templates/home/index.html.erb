@@ -4,8 +4,8 @@
     <h1><%= t ".greeting" %></h1>
     </div>
     <p><%= t ".info" %></p>
-    <div id="polls">
-      <% active_quizzes.each do |q| %>
+    <div id="quizzes">
+      <% quizzes.each do |q| %>
         <%= link_to q.title, routes.path(:person, id: q.id), class: "btn btn-default btn-lg", style: "margin-bottom:5px;" %>
       <% end %>
     </div>

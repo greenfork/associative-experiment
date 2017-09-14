@@ -5,9 +5,5 @@ module Web::Views::Home
     def title
       t ".title"
     end
-
-    def active_quizzes
-      QuizRepository.new.active_quizzes
-    end
   end
 end

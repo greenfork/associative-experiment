@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'features_helper'
 
-describe QuizRepository do
+describe 'list quizzes' do
   let(:repository) { QuizRepository.new }
   before do
     repository.clear
@@ -24,7 +24,11 @@ describe QuizRepository do
     quiz_language_level_flag: true, created_at: 1505331469, updated_at: 1505331469)
   end
 
-  it 'queries only active quizzes' do
-    repository.active_quizzes.count.must_equal 2
+  it 'lists active quizzes' do
+    visit '/'
+
+    within '#quizzes' do
+      all('a').size.must_equal 2
+    end
   end
 end
