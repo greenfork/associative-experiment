@@ -9,8 +9,9 @@
   </head>
   <body>
     <%= yield %>
+
+    <%= javascript 'jquery' %>
+    <%= javascript 'bootstrap' %>
+    <%= local :js_person %>
   </body>
-  <%= javascript 'jquery' %>
-  <%= javascript 'jquery_ujs' %>
-  <%= javascript 'bootstrap' %>
 </html>
