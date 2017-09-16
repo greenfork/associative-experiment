@@ -6,7 +6,7 @@
     Пожалуйста, заполните личную информацию. От вас не требуется указывать Ваше имя и фамилию, Ваша личность останется анонимной.
   </p>
   <%=
-  form_for :person, routes.test_path, class: 'form-horizontal' do
+  form_for :person, routes.path(:test, quiz_id: params[:quiz_id]), class: 'form-horizontal' do
     flags.each do |flag, value|
       if value
         case flag

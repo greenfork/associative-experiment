@@ -14,7 +14,7 @@ module Web::Controllers::Quiz
       ]
 
       repository = QuizRepository.new
-      quiz = repository.find(params[:id])
+      quiz = repository.find(params[:quiz_id])
       flags_array.each do |flag|
         @flags[flag] = quiz.send("#{flag}_flag")
       end
