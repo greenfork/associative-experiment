@@ -12,18 +12,18 @@
         case flag
         when :sex
           div(class: 'form-group') do
-            div(class: 'col-md-2') {label t ".#{flag}"}
+            div(class: 'col-md-2') {label t(".#{flag}"), for: "person-sex" }
             div(class: 'col-md-10') do
               radio_button flag, 'male', id: 'person-male', :"data-required" => 'required'
-              label t '.male'
+              label t('.male'), for: "person-male"
               radio_button flag, 'female', id: 'person-female', :"data-required" => 'required'
-              label t '.female'
+              label t('.female'), for: "person-female"
             end
           end
           div(display_alert(flag))
         when :age, :spoken_languages
           div(class: 'form-group') do
-            div(class: 'col-md-2') {label t ".#{flag}"}
+            div(class: 'col-md-2') {label t(".#{flag}"), for: "person-#{flag}"}
             div(class: 'col-md-10') do
               first_disabled_select (1..100), id: "person-#{flag}", name: "person[#{flag}]", :"data-required" => 'required', class: 'form-control'
             end
@@ -31,7 +31,7 @@
           div(display_alert(flag))
         when :region
           div(class: 'form-group') do
-            div(class: 'col-md-2') {label t ".#{flag}"}
+            div(class: 'col-md-2') {label t(".#{flag}"), for: "person-#{flag}"}
             div(class: 'col-md-10') do
               values = t ".regions"
               first_disabled_select values, id: "person-#{flag}", name: "person[#{flag}]", class: 'form-control', :"data-required" => 'required'
@@ -40,18 +40,18 @@
           div(display_alert(flag))
         when :nationality1
           div(class: 'form-group') do
-            div(class: 'col-md-2') {label t ".#{flag}"}
+            div(class: 'col-md-2') {label t(".#{flag}"), for: "person-#{flag}"}
             div(class: 'col-md-10') {text_field flag, class: 'form-control', placeholder: t(".#{flag}_placeholder"), :"data-required" => 'required'}
           end
           div(display_alert(flag))
         when :nationality2
           div(class: 'form-group') do
-            div(class: 'col-md-2') {label t ".#{flag}"}
+            div(class: 'col-md-2') {label t(".#{flag}"), for: "person-#{flag}"}
             div(class: 'col-md-10') {text_field flag, class: 'form-control', placeholder: t(".#{flag}_placeholder"), :"data-required" => 'required'}
           end
         when :quiz_language_level
           div(class: 'form-group') do
-            div(class: 'col-md-2') {label t ".#{flag}"}
+            div(class: 'col-md-2') {label t(".#{flag}"), for: "person-#{flag}"}
             div(class: 'col-md-10') do
               values = Hash[
                 'Свободно пишу и разговариваю' => 'Свободно пишу и разговариваю',
@@ -65,7 +65,7 @@
           div(display_alert(flag))
         when :native_language, :education_language, :communication_language
           div(class: 'form-group') do
-            div(class: 'col-md-2') {label t ".#{flag}"}
+            div(class: 'col-md-2') {label t(".#{flag}"), for: "person-#{flag}"}
             div(class: 'col-md-10') do
               language_select id: "person-#{flag}", name: "person[#{flag}]", class: 'form-control', :"data-required" => 'required'
             end
@@ -73,7 +73,7 @@
           div(display_alert(flag))
         else
           div(class: 'form-group') do
-            div(class: 'col-md-2') {label t ".#{flag}"}
+            div(class: 'col-md-2') {label t(".#{flag}"), for: "person-#{flag}"}
             div(class: 'col-md-10') {text_field flag, class: 'form-control', placeholder: t(".#{flag}_placeholder"), :"data-required" => 'required'}
           end
           div(display_alert(flag))
