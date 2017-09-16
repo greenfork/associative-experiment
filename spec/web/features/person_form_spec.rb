@@ -40,7 +40,7 @@ describe 'person form' do
 
     select('Москва', from: 'person-region')
     click_button('submit')
-    page.body.scan(/class="alert[\sa-zA-Z-]+show"/).count.must_equal 2
+    all(".alert").count.must_equal 2
     page.assert_current_path(path)
   end
 end
