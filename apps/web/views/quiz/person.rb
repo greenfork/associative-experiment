@@ -25,8 +25,8 @@ module Web::Views::Quiz
       output += ">"
       languages = t "languages" # I18n
       output += "<option disabled='disabled' selected='selected' value='--'>--</option>"
-      languages.each do |language|
-        if language != '---'
+      languages.each_with_index do |language, index|
+        if index != 5
           output += "<option value='#{language}'>#{language}</option>"
         else
           output += "<option disabled='disabled' value='--'>---</option>"
