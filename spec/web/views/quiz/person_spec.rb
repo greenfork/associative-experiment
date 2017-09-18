@@ -9,7 +9,7 @@ describe Web::Views::Quiz::Person do
       :spoken_languages => false, :native_language => false, :communication_language => false,
       :education_language => false, :quiz_language_level => false
     },
-    params: {}
+    params: { quiz_id: 1 },
   ] }
   let(:template)  { Hanami::View::Template.new('apps/web/templates/quiz/person.html.erb') }
   let(:view)      { Web::Views::Quiz::Person.new(template, exposures) }

@@ -3,7 +3,7 @@ require_relative '../../../../apps/web/controllers/quiz/person'
 
 describe Web::Controllers::Quiz::Person do
   let(:action) { Web::Controllers::Quiz::Person.new }
-  let(:params) { Hash[id: quiz_id] }
+  let(:params) { Hash[quiz_id: quiz_id] }
   let(:repository) { QuizRepository.new }
   let(:quiz_id) { 1 }
 

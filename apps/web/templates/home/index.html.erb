@@ -6,7 +6,7 @@
     <p><%= t ".info" %></p>
     <div id="quizzes">
       <% quizzes.each do |q| %>
-        <%= link_to q.title, routes.path(:person, id: q.id), class: "btn btn-default btn-lg", style: "margin-bottom:5px;" %>
+        <%= link_to q.title, routes.path(:person, quiz_id: q.id), class: "btn btn-default btn-lg", style: "margin-bottom:5px;" %>
       <% end %>
     </div>
   </div>
