@@ -4,7 +4,7 @@ require 'hanami/assets'
 module LocaleHelper
   def t(key, options = {})
     if key.to_s[0] == '.'
-      app, _, controller, action = self.class.name.split("::").map(&:downcase)
+      app, _, controller, action = self.class.name.split('::').map(&:downcase)
       scope    = "#{app}.#{controller}"
       defaults = [:"#{scope}#{key}"]
       scope    << ".#{action}"
