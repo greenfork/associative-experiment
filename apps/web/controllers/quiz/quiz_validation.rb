@@ -2,15 +2,14 @@ require_relative '../../../../config/initializers/locale'
 
 module Web::Controllers::Quiz
   class QuizValidation < Web::Action::Params
-
     # arrays of described values
-    REGIONS = ::I18n.t("web.quiz.person.regions").values
-    QUIZ_LANGUAGE_LEVELS = ::I18n.t("web.quiz.person.quiz_language_levels").values
-    LANGUAGES = ::I18n.t("languages")
+    REGIONS = ::I18n.t('web.quiz.person.regions').values
+    QUIZ_LANGUAGE_LEVELS = ::I18n.t('web.quiz.person.quiz_language_levels').values
+    LANGUAGES = ::I18n.t('languages')
 
     params do
       required(:person).schema do
-        optional(:sex).filled(:str?, included_in?: ['male', 'female'])
+        optional(:sex).filled(:str?, included_in?: %w[male female])
         optional(:age).filled(:int?, included_in?: 1..100)
         optional(:profession).filled(:str?)
         optional(:region).filled(:str?, included_in?: REGIONS)

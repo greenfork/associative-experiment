@@ -3,7 +3,7 @@ module Web::Views::Home
     include Web::View
 
     def title
-      t ".title"
+      t '.title'
     end
   end
 end

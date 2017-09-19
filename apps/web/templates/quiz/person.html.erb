@@ -12,12 +12,12 @@
         case flag
         when :sex
           div(class: 'form-group') do
-            div(class: 'col-md-2') {label t(".#{flag}"), for: "person-sex" }
+            div(class: 'col-md-2') {label t(".#{flag}"), for: 'person-sex' }
             div(class: 'col-md-10') do
               radio_button flag, 'male', id: 'person-male', :"data-required" => 'required'
-              label t('.male'), for: "person-male"
+              label t('.male'), for: 'person-male'
               radio_button flag, 'female', id: 'person-female', :"data-required" => 'required'
-              label t('.female'), for: "person-female"
+              label t('.female'), for: 'person-female'
             end
           end
           div(display_alert(flag))

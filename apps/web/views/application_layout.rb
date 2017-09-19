@@ -4,7 +4,7 @@ module Web
       include Web::Layout
 
       def title
-        t "default.title"
+        t 'default.title'
       end
     end
   end

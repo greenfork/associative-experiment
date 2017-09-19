@@ -7,41 +7,42 @@ module Web::Views::Quiz
     end
 
     def title
-      t ".title"
+      t '.title'
       self.class
     end
 
     def display_alert(flag)
-      alert = t ".alert"
+      alert = t '.alert'
       labl = t ".#{flag}"
       html.div(class: 'alert alert-danger hidden', id: "person-#{flag}-alert") { alert << ' ' << labl }
     end
 
     def language_select(options = {})
-      output = "<select"
+      output = '<select'
       options.each do |k, v|
         output += " #{k}='#{v}'"
       end
-      output += ">"
-      languages = t "languages" # I18n
+      output += '>'
+      languages = t 'languages' # I18n
       output += "<option disabled='disabled' selected='selected' value='--'>--</option>"
       languages.each_with_index do |language, index|
-        if index != 5
-          output += "<option value='#{language}'>#{language}</option>"
-        else
-          output += "<option disabled='disabled' value='--'>---</option>"
-        end
+        output +=
+          if index != 5
+            "<option value='#{language}'>#{language}</option>"
+          else
+            "<option disabled='disabled' value='--'>---</option>"
+          end
       end
-      output += "</select>"
+      output += '</select>'
       raw output
     end
 
     def first_disabled_select(enu, options = {})
-      output = "<select"
+      output = '<select'
       options.each do |k, v|
         output += " #{k}='#{v}'"
       end
-      output += ">"
+      output += '>'
       output += "<option disabled='disabled' selected='selected' value='--'>--</option>"
       if enu.is_a?(Array) || enu.is_a?(Range)
         enu.each do |e|
@@ -52,7 +53,7 @@ module Web::Views::Quiz
           output += "<option value='#{v}'>#{k}</option>"
         end
       end
-      output += "</select>"
+      output += '</select>'
       raw output
     end
   end
