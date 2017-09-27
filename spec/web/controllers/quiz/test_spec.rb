@@ -14,6 +14,8 @@ describe Web::Controllers::Quiz::Test do
       language: 'rus',
       is_active: true,
       is_reviewed_automatically: false,
+      available_time: 20,
+      number_of_words: 100,
       sex_flag: true,
       age_flag: true,
       profession_flag: false,

@@ -7,6 +7,8 @@ def quiz_hash(id = 1, is_active = true, title = 'QuizA')
     language: 'rus',
     is_active: is_active,
     is_reviewed_automatically: true,
+    available_time: 20,
+    number_of_words: 100,
     sex_flag: true,
     age_flag: true,
     profession_flag: true,

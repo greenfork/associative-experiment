@@ -7,8 +7,10 @@
 get '/:quiz_id/person', quiz_id: /\d+/, to: 'quiz#person', as: :person
 
 post '/thank-you', to: 'quiz#thanks', as: :thanks
+get '/thank-you', to: 'quiz#thanks'
 
-get '/quiz', to: 'quiz#main', as: :quiz
+get '/:quiz_id/quiz', to: 'quiz#main'
+post '/:quiz_id/quiz', to: 'quiz#main', as: :quiz
 
 post '/:quiz_id/test-quiz', quiz_id: /\d+/, to: 'quiz#test', as: :test
 get '/:quiz_id/test-quiz', quiz_id: /\d+/, to: 'quiz#test'

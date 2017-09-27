@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="page-header">
+    <h1><%= t '.header' %></h1>
+  </div>
+  <p>
+    <%= t '.info1' %>
+    <br>
+    <%= t '.example' %>
+    <ul>
+      <li><strong><%= t '.s1' %></strong> – <em><%= t '.r1' %></em></li>
+      <li><strong><%= t '.s2' %></strong> – <em><%= t '.r2' %></em></li>
+      <li><strong><%= t '.s3' %></strong> – <em><%= t '.r3' %></em></li>
+    </ul>
+    <%= t '.info2', time: time, words: words %>
+    <br><br>
+    <%= t '.info3' %>
+    <kbd>Enter</kbd>
+    <%= t '.info4' %>
+  </p>
+  <br>
+
+  <%= form %>
+</div>

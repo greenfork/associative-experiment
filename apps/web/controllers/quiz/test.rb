@@ -5,8 +5,12 @@ module Web::Controllers::Quiz
     include Web::Action
     params QuizValidation
 
+    expose :stimuli, :time, :words
+
     def call(params)
+      @stimuli = I18n.t 'web.quiz.test.stimuli'
       quiz_key = "q#{params[:quiz_id]}".to_sym
+      expose_quiz_info
 
       if request.post?
         redirect_me = catch :invalid_input do
@@ -57,6 +61,13 @@ module Web::Controllers::Quiz
       end
 
       fields
+    end
+
+    # expose number of words and available time limit
+    def expose_quiz_info
+      quiz = QuizRepository.new.find(params[:quiz_id])
+      @time = quiz.available_time
+      @words = quiz.number_of_words
     end
   end
 end
