@@ -12,6 +12,8 @@ describe 'person form' do
       language: 'rus',
       is_active: true,
       is_reviewed_automatically: false,
+      available_time: 20,
+      number_of_words: 100,
       sex_flag: true,
       age_flag: true,
       profession_flag: false,
@@ -42,7 +44,7 @@ describe 'person form' do
     select('3', from: 'person-age')
     select('Москва', from: 'person-region')
     click_button('submit')
-    page.assert_current_path(Web.routes.path(:test, quiz_id))
+    page.assert_current_path(Web.routes.path(:test, quiz_id: quiz_id))
   end
 
   it 'is partially filled and submitted' do

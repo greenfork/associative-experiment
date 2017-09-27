@@ -7,6 +7,8 @@ Hanami::Model.migration do
       column :language, String, null: false
       column :is_active, TrueClass, default: 0, null: false
       column :is_reviewed_automatically, TrueClass, default: 1, null: false
+      column :available_time, Integer, null: false
+      column :number_of_words, Integer, null: false
       # person flags (whether these attributes should be asked to fill in)
       column :sex_flag, TrueClass, default: 1, null: false
       column :age_flag, TrueClass, default: 1, null: false

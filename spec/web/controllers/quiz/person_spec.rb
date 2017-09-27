@@ -15,6 +15,8 @@ describe Web::Controllers::Quiz::Person do
       language: 'rus',
       is_active: true,
       is_reviewed_automatically: true,
+      available_time: 20,
+      number_of_words: 100,
       sex_flag: false,
       age_flag: true,
       profession_flag: true,
