@@ -44,7 +44,7 @@ describe 'test quiz form' do
     # inputs change on function next() which is called when Enter is pressed
     all('input').count.must_equal 1
     input = find('input')
-    page.execute_script('processQuestions()')
+    input.send_keys :enter
     all('input').count.must_equal 1
     input.wont_equal find('input')
   end
@@ -54,9 +54,9 @@ describe 'test quiz form' do
     choose('person-male')
     click_button('submit')
 
-    page.execute_script('processQuestions()')
-    page.execute_script('processQuestions()')
-    page.execute_script('processQuestions()')
+    find('input').send_keys :enter
+    find('input').send_keys :enter
+    find('input').send_keys :enter
     page.assert_current_path(Web.routes.quiz_path(quiz_id: quiz_id))
   end
 end
