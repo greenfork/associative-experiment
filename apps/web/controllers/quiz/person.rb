@@ -5,7 +5,6 @@ module Web::Controllers::Quiz
     expose :flags
 
     def call(params)
-      destroy_session
       @flags = {}
       flags_array = %i[
         sex age profession region
@@ -23,10 +22,6 @@ module Web::Controllers::Quiz
       else
         redirect_to routes.root_path
       end
-    end
-
-    def destroy_session
-      session.to_h.each_key { |key| session[key.to_sym] = nil }
     end
   end
 end

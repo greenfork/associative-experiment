@@ -32,6 +32,7 @@ module Web::Controllers::Quiz
         if redirect_me
           redirect_to routes.path(:person, params[:quiz_id])
         else
+          destroy_session
           session[quiz_key] ||= {}
           session[quiz_key][:person_data_validated] = true
         end
@@ -68,6 +69,10 @@ module Web::Controllers::Quiz
       quiz = QuizRepository.new.find(params[:quiz_id])
       @time = quiz.available_time
       @words = quiz.number_of_words
+    end
+
+    def destroy_session
+      session.to_h.each_key { |key| session[key.to_sym] = nil }
     end
   end
 end
