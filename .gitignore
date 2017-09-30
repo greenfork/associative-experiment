@@ -2,11 +2,8 @@ db/*.sqlite
 public/assets*
 *.log
 *.gem
-.bundle
 Gemfile.lock
 spec/reports
 tmp/
-*.bundle
-*.so
-*.o
-*.a
+.byebug_history
+.rubocop.yml

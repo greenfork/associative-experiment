@@ -1,6 +1,6 @@
 Hanami::Model.migration do
   change do
-    create_table :quizzes_stimuluses_join do
+    create_table :quizzes_stimuli_join do
       # many-to-many connection table
       foreign_key :quiz_id, :quizzes, on_delete: :cascade, on_update: :cascade
       foreign_key :stimulus_id, :stimuli, on_delete: :cascade, on_update: :cascade

@@ -36,7 +36,7 @@ describe 'test quiz form' do
     Capybara.current_driver = Capybara.default_driver
   end
 
-  it 'changes the input and label upon running js script processQuestions()' do
+  it 'changes the input and label upon hitting Enter key' do
     visit Web.routes.path(:person, quiz_id)
     choose('person-male')
     click_button('submit')
