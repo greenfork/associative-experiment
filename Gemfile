@@ -6,7 +6,6 @@ gem 'hanami-bootstrap'
 gem 'hanami-model', '~> 1.0'
 gem 'jquery-hanami'
 gem 'i18n', '~> 0.8.6'
-gem 'selenium-webdriver', '~> 3.5', '>= 3.5.2'
 
 gem 'sqlite3'
 
@@ -24,6 +23,7 @@ end
 group :test do
   gem 'capybara'
   gem 'minitest'
+  gem 'selenium-webdriver', '~> 3.5', '>= 3.5.2'
 end
 
 group :production do
