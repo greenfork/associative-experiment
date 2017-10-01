@@ -16,10 +16,11 @@ module Web::Views::Quiz
     def form
       form_for :person, routes.thanks_path , id: 'form' do
         fields_for_collection :stimuli do
+          stimulus_info = retrieve_stimulus_info
           div(class: "question form-group#{hidden?}") do
             div(class: 'row') do
               span(
-                retrieve_stimulus, class: 'col-sm-4 col-sm-offset-4 text-center',
+                stimulus_info[:stimulus], class: 'col-sm-4 col-sm-offset-4 text-center',
                 style: 'font-size: 20px; margin-bottom: 5px; font-weight: bold;'
               )
             end
@@ -29,6 +30,7 @@ module Web::Views::Quiz
                 hidden_field :start_time, class: 'start-time'
                 hidden_field :end_time, class: 'end-time'
                 hidden_field :key_log, class: 'key-log'
+                hidden_field :stimulus_id, class: 'stimulus-id', value: stimulus_info[:stimulus_id]
               end
             end
           end
@@ -42,9 +44,12 @@ module Web::Views::Quiz
 
     private
 
-    def retrieve_stimulus
+    def retrieve_stimulus_info
       begin
-        stimuli_enum.next.stimulus
+        {
+          stimulus_id: stimuli_enum.peek.id,
+          stimulus: stimuli_enum.next.stimulus
+        }
       rescue StopIteration
         'iteration_error'
       end

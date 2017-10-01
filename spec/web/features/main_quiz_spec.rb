@@ -78,6 +78,7 @@ describe 'main quiz' do
       find("#person-stimuli-#{question_id}-start-time", visible: false).value.wont_be_empty
       find("#person-stimuli-#{question_id}-end-time", visible: false).value.wont_be_empty
       find("#person-stimuli-#{question_id}-key-log", visible: false).value.wont_be_empty
+      find("#person-stimuli-#{question_id}-stimulus-id", visible: false).value.wont_be_empty
     end
   end
 

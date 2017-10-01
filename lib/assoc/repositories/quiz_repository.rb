@@ -1,6 +1,7 @@
 class QuizRepository < Hanami::Repository
   associations do
     has_many :people
+    has_many :reactions
   end
 
   def active_quizzes(id = nil)

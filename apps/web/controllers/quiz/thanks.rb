@@ -9,6 +9,7 @@ module Web::Controllers::Quiz
       @quiz_title = QuizRepository.new.find(get_from_session(:quiz_id)).title
 
       create_person_record
+      create_reaction_records
     end
 
     private
@@ -18,7 +19,7 @@ module Web::Controllers::Quiz
     end
 
     def create_person_record
-      PersonRepository.new.create(
+      @person = PersonRepository.new.create(
         uuid: @uuid,
         sex: get_from_session(:sex),
         age: get_from_session(:age),
@@ -38,6 +39,35 @@ module Web::Controllers::Quiz
         total_time: Time.now.to_i - session[:quiz_start_time],
         quiz_id: get_from_session(:quiz_id)
       )
+    end
+
+    def create_reaction_records
+      params[:person][:stimuli].each do |q|
+        # check if it is a "null" reaction
+        if q['start_time'].nil?
+          reaction_time = nil
+          keylog = nil
+        else
+          reaction_time = q['end_time'].to_i - q['start_time'].to_i
+          keylog = q['key_log']
+        end
+
+        # check if stimulus_id is a valid id
+        if StimulusRepository.new.find(q['stimulus_id'].to_i).nil?
+          stimulus_id = nil
+        else
+          stimulus_id = q['stimulus_id'].to_i
+        end
+
+        ReactionRepository.new.create(
+          reaction: q['reaction'],
+          reaction_time: reaction_time,
+          keylog: keylog,
+          person_id: @person.id,
+          stimulus_id: stimulus_id,
+          quiz_id: get_from_session(:quiz_id)
+        )
+      end
     end
   end
 end
