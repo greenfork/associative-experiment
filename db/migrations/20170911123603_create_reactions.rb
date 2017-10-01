@@ -11,6 +11,7 @@ Hanami::Model.migration do
 
       foreign_key :person_id, :people, on_delete: :cascade, on_update: :cascade, null: false
       foreign_key :stimulus_id, :stimuli, on_delete: :cascade, on_update: :cascade, null: false
+      foreign_key :quiz_id, :quizzes, on_delete: :set_null, on_update: :cascade, null: true
 
       column :created_at, DateTime, null: false
       column :updated_at, DateTime, null: false
