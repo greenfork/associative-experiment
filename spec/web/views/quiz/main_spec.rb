@@ -6,7 +6,9 @@ describe Web::Views::Quiz::Main do
     Hash[
       params: { person: { stimuli: stimuli } },
       stimuli: stimuli,
-      stimuli_enum: stimuli.to_enum
+      stimuli_enum: stimuli.to_enum,
+      quiz_start_time: 1_505_331_469,
+      quiz_time_limit: 30
     ]
   }
   let(:template)  { Hanami::View::Template.new('apps/web/templates/quiz/main.html.erb') }

@@ -11,7 +11,8 @@ describe Web::Controllers::Quiz::Thanks do
           age: 21,
           total_time: 280,
           quiz_id: quiz_id
-        }
+        },
+        quiz_start_time: 1_506_247_198
       }
     ]
   }
@@ -78,9 +79,9 @@ describe Web::Controllers::Quiz::Thanks do
     person.quiz_language_level.must_be_nil
 
     person.uuid.must_equal action.uuid
-    person.date.wont_be_nil
+    person.date.must_be_kind_of Time
     [true, false].must_include person.is_reviewed
-    person.total_time.wont_be_nil
+    person.total_time.must_be_kind_of Integer
     person.quiz_id.must_equal quiz_id
   end
 end

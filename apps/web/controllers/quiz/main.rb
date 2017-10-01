@@ -5,6 +5,7 @@ module Web::Controllers::Quiz
     expose :stimuli, :stimuli_enum, :quiz_time_limit, :quiz_start_time
 
     def call(params)
+      session[:quiz_start_time] ||= Time.now.to_i
       quiz_key = "q#{params[:quiz_id]}".to_sym
       expose_stimuli
       expose_stimuli_enumerator
@@ -25,7 +26,6 @@ module Web::Controllers::Quiz
       all_stimuli = StimulusRepository.new.get_stimuli_of(params[:quiz_id], is_active: true)
       quiz = QuizRepository.new.find(params[:quiz_id])
       @quiz_time_limit = quiz.available_time
-      session[:quiz_start_time] ||= Time.now.to_i
       @quiz_start_time = session[:quiz_start_time]
       @stimuli = shuffle_stimuli(all_stimuli.to_a, quiz.number_of_words)
     end

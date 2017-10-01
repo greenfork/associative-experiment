@@ -17,9 +17,9 @@ module Web::Controllers::Quiz
           if params.valid?
             field_flags.each do |field, flag|
               if flag
-                throw(:invalid_input, true) if !params[:person][field]
+                throw(:invalid_input, true) unless params[:person][field]
               else
-                throw(:invalid_input, true) unless !params[:person][field]
+                throw(:invalid_input, true) if params[:person][field]
               end
             end
           else
@@ -33,6 +33,7 @@ module Web::Controllers::Quiz
           redirect_to routes.path(:person, params[:quiz_id])
         else
           destroy_session
+          write_person_data_to_session
           session[quiz_key] ||= {}
           session[quiz_key][:person_data_validated] = true
         end
@@ -72,7 +73,18 @@ module Web::Controllers::Quiz
     end
 
     def destroy_session
-      session.to_h.each_key { |key| session[key.to_sym] = nil }
+      session.to_h.each_key do |key|
+        session[key.to_sym] = nil unless key.to_s == '_csrf_token' || key.to_s == 'session_id'
+      end
+    end
+
+    def write_person_data_to_session
+      session[:person] ||= {}
+      field_flags.each do |field, bool|
+        session[:person][field] = params[:person][field] if bool
+      end
+      session[:person][:nationality2] = params[:person][:nationality2] if params[:person][:nationality2]
+      session[:person][:quiz_id] = params[:quiz_id]
     end
   end
 end

@@ -8,6 +8,16 @@ module Web::Controllers::Quiz
       @uuid = SecureRandom.uuid
       @quiz_title = QuizRepository.new.find(get_from_session(:quiz_id)).title
 
+      create_person_record
+    end
+
+    private
+
+    def get_from_session(key)
+      session[:person][key] if session.key?(:person)
+    end
+
+    def create_person_record
       PersonRepository.new.create(
         uuid: @uuid,
         sex: get_from_session(:sex),
@@ -25,15 +35,9 @@ module Web::Controllers::Quiz
         quiz_language_level: get_from_session(:quiz_language_level),
         date: Time.now.to_i,
         is_reviewed: true,
-        total_time: get_from_session(:total_time),
+        total_time: Time.now.to_i - session[:quiz_start_time],
         quiz_id: get_from_session(:quiz_id)
       )
-    end
-
-    private
-
-    def get_from_session(key)
-      session[:person][key] if session.key?(:person)
     end
   end
 end
