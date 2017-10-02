@@ -4,6 +4,18 @@ module Web::Controllers::Quiz
 
     expose :uuid, :quiz_title
 
+    params do
+      required(:person).schema do
+        required(:stimuli).schema do
+          required(:reaction).filled(:str?)
+          required(:start_time).filled(:int?)
+          required(:end_time).filled(:int?)
+          required(:key_log).filled(:str?)
+          required(:stimulus_id).filled(:int?)
+        end
+      end
+    end
+
     def call(params)
       @uuid = SecureRandom.uuid
       @quiz_title = QuizRepository.new.find(get_from_session(:quiz_id)).title
