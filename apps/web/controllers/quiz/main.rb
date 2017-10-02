@@ -10,13 +10,8 @@ module Web::Controllers::Quiz
       expose_stimuli
       expose_stimuli_enumerator
       @params = params.to_h.merge(person: { stimuli: @stimuli })
-
-      if request.post?
-        # pass
-      elsif request.get?
-        unless session.key?(quiz_key) && session[quiz_key][:person_data_validated]
-          redirect_to routes.path(:person, params[:quiz_id])
-        end
+      unless session.key?(quiz_key) && session[quiz_key][:person_data_validated]
+        redirect_to routes.path(:person, params[:quiz_id])
       end
     end
 

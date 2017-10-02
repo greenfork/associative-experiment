@@ -65,6 +65,7 @@ describe Web::Controllers::Quiz::Main do
     let(:params) { Hash['REQUEST_METHOD' => 'POST', quiz_id: quiz_id] }
 
     it ' is successful' do
+      params['rack.session'] = { "q#{params[:quiz_id]}" => { person_data_validated: true } }
       response = action.call(params)
       response[0].must_equal 200
     end

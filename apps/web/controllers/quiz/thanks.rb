@@ -17,6 +17,10 @@ module Web::Controllers::Quiz
     end
 
     def call(params)
+      if get_from_session(:quiz_id).nil?
+        redirect_to routes.root_path
+      end
+
       @uuid = SecureRandom.uuid
       @quiz_title = QuizRepository.new.find(get_from_session(:quiz_id)).title
 
