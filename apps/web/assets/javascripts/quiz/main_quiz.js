@@ -7,12 +7,11 @@ $(document).ready(function(){
   document.getElementById('person-stimuli-0-reaction').focus();
 });
 
+// record startTime, endTime and proess questions
 $(':input.form-control').on('keyup', function(event){
   if (event.which == 13 || event.keyCode == 13) {
     setHiddenValue(Math.floor(Date.now() / 1000), this, 'endTime');
-    setHiddenValue(JSON.stringify(keyLog), this, 'keyLog');
     isThisNewInput = true;
-    keyLog = [];
     // change input and check if it is time to submit form
     if(processQuestions()) {
       $('input:visible:eq(0)').focus();
@@ -24,10 +23,19 @@ $(':input.form-control').on('keyup', function(event){
       setHiddenValue(Math.floor(Date.now() / 1000), this, 'startTime');
       isThisNewInput = false;
     }
+  }
+  return true;
+});
+
+// key logging
+$(':input.form-control').on('keypress', function(event){
+  if (event.which == 13 || event.keyCode == 13) {
+    setHiddenValue(JSON.stringify(keyLog), this, 'keyLog');
+    keyLog = [];
+  } else {
     // log any keys pressed by the user
     keyLog = logKeys(event, keyLog);
   }
-  return true;
 });
 
 // change the current question to the next one
@@ -101,64 +109,6 @@ function setHiddenValue(value, input, type) {
 // @return new key log with the addition
 function logKeys(keyEvent, keyLog) {
   var log = keyLog;
-  log.push({key: getCharRepresentation(keyEvent), timestamp: Math.floor(Date.now())});
+  log.push({key: keyEvent.key, timestamp: Math.floor(Date.now())});
   return log;
-}
-
-// workaround for a keyup event to record an ASCII char representation
-function getCharRepresentation(keyEvent) {
-  var c = keyEvent.which;
-  var e = keyEvent;
-  var _to_ascii = {
-        '188': '44',
-        '109': '45',
-        '190': '46',
-        '191': '47',
-        '192': '96',
-        '220': '92',
-        '222': '39',
-        '221': '93',
-        '219': '91',
-        '173': '45',
-        '187': '61', //IE Key codes
-        '186': '59', //IE Key codes
-        '189': '45'  //IE Key codes
-    };
-    var shiftUps = {
-          "96": "~",
-          "49": "!",
-          "50": "@",
-          "51": "#",
-          "52": "$",
-          "53": "%",
-          "54": "^",
-          "55": "&",
-          "56": "*",
-          "57": "(",
-          "48": ")",
-          "45": "_",
-          "61": "+",
-          "91": "{",
-          "93": "}",
-          "92": "|",
-          "59": ":",
-          "39": "\"",
-          "44": "<",
-          "46": ">",
-          "47": "?"
-    };
-    if (_to_ascii.hasOwnProperty(c)) {
-        c = _to_ascii[charCode];
-    }
-    if (!e.shiftKey && (c >= 65 && c <= 90)) {
-        c = String.fromCharCode(c + 32);
-    } else if (e.shiftKey && shiftUps.hasOwnProperty(c)) {
-        c = shiftUps[c];
-    } else {
-        c = String.fromCharCode(c);
-    }
-    if(e.which == 8) {
-      return 'backspace';
-    }
-    return c;
 }
