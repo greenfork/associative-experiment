@@ -65,10 +65,14 @@ module Web::Controllers::Quiz
         end
 
         # check if stimulus_id is a valid id
-        if StimulusRepository.new.find(q['stimulus_id'].to_i).nil?
-          stimulus_id = nil
-        else
+        stimuli = []
+        StimulusRepository.new.get_stimuli_of(get_from_session(:quiz_id)).each do |s|
+          stimuli << s.id
+        end
+        if stimuli.include? q['stimulus_id'].to_i
           stimulus_id = q['stimulus_id'].to_i
+        else
+          stimulus_id = nil
         end
 
         ReactionRepository.new.create(
