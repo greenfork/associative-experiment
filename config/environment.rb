@@ -2,10 +2,12 @@ require 'bundler/setup'
 require 'hanami/setup'
 require 'hanami/model'
 require_relative '../lib/assoc'
+require_relative '../apps/research/application'
 require_relative '../apps/web/application'
 require_relative 'initializers/inflector.rb'
 
 Hanami.configure do
+  mount Research::Application, at: '/research'
   mount Web::Application, at: '/'
 
   model do
