@@ -25,6 +25,7 @@ ru:
         communication_language: Язык общения
         education_language: Язык обучения
         quiz_language_level: Уровень владения текущим языком
+        continue: Продолжить
         ###
         nationality1_placeholder: "ед. число, муж. род, напр.: татарин"
         nationality2_placeholder: не обязательно
