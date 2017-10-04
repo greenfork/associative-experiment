@@ -38,8 +38,9 @@ describe Research::Controllers::Authentication::Login do
 
     it 'passes and sets a session for the user' do
       response = action.call(params)
-      response[0].must_equal 302
       action.session[:current_user].wont_be_nil
+      action.error.must_be_nil
+      response[0].must_equal 302
     end
   end
 
@@ -51,6 +52,7 @@ describe Research::Controllers::Authentication::Login do
       params[:user][:login] = password
 
       response = action.call(params)
+      action.error.must_equal true
       response[0].must_equal 401
     end
 
@@ -59,6 +61,7 @@ describe Research::Controllers::Authentication::Login do
       params[:user][:login] = wrong_password
 
       response = action.call(params)
+      action.error.must_equal true
       response[0].must_equal 401
     end
   end

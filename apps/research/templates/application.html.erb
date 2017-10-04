@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Research</title>
     <%= favicon %>
+    <%= stylesheet 'bootstrap' %>
+    <%= stylesheet 'global' %>
   </head>
   <body>
     <%= yield %>
+
+    <%= javascript 'jquery' %>
+    <%= javascript 'bootstrap' %>
   </body>
 </html>
