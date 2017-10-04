@@ -1,4 +1,4 @@
-module Research::Views::Authorization
+module Research::Views::Authentication
   class Login
     include Research::View
   end

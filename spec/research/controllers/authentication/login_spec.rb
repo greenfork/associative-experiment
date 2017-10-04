@@ -1,8 +1,8 @@
 require 'spec_helper'
-require_relative '../../../../apps/research/controllers/authorization/login'
+require_relative '../../../../apps/research/controllers/authentication/login'
 
-describe Research::Controllers::Authorization::Login do
-  let(:action) { Research::Controllers::Authorization::Login.new }
+describe Research::Controllers::Authentication::Login do
+  let(:action) { Research::Controllers::Authentication::Login.new }
   let(:params) { Hash[user: {}] }
   let(:user_repository) { UserRepository.new }
   let(:login) { 'user' }

@@ -1,4 +1,4 @@
-module Research::Controllers::Authorization
+module Research::Controllers::Authentication
   class Login
     include Research::Action
 
