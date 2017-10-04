@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'rake'
-gem 'hanami',       '~> 1.0'
+gem 'hanami', '~> 1.0'
 gem 'hanami-bootstrap'
 gem 'hanami-model', '~> 1.0'
-gem 'jquery-hanami'
 gem 'i18n', '~> 0.8.6'
-
+gem 'jquery-hanami'
+gem 'rake'
 gem 'sqlite3'
+gem 'tachiban'
 
 group :development do
   # Code reloading
