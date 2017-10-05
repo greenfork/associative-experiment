@@ -3,8 +3,8 @@ require_relative '../../../../config/initializers/locale'
 module Web::Controllers::Quiz
   class QuizValidation < Web::Action::Params
     # arrays of described values
-    REGIONS = ::I18n.t('web.quiz.person.regions').values
-    QUIZ_LANGUAGE_LEVELS = ::I18n.t('web.quiz.person.quiz_language_levels').values
+    REGIONS = ::I18n.t('regions').values
+    QUIZ_LANGUAGE_LEVELS = ::I18n.t('quiz_language_levels').values
     LANGUAGES = ::I18n.t('languages')
 
     params do

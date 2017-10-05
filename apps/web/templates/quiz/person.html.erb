@@ -31,7 +31,7 @@
           div(class: 'form-group') do
             div(class: 'col-md-2') {label t(".#{flag}"), for: "person-#{flag}"}
             div(class: 'col-md-10') do
-              values = t ".regions"
+              values = t "regions"
               first_disabled_select values, id: "person-#{flag}", name: "person[#{flag}]", class: 'form-control', :"data-required" => 'required'
             end
           end
@@ -51,12 +51,7 @@
           div(class: 'form-group') do
             div(class: 'col-md-2') {label t(".#{flag}"), for: "person-#{flag}"}
             div(class: 'col-md-10') do
-              values = Hash[
-                'Свободно пишу и разговариваю' => 'Свободно пишу и разговариваю',
-                'Свободно пишу' => 'Свободно пишу',
-                'Свободно разговариваю' => 'Свободно разговариваю',
-                'Перевожу со словарем' => 'Перевожу со словарем'
-              ]
+              values = t 'quiz_language_levels'
               first_disabled_select values, id: "person-#{flag}", name: "person[#{flag}]", class: 'form-control', :"data-required" => 'required'
             end
           end
