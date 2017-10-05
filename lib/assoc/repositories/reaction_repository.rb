@@ -8,4 +8,8 @@ class ReactionRepository < Hanami::Repository
       reactions.where(stimulus_id: stimulus_id)
     end
   end
+
+  def find_by_params(stimulus_id, options = {})
+    
+  end
 end
