@@ -52,7 +52,21 @@ module HelperFuncs
         date: Time.now.to_i,
         is_reviewed: true,
         total_time: Time.now.to_i,
-        quiz_id: quiz_id
+        quiz_id: quiz_id,
+        # attributes
+        sex: 'male',
+        age: 18,
+        profession: 'profession',
+        region: 'Moscow',
+        residence_place: 'Moscow',
+        birth_place: 'Moscow',
+        nationality1: 'Russian',
+        nationality2: nil,
+        spoken_languages: 1,
+        native_language: 'Russian',
+        communication_language: 'Russian',
+        education_language: 'Russian',
+        quiz_language_level: 'good'
       )
       person_repository.create(
         id: 2,

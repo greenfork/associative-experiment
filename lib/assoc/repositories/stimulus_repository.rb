@@ -16,4 +16,8 @@ class StimulusRepository < Hanami::Repository
 
     stimuli.read(sql).to_a
   end
+
+  def find_id(stimulus)
+    stimuli.where(stimulus: stimulus).one.id
+  end
 end
