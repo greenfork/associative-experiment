@@ -60,10 +60,12 @@ module Web::Controllers::Quiz
     def create_reaction_records
       params[:person][:stimuli].each do |q|
         # check if it is a "null" reaction
-        if q['start_time'].nil?
+        if q['reaction'].to_s.empty?
+          reaction = nil
           reaction_time = nil
           keylog = nil
         else
+          reaction = q['reaction']
           reaction_time = q['end_time'].to_i - q['start_time'].to_i
           keylog = q['key_log']
         end
@@ -80,7 +82,7 @@ module Web::Controllers::Quiz
         end
 
         ReactionRepository.new.create(
-          reaction: q['reaction'],
+          reaction: reaction,
           reaction_time: reaction_time,
           keylog: keylog,
           person_id: @person.id,

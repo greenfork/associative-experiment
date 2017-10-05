@@ -3,7 +3,7 @@ Hanami::Model.migration do
     create_table :reactions do
       primary_key :id
 
-      column :reaction, String, null: false
+      column :reaction, String, null: true
       column :translation, String, null: true
       column :translation_comment, String, null: true, size: 1023
       column :reaction_time, Integer, null: true
