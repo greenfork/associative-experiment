@@ -11,7 +11,7 @@ class StimulusRepository < Hanami::Repository
       FROM quizzes q
       JOIN quizzes_stimuli_join qsj ON qsj.quiz_id = q.id
       JOIN stimuli s ON qsj.stimulus_id = s.id
-      WHERE q.id = #{quiz_id}#{is_active}
+      WHERE q.id = #{Integer(quiz_id)}#{is_active}
     SQL
 
     stimuli.read(sql).to_a
