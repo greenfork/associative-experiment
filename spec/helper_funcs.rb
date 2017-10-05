@@ -5,6 +5,7 @@ module HelperFuncs
       stimulus_repository = StimulusRepository.new
       person_repository = PersonRepository.new
       reaction_repository = ReactionRepository.new
+      user_repository = UserRepository.new
       quiz_id = 1
 
       quiz_repository.clear
@@ -112,6 +113,21 @@ module HelperFuncs
         person_id: 2,
         stimulus_id: 3,
         quiz_id: quiz_id
+      )
+      user_repository.clear
+      user_repository.create(
+        id: 1,
+        login: 'admin',
+        hashed_pass: '$2a$10$MUB/egr2hes9swF0WidSyORRSFiKYnVSTcFqhEeR6zKJRUVc.65F2',
+        email: 'admin@mail.ru',
+        role: 'admin'
+      )
+      user_repository.create(
+        id: 2,
+        login: 'researcher',
+        hashed_pass: '$2a$10$abmjS5tEGVpsyPp61Z43sOPKFdFHVrFW5Wv8jXH85WC1YIFym8ggS',
+        email: 'researcher@mail.ru',
+        role: 'researcher'
       )
     end
   end
