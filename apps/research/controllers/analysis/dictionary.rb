@@ -5,7 +5,7 @@ module Research::Controllers::Analysis
     include Research::Action
     params DictionaryValidation
 
-    expose :dictionary
+    expose :dictionary, :brief
 
     def call(params)
       if request.post?
@@ -16,10 +16,18 @@ module Research::Controllers::Analysis
         @dictionary = {}
         reactions.each do |reaction|
           if dictionary.key? reaction
-            dictionary[reaction] += 1
+            @dictionary[reaction] += 1
           else
-            dictionary[reaction] = 1
+            @dictionary[reaction] = 1
           end
+        end
+
+        @brief = Hash[total: 0, distinct: 0, single: 0, null: 0]
+        @dictionary.each do |reaction, count|
+          @brief[:total] += count
+          @brief[:distinct] += 1
+          @brief[:single] += 1 if count == 1
+          @brief[:null] += count if reaction.nil?
         end
       end
     end

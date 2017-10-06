@@ -8,7 +8,8 @@ describe Research::Controllers::Analysis::Dictionary do
 
   before do
     HelperFuncs::Database.new.full_database_setup
-    @user = UserRepository.new.find(1)
+    HelperFuncs::Database.new.fill_with_reactions
+    @user = HelperFuncs::Authentication.new.admin
   end
 
   it 'is successful' do
@@ -49,7 +50,13 @@ describe Research::Controllers::Analysis::Dictionary do
       it 'exposes dictionary values' do
         response = action.call(params)
         response[0].must_equal 200
-        action.dictionary.must_equal Hash['reac1' => 1, 'reac1-2' => 1]
+        action.dictionary.keys.must_include 'reac1'
+      end
+
+      it 'exposes summary values' do
+        response = action.call(params)
+        response[0].must_equal 200
+        action.brief.keys.must_include :total
       end
     end
   end

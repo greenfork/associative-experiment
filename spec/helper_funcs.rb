@@ -78,42 +78,44 @@ module HelperFuncs
         quiz_id: quiz_id
       )
       reaction_repository.clear
-      reaction_repository.create(
+      reaction_list = []
+      reaction_list << Hash[
         reaction: 'reac1',
         person_id: 1,
         stimulus_id: 1,
         quiz_id: quiz_id
-      )
-      reaction_repository.create(
+      ]
+      reaction_list << Hash[
         reaction: 'reac2',
         person_id: 1,
         stimulus_id: 2,
         quiz_id: quiz_id
-      )
-      reaction_repository.create(
+      ]
+      reaction_list << Hash[
         reaction: 'reac3',
         person_id: 1,
         stimulus_id: 3,
         quiz_id: quiz_id
-      )
-      reaction_repository.create(
+      ]
+      reaction_list << Hash[
         reaction: 'reac1-2',
         person_id: 2,
         stimulus_id: 1,
         quiz_id: quiz_id
-      )
-      reaction_repository.create(
+      ]
+      reaction_list << Hash[
         reaction: 'reac2-2',
         person_id: 2,
         stimulus_id: 2,
         quiz_id: quiz_id
-      )
-      reaction_repository.create(
+      ]
+      reaction_list << Hash[
         reaction: 'reac3-2',
         person_id: 2,
         stimulus_id: 3,
         quiz_id: quiz_id
-      )
+      ]
+      reaction_repository.create_many(reaction_list)
       user_repository.clear
       user_repository.create(
         id: 1,
@@ -129,6 +131,109 @@ module HelperFuncs
         email: 'researcher@mail.ru',
         role: 'researcher'
       )
+    end
+
+    # fill reactions for stim1 (id = 1)
+    def fill_with_reactions
+      reaction_repository = ReactionRepository.new
+      quiz_id = 1
+      reaction_list = []
+
+      10.times do
+        reaction_list << Hash[
+          reaction: 'reac1',
+          person_id: 1,
+          stimulus_id: 1,
+          quiz_id: quiz_id
+        ]
+        reaction_list << Hash[
+          reaction: 'reac2',
+          person_id: 1,
+          stimulus_id: 1,
+          quiz_id: quiz_id
+        ]
+        reaction_list << Hash[
+          reaction: 'reac3',
+          person_id: 1,
+          stimulus_id: 1,
+          quiz_id: quiz_id
+        ]
+      end
+
+      8.times do
+        reaction_list << Hash[
+          reaction: 'reac1',
+          person_id: 1,
+          stimulus_id: 1,
+          quiz_id: quiz_id
+        ]
+        reaction_list << Hash[
+          reaction: 'reac2',
+          person_id: 2,
+          stimulus_id: 1,
+          quiz_id: quiz_id
+        ]
+        reaction_list << Hash[
+          reaction: 'reac4',
+          person_id: 1,
+          stimulus_id: 1,
+          quiz_id: quiz_id
+        ]
+      end
+
+      7.times do
+        reaction_list << Hash[
+          reaction: 'reac5',
+          person_id: 2,
+          stimulus_id: 1,
+          quiz_id: quiz_id
+        ]
+        reaction_list << Hash[
+          reaction: 'reac6',
+          person_id: 2,
+          stimulus_id: 1,
+          quiz_id: quiz_id
+        ]
+        reaction_list << Hash[
+          reaction: 'reac3',
+          person_id: 1,
+          stimulus_id: 1,
+          quiz_id: quiz_id
+        ]
+      end
+
+      3.times do
+        reaction_list << Hash[
+          reaction: 'reac1',
+          person_id: 1,
+          stimulus_id: 1,
+          quiz_id: quiz_id
+        ]
+        reaction_list << Hash[
+          reaction: 'reac6',
+          person_id: 1,
+          stimulus_id: 1,
+          quiz_id: quiz_id
+        ]
+        reaction_list << Hash[
+          reaction: nil,
+          person_id: 1,
+          stimulus_id: 1,
+          quiz_id: quiz_id
+        ]
+      end
+
+      reaction_repository.create_many(reaction_list)
+    end
+  end
+
+  class Authentication
+    def admin
+      UserRepository.new.find(1)
+    end
+
+    def researcher
+      UserRepository.new.find(2)
     end
   end
 end
