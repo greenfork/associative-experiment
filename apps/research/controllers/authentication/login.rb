@@ -16,7 +16,7 @@ module Research::Controllers::Authentication
         @user = UserRepository.new.find_by_login(params[:user][:login])
         if authenticated? params[:user][:password]
           login I18n.t('research.authentication.login.success')
-          redirect_to routes.auth_path # TODO: change route
+          redirect_to routes.root_path
         else
           @error = true
           self.status = 401
