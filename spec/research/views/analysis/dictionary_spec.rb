@@ -30,11 +30,11 @@ describe Research::Views::Analysis::Dictionary do
     let(:exposures) {
       Hash[
         params: {},
-        dictionary: {
-          'reac1' => 128,
-          'reac2' => 86,
-          'reac3' => 18
-        },
+        dictionary: [
+          { reaction: 'reac1', count: 128 },
+          { reaction: 'reac2', count: 86 },
+          { reaction: 'reac3', count: 18 }
+        ],
         brief: {
           total: 232,
           distinct: 3,

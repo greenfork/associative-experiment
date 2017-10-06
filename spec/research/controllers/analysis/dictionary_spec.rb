@@ -38,7 +38,8 @@ describe Research::Controllers::Analysis::Dictionary do
       let(:params) {
         Hash[
           selection: {
-            word: 'stim1'
+            word: 'stim1',
+            type: 'straight'
           },
           'REQUEST_METHOD' => 'POST',
           'rack.session' => {
@@ -50,13 +51,59 @@ describe Research::Controllers::Analysis::Dictionary do
       it 'exposes dictionary values' do
         response = action.call(params)
         response[0].must_equal 200
-        action.dictionary.keys.must_include 'reac1'
+        action.dictionary[0].keys.must_include :reaction
       end
 
-      it 'exposes summary values' do
+      it 'exposes brief values' do
         response = action.call(params)
         response[0].must_equal 200
         action.brief.keys.must_include :total
+      end
+
+      it 'stops if word is absent in the database' do
+        params[:selection][:word] = 'not_existant_word'
+        response = action.call(params)
+        response[0].must_equal 422
+      end
+    end
+
+    describe 'with full list of parameters' do
+      let(:params) {
+        Hash[
+          selection: {
+            word: 'stim1',
+            type: 'straight',
+            sex: 'all',
+            age_from: 10,
+            age_to: 20,
+            region: 'Москва',
+            nationality1: 'rus',
+            native_language: 'русский',
+            date_from: Time.now,
+            date_to: Time.now
+          },
+          'REQUEST_METHOD' => 'POST',
+          'rack.session' => {
+            current_user: @user
+          }
+        ]
+      }
+
+      it 'exposes dictionary and brief' do
+        response = action.call(params)
+        response[0].must_equal 200
+        action.exposures.key? :dictionary
+        action.exposures.key? :brief
+      end
+
+      it 'stops if params are invalid' do
+        params[:selection][:age_from] = 'hi'
+        response = action.call(params)
+        response[0].must_equal 422
+
+        params[:selection][:type] = nil
+        response = action.call(params)
+        response[0].must_equal 422
       end
     end
   end

@@ -131,10 +131,10 @@ module Research::Views::Analysis
 
     def dictionary_table
       html.table(class: 'table table-striped table-hover', id: 'dictionary') do
-        dictionary.each do |reaction, count|
+        dictionary.each do |hash|
           tr do
-            td reaction
-            td count
+            td hash[:reaction]
+            td hash[:count]
           end
         end
       end

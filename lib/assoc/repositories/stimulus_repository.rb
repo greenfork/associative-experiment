@@ -18,6 +18,8 @@ class StimulusRepository < Hanami::Repository
   end
 
   def find_id(stimulus)
-    stimuli.where(stimulus: stimulus).one.id
+    stimuli.where(stimulus: stimulus).one!.id
+  rescue ROM::TupleCountMismatchError
+    nil
   end
 end
