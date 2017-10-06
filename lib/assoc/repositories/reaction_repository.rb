@@ -26,4 +26,10 @@ class ReactionRepository < Hanami::Repository
 
     aggregate(:person).join(:person).where(query_options).map_to(Reaction)
   end
+
+  def create_many(list)
+    time = Time.now.to_i
+    list = list.map { |r| r.merge(created_at: time, updated_at: time) }
+    command(:create, reactions, result: :many).call(list)
+  end
 end

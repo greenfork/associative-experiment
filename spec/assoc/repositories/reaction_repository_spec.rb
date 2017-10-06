@@ -27,4 +27,23 @@ describe ReactionRepository do
       education_language: 'Russian', quiz_language_level: 'good' }).one!
     result.reaction.must_equal 'reac1'
   end
+
+  it 'inserts multiple records at once' do
+    list = [
+      {
+        reaction: 'reac1',
+        person_id: 1,
+        stimulus_id: 1,
+        quiz_id: quiz_id
+      },
+      {
+        reaction: 'reac1',
+        person_id: 1,
+        stimulus_id: 1,
+        quiz_id: quiz_id
+      }
+    ]
+    result = repository.create_many(list)
+    result.count.must_equal 2
+  end
 end

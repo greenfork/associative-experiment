@@ -58,6 +58,7 @@ module Web::Controllers::Quiz
     end
 
     def create_reaction_records
+      reaction_list = []
       params[:person][:stimuli].each do |q|
         # check if it is a "null" reaction
         if q['reaction'].to_s.empty?
@@ -81,15 +82,16 @@ module Web::Controllers::Quiz
           stimulus_id = nil
         end
 
-        ReactionRepository.new.create(
+        reaction_list << Hash[
           reaction: reaction,
           reaction_time: reaction_time,
           keylog: keylog,
           person_id: @person.id,
           stimulus_id: stimulus_id,
           quiz_id: get_from_session(:quiz_id)
-        )
+        ]
       end
+      ReactionRepository.new.create_many(reaction_list)
     end
   end
 end
