@@ -24,7 +24,7 @@ describe 'login screen' do
     fill_in('user[password]', with: password)
     find('#submit').click
 
-    page.assert_current_path(Research.routes.auth_path)
+    page.assert_current_path(Research.routes.root_path)
   end
 
   it 'rejects wrong login' do
