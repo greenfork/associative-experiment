@@ -1,13 +1,11 @@
 require 'spec_helper'
 require 'helper_funcs'
 
+HelperFuncs::Database.new.full_database_setup
+
 describe ReactionRepository do
   let(:repository) { ReactionRepository.new }
   let(:quiz_id) { 1 }
-
-  before do
-    HelperFuncs::Database.new.full_database_setup
-  end
 
   it 'queries reactions of the specified stimulus, person and quiz' do
     repository.get_reactions_of(1, 1, quiz_id).last[:reaction].must_equal 'reac1'
