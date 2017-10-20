@@ -10,9 +10,9 @@ module Research::Controllers::Analysis
     def call(params)
       if request.post?
         authorized?
-        send_422 && return unless params.valid?
+        send_422 && return unless params.valid? && params[:selection]
         stimulus_id = StimulusRepository.new.find_id(params[:selection][:word])
-        send_422(:word, 'is not in database') && return if stimulus_id.nil?
+        send_422(:word) && return if stimulus_id.nil?
 
         reactions = ReactionRepository.new.find_by_params(stimulus_id)
         expose_dictionary(reactions)
@@ -35,7 +35,7 @@ module Research::Controllers::Analysis
 
     # @reactions: %w[reac1 reac2 ...]
     def expose_dictionary(reactions)
-      reaction_array = reactions.to_a.map(&:reaction)
+      reaction_array = reactions.to_a.map {|r| r.reaction.nil? ? 'nil' : r.reaction }
       reaction_list = reaction_array.uniq
 
       @dictionary = []

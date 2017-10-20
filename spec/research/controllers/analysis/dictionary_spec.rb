@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'spec_helper'
 require_relative '../../../../apps/research/controllers/analysis/dictionary'
 require 'helper_funcs'
@@ -15,6 +16,7 @@ describe Research::Controllers::Analysis::Dictionary do
   it 'is successful' do
     response = action.call(params)
     response[0].must_equal 200
+    action.params.errors.must_equal Hash.new
   end
 
   describe 'with UNauthenticated user' do

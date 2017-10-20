@@ -236,4 +236,19 @@ module HelperFuncs
       UserRepository.new.find(2)
     end
   end
+
+  # params = Pampam.new(word: 'abc')
+  # params.errors[:word] = 'is absent in database'
+  # params[:word] # "abc"
+  # params.errors # {:word=>"is absent in database"}
+  class Pampam
+    extend Forwardable
+    def_delegators :@attributes, :[], :[]=, :dig, :merge
+    attr_accessor :errors
+
+    def initialize(attributes = {})
+      @attributes = attributes
+      @errors = {}
+    end
+  end
 end

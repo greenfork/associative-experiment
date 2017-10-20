@@ -1,11 +1,13 @@
 require 'spec_helper'
 require_relative '../../../../apps/research/views/analysis/dictionary'
+require 'helper_funcs'
 
 describe Research::Views::Analysis::Dictionary do
-  let(:exposures) { Hash[params: {}, dictionary: nil, brief: nil] }
+  let(:exposures) { Hash[params: params, dictionary: nil, brief: nil] }
   let(:template)  { Hanami::View::Template.new('apps/research/templates/analysis/dictionary.html.erb') }
   let(:view)      { Research::Views::Analysis::Dictionary.new(template, exposures) }
   let(:rendered)  { view.render }
+  let(:params)    { HelperFuncs::Pampam.new(selection: {}) }
 
   it 'shows selection form' do
     rendered.scan(/name="selection\[word\]"/).count.must_equal 1
@@ -29,7 +31,7 @@ describe Research::Views::Analysis::Dictionary do
   describe 'with dictionary data supplied' do
     let(:exposures) {
       Hash[
-        params: {},
+        params: params,
         dictionary: [
           { reaction: 'reac1', count: 128 },
           { reaction: 'reac2', count: 86 },
@@ -57,6 +59,24 @@ describe Research::Views::Analysis::Dictionary do
       rendered.scan(/\b18\b/).count.must_equal 1
       rendered.scan(/\b86\b/).count.must_equal 1
       rendered.scan(/\b128\b/).count.must_equal 1
+    end
+  end
+
+  describe 'with errors present' do
+    let(:exposures) { Hash[params: params, dictionary: nil, brief: nil] }
+    let(:params) do
+      pampam = HelperFuncs::Pampam.new(selection: {})
+      pampam[:selection][:word] = 'abc'
+      pampam.errors[:word] = ['msg']
+      pampam.errors[:selection] = {}
+      pampam.errors[:selection][:age_from] = ['msg']
+      pampam.errors[:selection][:date_to] = ['msg']
+      pampam.errors[:selection][:type] = ['msg']
+      pampam
+    end
+
+    it 'shows error' do
+      view.selection_form.to_s.scan(/\balert-danger\b/).count.must_equal 3
     end
   end
 end

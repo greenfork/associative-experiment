@@ -8,7 +8,7 @@ module Research::Controllers::Analysis
     LANGUAGES = ::I18n.t('languages')
 
     params do
-      required(:selection).schema do
+      optional(:selection).schema do
         required(:word).filled(:str?)
         required(:type).filled(:str?, included_in?: %w[straight reversed])
         optional(:sex).filled(:str?, included_in?: %w[male female all])

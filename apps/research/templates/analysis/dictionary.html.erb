@@ -4,7 +4,7 @@
   </div>
   <%= selection_form %>
   <% if dictionary %>
-    <h2>Слово takoe-to</h2>
+    <h2>Слово <%= params[:selection][:word] %></h2>
     <%= brief_table %>
     <%= dictionary_table %>
   <% end %>

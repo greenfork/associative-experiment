@@ -6,6 +6,7 @@ module Research::Views::Analysis
       form_for :selection, routes.dict_path, class: 'form-horizontal' do
         # word
         div(class: 'form-group') do
+          div(show_error("word #{params[:selection][:word]} not in database")) if params.errors.dig(:word)
           label 'Word', for: 'selection-word', class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
             text_field :word, class: 'form-control'
@@ -52,6 +53,9 @@ module Research::Views::Analysis
 
         # age
         div(class: 'form-group') do
+          if params.errors.dig(:selection, :age_from) || params.errors.dig(:selection, :age_to)
+            div(show_error("age must be int and 1..100"))
+          end
           label 'Age', for: 'selection-age-from', class: 'col-sm-2 control-label'
           div(class: 'col-sm-2') do
             text_field :age_from, class: 'form-control', placeholder: 'from'
@@ -90,6 +94,9 @@ module Research::Views::Analysis
 
         # date
         div(class: 'form-group') do
+          if params.errors.dig(:selection, :date_from) || params.errors.dig(:selection, :date_to)
+            div(show_error('bad date format'))
+          end
           label 'Date', for: 'selection-date-from', class: 'col-sm-2 control-label'
           div(class: 'col-sm-2') do
             text_field :date_from, class: 'form-control', placeholder: 'from'
@@ -138,6 +145,12 @@ module Research::Views::Analysis
           end
         end
       end
+    end
+
+    private
+
+    def show_error(msg)
+      html.div(class: 'alert alert-danger') { msg }
     end
   end
 end
