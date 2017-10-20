@@ -1,11 +1,14 @@
 require 'spec_helper'
 require 'helper_funcs'
 
-HelperFuncs::Database.new.full_database_setup
 
 describe StimulusRepository do
   let(:repository) { StimulusRepository.new }
   let(:quiz_id) { 1 }
+
+  before do
+    HelperFuncs::Database.new.full_database_setup
+  end
 
   it 'shows stimuli of a specified quiz' do
     repository.get_stimuli_of(quiz_id).count.must_equal 3

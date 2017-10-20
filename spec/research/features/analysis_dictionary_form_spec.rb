@@ -14,7 +14,7 @@ describe 'analysis dictionary form' do
     HelperFuncs::Database.new.full_database_setup
   end
 
-  it 'shows dictionary and summary for a certain word' do
+  it 'shows dictionary and brief for a certain word' do
     log_in
     visit Research.routes.dict_path
 
