@@ -3,7 +3,7 @@ require 'features_helper'
 def visit_target_page
   visit Web.routes.path(:person, quiz_id)
   choose('person-male')
-  click_button('submit')
+  find('#submit').click
 
   find('input').send_keys :enter
   find('input').send_keys :enter
@@ -69,10 +69,8 @@ describe 'main quiz' do
   it 'records time, key logs, reaction' do
     visit_target_page
 
-    div = find('.question')
-    input = find('input')
-    input.send_keys 'a', 'b', :enter
-
+    div = find('div.question')
+    find('input').send_keys 'a', 'b', :enter
     within(div) do
       find("#person-stimuli-#{question_id}-reaction", visible: false).value.must_equal 'ab'
       find("#person-stimuli-#{question_id}-start-time", visible: false).value.wont_be_empty

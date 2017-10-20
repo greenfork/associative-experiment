@@ -24,6 +24,7 @@ group :test do
   gem 'capybara'
   gem 'minitest'
   gem 'selenium-webdriver', '~> 3.5', '>= 3.5.2'
+  gem 'capybara-webkit'
 end
 
 group :production do
