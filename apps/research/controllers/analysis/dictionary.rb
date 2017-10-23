@@ -53,7 +53,7 @@ module Research::Controllers::Analysis
         @brief[:total] += hash[:count]
         @brief[:distinct] += 1
         @brief[:single] += 1 if hash[:count] == 1
-        @brief[:null] += hash[:count] if hash[:reaction].nil?
+        @brief[:null] += hash[:count] if hash[:reaction] == 'nil'
       end
     end
   end

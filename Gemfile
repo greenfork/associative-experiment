@@ -13,6 +13,7 @@ group :development do
   # Code reloading
   # See: http://hanamirb.org/guides/projects/code-reloading
   gem 'shotgun'
+  gem 'rubocop',require: false
 end
 
 group :test, :development do
