@@ -79,10 +79,8 @@ describe Research::Controllers::Analysis::Dictionary do
             age_from: 10,
             age_to: 20,
             region: 'Москва',
-            nationality1: 'rus',
-            native_language: 'русский',
-            date_from: Time.now,
-            date_to: Time.now
+            nationality1: 'Russian',
+            native_language: 'русский'
           },
           'REQUEST_METHOD' => 'POST',
           'rack.session' => {

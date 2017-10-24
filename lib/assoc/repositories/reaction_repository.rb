@@ -7,7 +7,9 @@ class ReactionRepository < Hanami::Repository
 
   def get_reactions_of(stimulus_id, person_id = nil, quiz_id = nil)
     if !quiz_id.nil?
-      reactions.where(stimulus_id: stimulus_id, person_id: person_id, quiz_id: quiz_id)
+      reactions.where(
+        stimulus_id: stimulus_id, person_id: person_id, quiz_id: quiz_id
+      )
     elsif !person_id.nil?
       reactions.where(stimulus_id: stimulus_id, person_id: person_id)
     else
@@ -16,11 +18,15 @@ class ReactionRepository < Hanami::Repository
   end
 
   def find_by_params(stimulus_id, options = { reactions: {}, people: {} })
-    query_options = { relations[:reactions][:stimulus_id].qualified => stimulus_id }
+    query_options = {
+      relations[:reactions][:stimulus_id].qualified => stimulus_id
+    }
 
     options.each do |entity, opts|
       opts.each do |column, value|
-        query_options.merge!(relations[entity][column].qualified => value)
+        unless value.nil?
+          query_options.merge!(relations[entity][column].qualified => value)
+        end
       end
     end
 
