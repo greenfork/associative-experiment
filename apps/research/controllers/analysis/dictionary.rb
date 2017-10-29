@@ -1,6 +1,7 @@
 require_relative './dictionary_validation.rb'
 require_relative './stats_dictionary.rb'
 require_relative './stats_brief.rb'
+require_relative './parser_selection_options.rb'
 
 module Research::Controllers::Analysis
   class Dictionary
@@ -18,10 +19,13 @@ module Research::Controllers::Analysis
         )
         send_422(:word) && return if stimulus_id.nil?
 
+        parsed_options =
+          Parser::SelectionOptions.new(params[:selection]).parsed_options
         reactions = ReactionRepository.new.find_by_params(
           stimulus_id,
-          reaction_params(params[:selection])
+          parsed_options
         )
+
         @dictionary = Stats::Dictionary.new(reactions).dictionary
         @brief = Stats::Brief.new(@dictionary).brief
       end
@@ -38,37 +42,6 @@ module Research::Controllers::Analysis
       params.errors.add(symbol, msg) if symbol
       @dictionary = @brief = nil
       self.status = 422
-    end
-
-    def reaction_params(params)
-      people = {
-        sex: sex_param(params[:sex]),
-        age: age_param(params[:age_from], params[:age_to]),
-        nationality1: params[:nationality1],
-        native_language: params[:native_language],
-        date: date_param(params[:date_from], params[:date_to])
-      }
-      reactions = {}
-      { reactions: reactions, people: people }
-    end
-
-    def sex_param(sex)
-      return nil if sex == 'all'
-      sex
-    end
-
-    def age_param(age_from, age_to)
-      return nil if age_from.nil? && age_to.nil?
-      return (age_from.to_i..1000) if age_to.nil?
-      return (0..age_to.to_i) if age_from.nil?
-      (age_from.to_i..age_to.to_i)
-    end
-
-    def date_param(date_from, date_to)
-      return nil if date_from.nil? && date_to.nil?
-      return (date_from..(Time.now + (60 * 60 * 24))) if date_to.nil?
-      return (0..date_to) if date_from.nil?
-      (date_from..date_to)
     end
   end
 end
