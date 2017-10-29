@@ -1,4 +1,6 @@
 require_relative './dictionary_validation.rb'
+require_relative './stats_dictionary.rb'
+require_relative './stats_brief.rb'
 
 module Research::Controllers::Analysis
   class Dictionary
@@ -20,8 +22,8 @@ module Research::Controllers::Analysis
           stimulus_id,
           reaction_params(params[:selection])
         )
-        expose_dictionary(reactions)
-        expose_brief(@dictionary)
+        @dictionary = Stats::Dictionary.new(reactions).dictionary
+        @brief = Stats::Brief.new(@dictionary).brief
       end
     end
 
@@ -36,30 +38,6 @@ module Research::Controllers::Analysis
       params.errors.add(symbol, msg) if symbol
       @dictionary = @brief = nil
       self.status = 422
-    end
-
-    # @reactions: %w[reac1 reac2 ...]
-    def expose_dictionary(reactions)
-      reaction_array = reactions.to_a.map {|r| r.reaction.nil? ? 'nil' : r.reaction }
-      reaction_list = reaction_array.uniq
-
-      @dictionary = []
-      reaction_list.each do |reaction|
-        reaction_hash = Hash[reaction: reaction, count: reaction_array.count(reaction)]
-        @dictionary << reaction_hash
-      end
-      @dictionary = @dictionary.sort_by { |hash| [-hash[:count], hash[:reaction]] }
-    end
-
-    # @dictionary: [Hash[reaction: 'reac1', count: 10, ...], ...]
-    def expose_brief(dictionary)
-      @brief = Hash[total: 0, distinct: 0, single: 0, null: 0]
-      dictionary.each do |hash|
-        @brief[:total] += hash[:count]
-        @brief[:distinct] += 1
-        @brief[:single] += 1 if hash[:count] == 1
-        @brief[:null] += hash[:count] if hash[:reaction] == 'nil'
-      end
     end
 
     def reaction_params(params)
