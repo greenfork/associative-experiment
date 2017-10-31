@@ -13,11 +13,11 @@ module Research::Controllers::Analysis
     def call(params)
       if request.post?
         authorized?
-        send_422 && return unless params.valid? && params[:selection]
+        send_422 unless params.valid? && params[:selection]
         stimulus_id = StimulusRepository.new.find_id(
           params[:selection][:word].strip
         )
-        send_422(:word) && return if stimulus_id.nil?
+        params.errors.add(:word) && return if stimulus_id.nil?
 
         parsed_options =
           Parser::SelectionOptions.new(params[:selection]).parsed_options
@@ -41,7 +41,7 @@ module Research::Controllers::Analysis
     def send_422(symbol = nil, msg = nil)
       params.errors.add(symbol, msg) if symbol
       @dictionary = @brief = nil
-      self.status = 422
+      halt 422, I18n::t('default.errors.err422')
     end
   end
 end
