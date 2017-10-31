@@ -61,12 +61,6 @@ describe Research::Controllers::Analysis::Dictionary do
         response[0].must_equal 200
         action.brief.keys.must_include :total
       end
-
-      it 'stops if word is absent in the database' do
-        params[:selection][:word] = 'not_existant_word'
-        response = action.call(params)
-        response[0].must_equal 422
-      end
     end
 
     describe 'with full list of parameters' do
