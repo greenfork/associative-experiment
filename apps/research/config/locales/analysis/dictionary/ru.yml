@@ -1,0 +1,34 @@
+ru:
+  research:
+    analysis:
+      dictionary:
+        header: Словарные статьи
+        # form
+        word: Слово
+        type: Тип
+        straight: Прямой
+        reversed: Обратный
+        sex: Пол
+        all: Все
+        male: Мужской
+        female: Женский
+        age: Возраст
+        region: Регион
+        nationality: Национальность
+        native-language: Родной язык
+        date: Дата
+        submit: Отправить
+        # brief
+        total: Всего
+        distinct: Различные
+        single: Единственные
+        nil: Отказы
+        # dictionary
+        word-article: Словарная статья
+        reaction: Реакция
+        count: Количество
+        percent: Процент
+        ###
+        # placeholders
+        from: от
+        to: до

@@ -1,3 +1,6 @@
 en:
   default:
     title: Associative linguistic experiment
+    #
+    errors:
+      err422: Unprocessable data supplied

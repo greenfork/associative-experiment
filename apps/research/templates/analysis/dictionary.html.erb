@@ -1,11 +1,12 @@
 <div class="container">
   <div class="page-header">
-    <h1>Словарные статьи</h1>
+    <h1><%=  t('.header') %></h1>
   </div>
   <%= selection_form %>
   <% if dictionary %>
-    <h2>Слово <%= params[:selection][:word] %></h2>
+    <h2><%= t('.word') %> <%= params[:selection][:word] %></h2>
     <%= brief_table %>
+    <h2><%= t('.word-article') %></h2>
     <%= dictionary_table %>
   <% end %>
 </div>

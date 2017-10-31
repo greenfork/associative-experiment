@@ -7,7 +7,7 @@ module Research::Views::Analysis
         # word
         div(class: 'form-group') do
           div(show_error("word #{params[:selection][:word]} not in database")) if params.errors.dig(:word)
-          label 'Word', for: 'selection-word', class: 'col-sm-2 control-label'
+          label t('.word'), for: 'selection-word', class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
             text_field :word, class: 'form-control'
           end
@@ -15,16 +15,16 @@ module Research::Views::Analysis
 
         # type
         div(class: 'form-group') do
-          label 'Type', class: 'col-sm-2 control-label'
+          label t('.type'), class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
             div(class: 'radio') do
               label('straight-type', class: 'radio-inline') do
                 radio_button :type, 'straight', id: 'selection-straight-type', checked: true
-                span('straight')
+                span(t('.straight'))
               end
               label('reversed-type', class: 'radio-inline') do
                 radio_button :type, 'reversed', id: 'selection-reversed-type'
-                span('reversed')
+                span(t('.reversed'))
               end
             end
           end
@@ -32,20 +32,20 @@ module Research::Views::Analysis
 
         # sex
         div(class: 'form-group') do
-          label 'Sex', class: 'col-sm-2 control-label'
+          label t('.sex'), class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
             div(class: 'radio') do
               label('sex-all', class: 'radio-inline') do
                 radio_button :sex, 'all', id: 'selection-sex-all', checked: true
-                span('all')
+                span(t('.all'))
               end
               label('sex-male', class: 'radio-inline') do
                 radio_button :sex, 'male', id: 'selection-sex-male'
-                span('male')
+                span(t('.male'))
               end
               label('sex-female', class: 'radio-inline') do
                 radio_button :sex, 'female', id: 'selection-sex-female'
-                span('female')
+                span(t('.female'))
               end
             end
           end
@@ -56,18 +56,18 @@ module Research::Views::Analysis
           if params.errors.dig(:selection, :age_from) || params.errors.dig(:selection, :age_to)
             div(show_error("age must be int and 1..100"))
           end
-          label 'Age', for: 'selection-age-from', class: 'col-sm-2 control-label'
+          label t('.age'), for: 'selection-age-from', class: 'col-sm-2 control-label'
           div(class: 'col-sm-2') do
-            text_field :age_from, class: 'form-control', placeholder: 'from'
+            text_field :age_from, class: 'form-control', placeholder: t('.from')
           end
           div(class: 'col-sm-2') do
-            text_field :age_to, class: 'form-control', placeholder: 'to'
+            text_field :age_to, class: 'form-control', placeholder: t('.to')
           end
         end
 
         # region
         div(class: 'form-group') do
-          label 'Region', for: 'selection-region', class: 'col-sm-2 control-label'
+          label t('.region'), for: 'selection-region', class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
             options = t('regions')
             select :region, options, class: 'form-control'
@@ -76,7 +76,7 @@ module Research::Views::Analysis
 
         # nationality1
         div(class: 'form-group') do
-          label 'Nationality', for: 'selection-nationality1', class: 'col-sm-2 control-label'
+          label t('.nationality'), for: 'selection-nationality1', class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
             text_field :nationality1, class: 'form-control'
           end
@@ -84,7 +84,7 @@ module Research::Views::Analysis
 
         # native_language
         div(class: 'form-group') do
-          label 'Native language', for: 'selection-native-language', class: 'col-sm-2 control-label'
+          label t('.native-language'), for: 'selection-native-language', class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
             options = {}
             t('languages').each { |language| options.merge!(Hash[h(language) => h(language)]) }
@@ -97,19 +97,19 @@ module Research::Views::Analysis
           if params.errors.dig(:selection, :date_from) || params.errors.dig(:selection, :date_to)
             div(show_error('bad date format'))
           end
-          label 'Date', for: 'selection-date-from', class: 'col-sm-2 control-label'
+          label t('.date'), for: 'selection-date-from', class: 'col-sm-2 control-label'
           div(class: 'col-sm-2') do
-            text_field :date_from, class: 'form-control', placeholder: 'from'
+            text_field :date_from, class: 'form-control', placeholder: t('.from')
           end
           div(class: 'col-sm-2') do
-            text_field :date_to, class: 'form-control', placeholder: 'to'
+            text_field :date_to, class: 'form-control', placeholder: t('.to')
           end
         end
 
         # submit
         div(class: 'form-group') do
           div(class: 'col-sm-offset-2 col-sm-10') do
-            submit 'Submit', id: 'submit', class: 'btn btn-default'
+            submit t('.submit'), id: 'submit', class: 'btn btn-default'
           end
         end
       end
@@ -118,19 +118,19 @@ module Research::Views::Analysis
     def brief_table
       html.table(class: 'table table-striped table-hover', id: 'brief') do
         tr do
-          td 'Total'
+          td t('.total')
           td brief[:total]
         end
         tr do
-          td 'Distinct'
+          td t('.distinct')
           td brief[:distinct]
         end
         tr do
-          td 'Single'
+          td t('.single')
           td brief[:single]
         end
         tr do
-          td 'Null'
+          td t('.nil')
           td brief[:null]
         end
       end
@@ -138,6 +138,11 @@ module Research::Views::Analysis
 
     def dictionary_table
       html.table(class: 'table table-striped table-hover', id: 'dictionary') do
+        tr do
+          td t('.reaction')
+          td t('.count')
+          td t('.percent')
+        end
         dictionary.each do |hash|
           tr do
             td hash[:reaction]
