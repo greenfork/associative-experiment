@@ -89,16 +89,6 @@ describe Research::Controllers::Analysis::Dictionary do
         action.exposures.key? :dictionary
         action.exposures.key? :brief
       end
-
-      it 'stops if params are invalid' do
-        params[:selection][:age_from] = 'hi'
-        response = action.call(params)
-        response[0].must_equal 422
-
-        params[:selection][:type] = nil
-        response = action.call(params)
-        response[0].must_equal 422
-      end
     end
   end
 end

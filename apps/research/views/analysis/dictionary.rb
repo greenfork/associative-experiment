@@ -26,7 +26,8 @@ module Research::Views::Analysis
           div(class: 'col-sm-10') do
             div(class: 'radio') do
               label('straight-type', class: 'radio-inline') do
-                radio_button :type, 'straight', id: 'selection-straight-type', checked: true
+                radio_button :type, 'straight',
+                             id: 'selection-straight-type', checked: true
                 span(t('.straight'))
               end
               label('reversed-type', class: 'radio-inline') do
@@ -60,10 +61,12 @@ module Research::Views::Analysis
 
         # age
         div(class: 'form-group') do
-          if params.errors.dig(:selection, :age_from) || params.errors.dig(:selection, :age_to)
+          if params.errors.dig(:selection, :age_from) ||
+             params.errors.dig(:selection, :age_to)
             div(show_error(t('.errors.irregular_age')))
           end
-          label t('.age'), for: 'selection-age-from', class: 'col-sm-2 control-label'
+          label t('.age'), for: 'selection-age-from',
+                class: 'col-sm-2 control-label'
           div(class: 'col-sm-2') do
             text_field :age_from, class: 'form-control', placeholder: t('.from')
           end
@@ -74,7 +77,8 @@ module Research::Views::Analysis
 
         # region
         div(class: 'form-group') do
-          label t('.region'), for: 'selection-region', class: 'col-sm-2 control-label'
+          label t('.region'), for: 'selection-region',
+                class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
             options = t('regions')
             select :region, options, class: 'form-control'
@@ -83,7 +87,8 @@ module Research::Views::Analysis
 
         # nationality1
         div(class: 'form-group') do
-          label t('.nationality'), for: 'selection-nationality1', class: 'col-sm-2 control-label'
+          label t('.nationality'), for: 'selection-nationality1',
+                class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
             text_field :nationality1, class: 'form-control'
           end
@@ -91,20 +96,25 @@ module Research::Views::Analysis
 
         # native_language
         div(class: 'form-group') do
-          label t('.native-language'), for: 'selection-native-language', class: 'col-sm-2 control-label'
+          label t('.native-language'), for: 'selection-native-language',
+                class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
             options = {}
-            t('languages').each { |language| options.merge!(Hash[h(language) => h(language)]) }
+            t('languages').each do |language|
+              options.merge!(Hash[h(language) => h(language)])
+            end
             select :native_language, options, class: 'form-control'
           end
         end
 
         # date
         div(class: 'form-group') do
-          if params.errors.dig(:selection, :date_from) || params.errors.dig(:selection, :date_to)
+          if params.errors.dig(:selection, :date_from) ||
+             params.errors.dig(:selection, :date_to)
             div(show_error(t('.errors.bad_date_format')))
           end
-          label t('.date'), for: 'selection-date-from', class: 'col-sm-2 control-label'
+          label t('.date'), for: 'selection-date-from',
+                class: 'col-sm-2 control-label'
           div(class: 'col-sm-2') do
             text_field :date_from, class: 'form-control', placeholder: t('.from')
           end

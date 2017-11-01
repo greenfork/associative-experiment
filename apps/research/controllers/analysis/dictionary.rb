@@ -13,7 +13,7 @@ module Research::Controllers::Analysis
     def call(params)
       if request.post?
         authorized?
-        send_422 unless params.valid? && params[:selection]
+        return unless params.valid? && params[:selection]
         stimulus_id = StimulusRepository.new.find_id(
           params[:selection][:word].strip
         )
@@ -36,12 +36,6 @@ module Research::Controllers::Analysis
     def authorized?
       @redirect_url = routes.auth_path
       check_for_logged_in_user
-    end
-
-    def send_422(symbol = nil, msg = nil)
-      params.errors.add(symbol, msg) if symbol
-      @dictionary = @brief = nil
-      halt 422, I18n::t('default.errors.err422')
     end
   end
 end
