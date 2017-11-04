@@ -16,7 +16,10 @@ module Research::Views::Analysis
           end
           label t('.word'), for: 'selection-word', class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
-            text_field :word, class: 'form-control'
+            # text_field :word, class: 'form-control', autocomplete: 'off',
+                       # list: 'stimuli'
+            datalist :word, datalist_stimuli, 'stimuli', class: 'form-control',
+                     autocomplete: 'off'
           end
         end
 
@@ -68,10 +71,12 @@ module Research::Views::Analysis
           label t('.age'), for: 'selection-age-from',
                 class: 'col-sm-2 control-label'
           div(class: 'col-sm-2') do
-            text_field :age_from, class: 'form-control', placeholder: t('.from')
+            text_field :age_from, class: 'form-control',
+                       placeholder: t('.from'), autocomplete: 'off'
           end
           div(class: 'col-sm-2') do
-            text_field :age_to, class: 'form-control', placeholder: t('.to')
+            text_field :age_to, class: 'form-control',
+                       placeholder: t('.to'), autocomplete: 'off'
           end
         end
 
@@ -90,7 +95,7 @@ module Research::Views::Analysis
           label t('.nationality'), for: 'selection-nationality1',
                 class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
-            text_field :nationality1, class: 'form-control'
+            text_field :nationality1, class: 'form-control', autocomplete: 'off'
           end
         end
 
@@ -116,10 +121,12 @@ module Research::Views::Analysis
           label t('.date'), for: 'selection-date-from',
                 class: 'col-sm-2 control-label'
           div(class: 'col-sm-2') do
-            text_field :date_from, class: 'form-control', placeholder: t('.from')
+            text_field :date_from, class: 'form-control',
+                       placeholder: t('.from'), autocomplete: 'off'
           end
           div(class: 'col-sm-2') do
-            text_field :date_to, class: 'form-control', placeholder: t('.to')
+            text_field :date_to, class: 'form-control',
+                       placeholder: t('.to'), autocomplete: 'off'
           end
         end
 

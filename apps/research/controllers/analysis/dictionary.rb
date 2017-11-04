@@ -8,9 +8,11 @@ module Research::Controllers::Analysis
     include Research::Action
     params DictionaryValidation
 
-    expose :dictionary, :brief
+    expose :dictionary, :brief, :datalist_stimuli
 
     def call(params)
+      @datalist_stimuli = all_stimuli || []
+
       if request.post?
         authorized?
         return unless params.valid? && params[:selection]
@@ -36,6 +38,10 @@ module Research::Controllers::Analysis
     def authorized?
       @redirect_url = routes.auth_path
       check_for_logged_in_user
+    end
+
+    def all_stimuli
+      StimulusRepository.new.all.map(&:stimulus)
     end
   end
 end
