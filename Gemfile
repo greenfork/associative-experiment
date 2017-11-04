@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'axlsx'
 gem 'hanami', '1.1.0'
 gem 'hanami-bootstrap'
 gem 'hanami-model', '1.1.0'
@@ -12,8 +13,8 @@ gem 'tachiban'
 group :development do
   # Code reloading
   # See: http://hanamirb.org/guides/projects/code-reloading
+  gem 'rubocop', require: false
   gem 'shotgun'
-  gem 'rubocop',require: false
 end
 
 group :test, :development do
@@ -25,9 +26,8 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'minitest'
-  gem 'selenium-webdriver', '~> 3.5', '>= 3.5.2'
   gem 'capybara-webkit'
+  gem 'minitest'
 end
 
 group :production do
