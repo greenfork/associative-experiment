@@ -32,3 +32,7 @@ ru:
         # placeholders
         from: от
         to: до
+        errors:
+          word_not_in_database: Слово "%{word}" отсутствует в базе данных
+          irregular_age: Возраст должен быть числом от 1 до 100
+          bad_date_format: Неправильный формат даты

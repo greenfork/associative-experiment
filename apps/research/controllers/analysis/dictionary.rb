@@ -8,12 +8,14 @@ module Research::Controllers::Analysis
     include Research::Action
     params DictionaryValidation
 
-    expose :dictionary, :brief
+    expose :dictionary, :brief, :datalist_stimuli
 
     def call(params)
+      @datalist_stimuli = all_stimuli || []
+
       if request.post?
         authorized?
-        send_422 unless params.valid? && params[:selection]
+        return unless params.valid? && params[:selection]
         stimulus_id = StimulusRepository.new.find_id(
           params[:selection][:word].strip
         )
@@ -38,10 +40,8 @@ module Research::Controllers::Analysis
       check_for_logged_in_user
     end
 
-    def send_422(symbol = nil, msg = nil)
-      params.errors.add(symbol, msg) if symbol
-      @dictionary = @brief = nil
-      halt 422, I18n::t('default.errors.err422')
+    def all_stimuli
+      StimulusRepository.new.all.map(&:stimulus)
     end
   end
 end

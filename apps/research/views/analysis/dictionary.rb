@@ -6,10 +6,20 @@ module Research::Views::Analysis
       form_for :selection, routes.dict_path, class: 'form-horizontal' do
         # word
         div(class: 'form-group') do
-          div(show_error("word #{params[:selection][:word]} not in database")) if params.errors.dig(:word)
+          if params.errors.dig(:word)
+            div(
+              show_error(
+                t('.errors.word_not_in_database',
+                  word: params[:selection][:word])
+              )
+            )
+          end
           label t('.word'), for: 'selection-word', class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
-            text_field :word, class: 'form-control'
+            # text_field :word, class: 'form-control', autocomplete: 'off',
+                       # list: 'stimuli'
+            datalist :word, datalist_stimuli, 'stimuli', class: 'form-control',
+                     autocomplete: 'off'
           end
         end
 
@@ -19,7 +29,8 @@ module Research::Views::Analysis
           div(class: 'col-sm-10') do
             div(class: 'radio') do
               label('straight-type', class: 'radio-inline') do
-                radio_button :type, 'straight', id: 'selection-straight-type', checked: true
+                radio_button :type, 'straight',
+                             id: 'selection-straight-type', checked: true
                 span(t('.straight'))
               end
               label('reversed-type', class: 'radio-inline') do
@@ -53,21 +64,26 @@ module Research::Views::Analysis
 
         # age
         div(class: 'form-group') do
-          if params.errors.dig(:selection, :age_from) || params.errors.dig(:selection, :age_to)
-            div(show_error("age must be int and 1..100"))
+          if params.errors.dig(:selection, :age_from) ||
+             params.errors.dig(:selection, :age_to)
+            div(show_error(t('.errors.irregular_age')))
           end
-          label t('.age'), for: 'selection-age-from', class: 'col-sm-2 control-label'
+          label t('.age'), for: 'selection-age-from',
+                class: 'col-sm-2 control-label'
           div(class: 'col-sm-2') do
-            text_field :age_from, class: 'form-control', placeholder: t('.from')
+            text_field :age_from, class: 'form-control',
+                       placeholder: t('.from'), autocomplete: 'off'
           end
           div(class: 'col-sm-2') do
-            text_field :age_to, class: 'form-control', placeholder: t('.to')
+            text_field :age_to, class: 'form-control',
+                       placeholder: t('.to'), autocomplete: 'off'
           end
         end
 
         # region
         div(class: 'form-group') do
-          label t('.region'), for: 'selection-region', class: 'col-sm-2 control-label'
+          label t('.region'), for: 'selection-region',
+                class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
             options = t('regions')
             select :region, options, class: 'form-control'
@@ -76,33 +92,41 @@ module Research::Views::Analysis
 
         # nationality1
         div(class: 'form-group') do
-          label t('.nationality'), for: 'selection-nationality1', class: 'col-sm-2 control-label'
+          label t('.nationality'), for: 'selection-nationality1',
+                class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
-            text_field :nationality1, class: 'form-control'
+            text_field :nationality1, class: 'form-control', autocomplete: 'off'
           end
         end
 
         # native_language
         div(class: 'form-group') do
-          label t('.native-language'), for: 'selection-native-language', class: 'col-sm-2 control-label'
+          label t('.native-language'), for: 'selection-native-language',
+                class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
             options = {}
-            t('languages').each { |language| options.merge!(Hash[h(language) => h(language)]) }
+            t('languages').each do |language|
+              options.merge!(Hash[h(language) => h(language)])
+            end
             select :native_language, options, class: 'form-control'
           end
         end
 
         # date
         div(class: 'form-group') do
-          if params.errors.dig(:selection, :date_from) || params.errors.dig(:selection, :date_to)
-            div(show_error('bad date format'))
+          if params.errors.dig(:selection, :date_from) ||
+             params.errors.dig(:selection, :date_to)
+            div(show_error(t('.errors.bad_date_format')))
           end
-          label t('.date'), for: 'selection-date-from', class: 'col-sm-2 control-label'
+          label t('.date'), for: 'selection-date-from',
+                class: 'col-sm-2 control-label'
           div(class: 'col-sm-2') do
-            text_field :date_from, class: 'form-control', placeholder: t('.from')
+            text_field :date_from, class: 'form-control',
+                       placeholder: t('.from'), autocomplete: 'off'
           end
           div(class: 'col-sm-2') do
-            text_field :date_to, class: 'form-control', placeholder: t('.to')
+            text_field :date_to, class: 'form-control',
+                       placeholder: t('.to'), autocomplete: 'off'
           end
         end
 
