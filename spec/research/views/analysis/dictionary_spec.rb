@@ -3,7 +3,7 @@ require_relative '../../../../apps/research/views/analysis/dictionary'
 require 'helper_funcs'
 
 describe Research::Views::Analysis::Dictionary do
-  let(:exposures) { Hash[params: params, dictionary: nil, brief: nil] }
+  let(:exposures) { Hash[params: params, dictionary: nil, brief: nil, datalist_stimuli: []] }
   let(:template)  { Hanami::View::Template.new('apps/research/templates/analysis/dictionary.html.erb') }
   let(:view)      { Research::Views::Analysis::Dictionary.new(template, exposures) }
   let(:rendered)  { view.render }
@@ -42,7 +42,8 @@ describe Research::Views::Analysis::Dictionary do
           distinct: 3,
           single: 0,
           null: 0
-        }
+        },
+        datalist_stimuli: []
       ]
     }
 
@@ -63,7 +64,7 @@ describe Research::Views::Analysis::Dictionary do
   end
 
   describe 'with errors present' do
-    let(:exposures) { Hash[params: params, dictionary: nil, brief: nil] }
+    let(:exposures) { Hash[params: params, dictionary: nil, brief: nil, datalist_stimuli: []] }
     let(:params) do
       pampam = HelperFuncs::Pampam.new(selection: {})
       pampam[:selection][:word] = 'abc'
