@@ -160,7 +160,7 @@ module Web
         # See: http://hanamirb.org/guides/assets/compressors
         #
         # In order to skip JavaScript compression comment the following line
-        javascript_compressor :builtin
+        javascript_compressor :yui
 
         # Stylesheet compressor
         #
@@ -173,7 +173,7 @@ module Web
         # See: http://hanamirb.org/guides/assets/compressors
         #
         # In order to skip stylesheet compression comment the following line
-        stylesheet_compressor :builtin
+        stylesheet_compressor :yui
 
         # Specify sources for assets
         #
@@ -317,7 +317,7 @@ module Web
     #
     configure :production do
       # scheme 'https'
-      # host   'example.org'
+      host ENV['HOST_URI']
       # port   443
 
       assets do

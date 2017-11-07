@@ -3,7 +3,7 @@ Hanami::Model.migration do
     create_table :stimuli do
       primary_key :id
 
-      column :stimulus, String, null: false, unique: true
+      column :stimulus, String, size: 191, null: false, unique: true
       column :translation_komi, String, null: true
       column :translation_yakut, String, null: true
       column :translation_buryat, String, null: true

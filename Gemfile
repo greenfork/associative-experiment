@@ -7,8 +7,8 @@ gem 'hanami-model', '1.1.0'
 gem 'i18n', '~> 0.8.6'
 gem 'jquery-hanami'
 gem 'rake'
-gem 'sqlite3'
 gem 'tachiban'
+gem 'yui-compressor'
 
 group :development do
   # Code reloading
@@ -22,6 +22,7 @@ group :test, :development do
   gem 'dotenv', '~> 2.0'
   gem 'pry'
   gem 'pry-byebug'
+  gem 'sqlite3'
 end
 
 group :test do
@@ -31,5 +32,6 @@ group :test do
 end
 
 group :production do
-  # gem 'puma'
+  gem 'mysql2', '~> 0.4.9'
+  gem 'unicorn'
 end
