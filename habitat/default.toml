@@ -1,0 +1,28 @@
+lang = "en_US.UTF-8"
+rack_env = "production"
+
+[server]
+port = "3000"
+host = "127.0.0.1"
+uri = "fillmein.com"
+
+[app]
+hanami_env = "production"
+web_session_secret = "66009ee2827c24ca168ca6b6b4e867e1104079fa29a9f61f651429a7b3c1f0f7"
+research_session_secret="9e95787862bfbde65b9589c77ddc74efa40e4ddf846f23bbb470b40b4237c84c"
+user = "assoc"
+
+[mail]
+port = "10000"
+host = "fillmein.com"
+
+[database]
+url = "mysql2://root:mynameisImago@127.0.0.1:3306/assoc"
+user = "db_user"
+password = "fillme"
+
+[unicorn]
+worker_processes = "2"
+preload_app = "true"
+timeout = "30"
+

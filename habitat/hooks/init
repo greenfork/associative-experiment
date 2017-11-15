@@ -1,0 +1,12 @@
+#!/bin/bash
+
+exec 2>&1
+
+if ! [[ -d '{{pkg.svc_var_path}}/shared' ]]; then
+    mkdir '{{pkg.svc_var_path}}/shared'
+    mkdir '{{pkg.svc_var_path}}/shared/log'
+    mkdir '{{pkg.svc_var_path}}/shared/pids'
+    mkdir '{{pkg.svc_var_path}}/shared/sockets'
+fi
+
+echo "Init hook executed"

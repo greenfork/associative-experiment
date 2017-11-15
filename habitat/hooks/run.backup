@@ -1,0 +1,17 @@
+#!/bin/sh
+
+exec 2>&1
+
+export HOME=/hab/svc/assoc/data
+cd /hab/svc/assoc
+
+if [ "$(whoami)" = "root" ]; then
+  exec chpst \
+    -U hab:hab \
+    -u hab:hab \
+    assoc-web 2>&1
+else
+  exec assoc-web 2>&1
+fi
+
+echo "Run hook executed"
