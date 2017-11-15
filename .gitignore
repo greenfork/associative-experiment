@@ -2,7 +2,6 @@ db/*.sqlite
 public/assets*
 *.log
 *.gem
-Gemfile.lock
 spec/reports
 tmp/
 .byebug_history
