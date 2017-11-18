@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.4.2'
+
 gem 'axlsx'
 gem 'hanami', '1.1.0'
 gem 'hanami-bootstrap'
