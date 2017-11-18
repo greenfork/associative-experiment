@@ -9,7 +9,6 @@ twitter_username: mrgreenfork
 github_username:  greenfork
 
 markdown: kramdown
-theme: minima
 
 exclude:
   - Gemfile
