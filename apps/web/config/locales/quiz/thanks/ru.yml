@@ -1,7 +1,0 @@
-ru:
-  web:
-    quiz:
-      thanks:
-        congrats: Поздравляем!
-        quiz_info: Вы завершили опрос "%{quiz_title}"
-        quiz_number: "Ваш номер анкеты:"

@@ -1,9 +1,3 @@
-db/*.sqlite
-public/assets*
-*.log
-*.gem
-spec/reports
-tmp/
-.byebug_history
-.rubocop.yml
-.tool-versions
+_site
+.sass-cache
+.jekyll-metadata
