@@ -1,0 +1,22 @@
+#index-header {
+  display: grid;
+  grid: "left center right"
+          / 1fr calc(60 / 96 * 100%) 1fr;
+
+  @include media-mobile {
+    grid-template-columns: 1fr 90% 1fr;
+  }
+}
+
+#title {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 2.5rem;
+  align-self: center;
+  grid-area: center;
+  color: white;
+}
+
+#subtitle {
+  font-size: 2rem;
+}

@@ -1,0 +1,55 @@
+@charset "utf-8";
+
+// Define defaults for each variable.
+
+$base-font-family: "FrankRegular", Helvetica, Arial, sans-serif !default;
+$header-font-family: "MarmeladRegular", Helvetica, Arial, sans-serif;
+$base-font-size:   16px !default;
+$base-font-weight: normal !default;
+$small-font-size:  $base-font-size * 0.875 !default;
+$base-line-height: 1.5 !default;
+
+$spacing-unit:     30px !default;
+
+$text-color:       #111 !default;
+$background-color: #fdfdfd !default;
+$brand-color:      #2a7ae2 !default;
+
+$grey-color:       #828282 !default;
+$grey-color-light: lighten($grey-color, 40%) !default;
+$grey-color-dark:  darken($grey-color, 25%) !default;
+
+$blue: #00A0B0;
+$brown: #6A4A3C;
+$red: #CC333F;
+$orange: #EB6841;
+$yellow: #EDC951;
+
+// Width of the content area
+$desktop-width:    1056px !default; // 96 * 11
+$mobile-width:     420px !default; // 38 * 11 + 2
+$mobile-min-width: 320px !default;
+
+@mixin media-laptop {
+  @media screen and (max-width: $desktop-width) and (min-width: $mobile-width) {
+    @content;
+  }
+}
+
+@mixin media-mobile {
+  @media screen and (max-width: $mobile-width - 1px) {
+    @content;
+  }
+}
+
+@mixin relative-font-size($ratio) {
+  font-size: $base-font-size * $ratio;
+}
+
+// Import partials.
+@import
+  "fonts/fonts_ru",
+  "style/base",
+  "style/syntax-highlighting",
+  "style/index"
+;

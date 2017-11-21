@@ -1,0 +1,32 @@
+#index-grid {
+  display: grid;
+  grid: [header-start] ". header ." minmax(100vh, auto) [header-end]
+        [story-start] ". story ." [story-end]
+        / 1fr $desktop-width 1.61803fr;
+
+  @include media-laptop {
+    grid-template-columns:
+    1fr 100% 1.61803fr;
+  }
+  @include media-mobile {
+    grid-template-columns: 1fr minmax($mobile-min-width, auto) 1.61803fr;
+  }
+}
+
+#index-header {
+  grid-area: header;
+  &-background {
+    background-color: $blue;
+    grid-area: header-start / 1 / header-end / -1;
+  }
+}
+
+#index-story {
+  grid-area: story;
+}
+
+
+@import
+"index/header",
+"index/story"
+;
