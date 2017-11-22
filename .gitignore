@@ -7,3 +7,5 @@ tmp/
 .byebug_history
 .rubocop.yml
 .tool-versions
+_site/
+

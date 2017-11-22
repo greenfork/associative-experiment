@@ -1,11 +1,9 @@
-require 'securerandom'
-
 Hanami::Model.migration do
   change do
     create_table :people do
       primary_key :id
 
-      column :uuid, String, size: 36, null: false
+      column :uuid, String, size: 36, null: false, unique: true
       # attributes
       column :sex, String, null: true
       column :age, Integer, null: true
