@@ -8,7 +8,7 @@ gem 'i18n', '~> 0.8.6'
 gem 'jquery-hanami'
 gem 'rake'
 gem 'tachiban'
-gem 'yui-compressor'
+gem 'sass'
 
 group :development do
   # Code reloading
@@ -34,4 +34,5 @@ end
 group :production do
   gem 'mysql2', '~> 0.4.9'
   gem 'unicorn'
+  gem 'uglifier'
 end

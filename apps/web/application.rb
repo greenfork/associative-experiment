@@ -160,7 +160,7 @@ module Web
         # See: http://hanamirb.org/guides/assets/compressors
         #
         # In order to skip JavaScript compression comment the following line
-        javascript_compressor :yui
+        javascript_compressor :uglifier
 
         # Stylesheet compressor
         #
@@ -173,7 +173,7 @@ module Web
         # See: http://hanamirb.org/guides/assets/compressors
         #
         # In order to skip stylesheet compression comment the following line
-        stylesheet_compressor :yui
+        stylesheet_compressor :sass
 
         # Specify sources for assets
         #
