@@ -1,0 +1,39 @@
+footer {
+  display: grid;
+  grid:
+          ". header header ."
+          ". contacts info ."
+          / 10rem 1fr 1.61803fr 10rem;
+  justify-content: space-evenly;
+  padding: 5rem 0 15rem 0;
+  margin: 5rem 0 0 0;
+  background-color: $yellow;
+  color: $text-brown;
+
+  @include media-mobile {
+    grid: "header"
+            "contacts"
+            "info"
+            / 1fr;
+    padding: 0 .3rem 0 .3rem;
+    & > * {
+      text-align: center;
+      margin-top: 2rem;
+    }
+  }
+}
+
+#footer {
+  &-header {
+    grid-area: header;
+  }
+  &-contacts {
+    grid-area: contacts;
+    & a {
+      display: block;
+    }
+  }
+  &-info {
+    grid-area: info;
+  }
+}

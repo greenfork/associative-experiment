@@ -1,8 +1,8 @@
-#index-story {
+#index-how {
   margin-top: 2.5rem;
   display: grid;
   grid: "header header"
-          "space text"
+          "text space"
           / 1fr 1.61803fr;
   grid-gap: 1.5rem;
 
@@ -16,15 +16,15 @@
     }
   }
 }
-.index-story-text {
-  grid-column: 2 / 3;
+.index-how-text {
+  grid-column: 1 / 2;
   grid-row: span 1;
 }
 
-#index-story-header {
+#index-how-header {
   grid-area: header;
-  justify-self: end;
+  justify-self: start;
   @include media-mobile {
-    text-align: right;
+    text-align: left;
   }
 }

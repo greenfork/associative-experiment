@@ -2,6 +2,8 @@
   display: grid;
   grid: [header-start] ". header ." minmax(100vh, auto) [header-end]
         [story-start] ". story ." [story-end]
+        [how-start] ". how ." [how-end]
+        [why-start] ". why ." [why-end]
         / 1fr $desktop-width 1.61803fr;
 
   @include media-laptop {
@@ -25,8 +27,17 @@
   grid-area: story;
 }
 
+#index-how {
+  grid-area: how;
+}
+
+#index-why {
+  grid-area: why;
+}
 
 @import
 "index/header",
-"index/story"
+"index/story",
+"index/how",
+"index/why"
 ;

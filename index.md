@@ -11,13 +11,13 @@ lang: ru
     <section id="index-story">
         {% include sections/story.html %}
     </section>
-    <section>
-        {% include sections/science.html %}
+    <section id="index-how">
+        {% include sections/how.html %}
     </section>
-    <section>
-        {% include sections/invitation.html %}
-    </section>
-    <section>
-        {% include sections/visualization.html %}
+    <section id="index-why">
+        {% include sections/why.html %}
     </section>
 </div>
+<footer id="footer">
+    {% include sections/footer.html %}
+</footer>
