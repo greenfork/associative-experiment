@@ -35,5 +35,8 @@ footer {
   }
   &-info {
     grid-area: info;
+    @include media-mobile {
+      padding-bottom: 2.5rem;
+    }
   }
 }
