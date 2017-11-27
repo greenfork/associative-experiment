@@ -117,3 +117,8 @@
 получить многомерную ассоциативную сеть, где измерениями будут служить
 параметры выборки. Такая сеть расскажет во всех подробностях о
 разнообразии людей и их образе мира.
+* Fixme
+** Design
+- Margin between headers and text
+- More images
+- Put bottom description in the smaller box
