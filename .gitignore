@@ -2,9 +2,10 @@ db/*.sqlite
 public/assets*
 *.log
 *.gem
-Gemfile.lock
 spec/reports
 tmp/
 .byebug_history
 .rubocop.yml
 .tool-versions
+_site/
+

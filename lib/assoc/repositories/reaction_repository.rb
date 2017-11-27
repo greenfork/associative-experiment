@@ -34,7 +34,7 @@ class ReactionRepository < Hanami::Repository
   end
 
   def create_many(list)
-    time = Time.now.to_i
+    time = Time.now
     list = list.map { |r| r.merge(created_at: time, updated_at: time) }
     command(:create, reactions, result: :many).call(list)
   end

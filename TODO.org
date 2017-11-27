@@ -1,0 +1,20 @@
+* TODOs
+** TODO Deploy to production
+** TODO Add ability to download selection as an .xls Excel file
+** TODO Revisit old csv data and convert it to fit the new data model
+** TODO Insert and test csv data into database
+** TODO Add ability to analyze 2 words simultaneously
+F = 1 if words and frequencies have exact match
+f = 1 if exactly one word matches one word in another (no frequencies)
+associative definition. f = 2 for 2 words and so on.
+Build a matrix according to 'f' definition, showing the correlation
+between 2 and more words at once.
+** TODO Add the project to the CI pipeline
+** TODO Add the project to the CD pipeline
+
+* Notes
+** XLS headers
+header("Content-Type: application/vnd.ms-excel");
+header("Content-Disposition: attachment; filename='#{filename}'");
+header("Pragma: no-cache");
+header("Expires: 0");

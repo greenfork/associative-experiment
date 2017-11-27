@@ -74,7 +74,8 @@ module Web::Controllers::Quiz
 
     def destroy_session
       session.to_h.each_key do |key|
-        session[key.to_sym] = nil unless key.to_s == '_csrf_token' || key.to_s == 'session_id'
+        session[key.to_sym] = nil unless key.to_s == '_csrf_token' ||
+                                         key.to_s == 'session_id'
       end
     end
 
@@ -83,7 +84,8 @@ module Web::Controllers::Quiz
       field_flags.each do |field, bool|
         session[:person][field] = params[:person][field] if bool
       end
-      session[:person][:nationality2] = params[:person][:nationality2] if params[:person][:nationality2]
+      session[:person][:nationality2] =
+        params[:person][:nationality2] if params[:person][:nationality2]
       session[:person][:quiz_id] = params[:quiz_id]
     end
   end
