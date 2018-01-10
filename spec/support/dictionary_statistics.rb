@@ -65,9 +65,12 @@ module HelperFuncs
 
     def expected_dictionary
       [
-        { reaction: 'reac3', count: 2 },
-        { reaction: 'reac1', count: 1 },
-        { reaction: 'reac2', count: 1 }
+        { reaction: 'reac3', count: 2,
+          translation: nil, translation_comment: nil },
+        { reaction: 'reac1', count: 1,
+          translation: nil, translation_comment: nil },
+        { reaction: 'reac2', count: 1,
+          translation: nil, translation_comment: nil }
       ]
     end
 

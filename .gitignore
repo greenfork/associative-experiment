@@ -8,4 +8,5 @@ tmp/
 .rubocop.yml
 .tool-versions
 _site/
-
+doc/
+.yardoc/

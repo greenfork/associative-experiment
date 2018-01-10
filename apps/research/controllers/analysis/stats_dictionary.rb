@@ -19,10 +19,14 @@ module Research::Controllers::Analysis::Stats
       dictionary.sort_by! { |hash| [-hash[:count], hash[:reaction]] }
     end
 
-    # hash = { reaction: 'reac1', count: 18 }
+    # hash = { reaction: 'reac1', count: 18, translation: 'tr1',
+    #  translation_comment: 'tr_c1'}
     def insert_hashes
       reaction_list.each do |reaction|
-        hash = { reaction: reaction, count: count_occurences(reaction) }
+        hash = { reaction: reaction,
+                 count: count_occurences(reaction),
+                 translation: find_translation(reaction)[:translation],
+                 translation_comment: find_translation(reaction)[:comment] }
         dictionary << hash
       end
     end
@@ -39,6 +43,15 @@ module Research::Controllers::Analysis::Stats
 
     def reaction_list
       reaction_array.uniq
+    end
+
+    def find_translation(reaction)
+      reactions.to_a.map do |r|
+        if r.reaction == reaction
+          return { translation: r.translation, comment: r.translation_comment }
+        end
+      end
+      { translation: nil, comment: nil }
     end
   end
 end
