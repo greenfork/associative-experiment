@@ -2,15 +2,15 @@ source 'https://rubygems.org'
 
 ruby '2.4.2'
 
-gem 'axlsx'
+gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
 gem 'hanami', '1.1.0'
 gem 'hanami-bootstrap'
 gem 'hanami-model', '1.1.0'
 gem 'i18n', '~> 0.8.6'
 gem 'jquery-hanami'
 gem 'rake'
-gem 'tachiban'
 gem 'sass'
+gem 'tachiban'
 
 group :development do
   # Code reloading
