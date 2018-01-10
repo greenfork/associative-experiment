@@ -14,6 +14,10 @@ task :server do
   `HANAMI_ENV=#{environment} unicorn -l '127.0.0.1:#{port}' -w -E development`
 end
 
+task script: :environment do
+  require_relative 'path/to/script'
+end
+
 task default: :test
 task spec: :test
 task s: :server
