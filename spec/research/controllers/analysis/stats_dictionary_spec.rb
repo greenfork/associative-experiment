@@ -1,7 +1,7 @@
 # coding: utf-8
 
 require 'spec_helper'
-require_relative '../../../../apps/research/controllers/analysis/stats_dictionary.rb'
+require_relative '../../../../apps/research/controllers/analysis/dictionary/stats_dictionary.rb'
 require 'support/dictionary_statistics'
 
 describe Research::Controllers::Analysis::Stats::Dictionary do

@@ -1,4 +1,4 @@
-require_relative '../../../../config/initializers/locale'
+require_relative '../../../../../config/initializers/locale'
 
 module Research::Controllers::Analysis
   class DictionaryValidation < Research::Action::Params

@@ -1,7 +1,7 @@
-require_relative './dictionary_validation.rb'
-require_relative './stats_dictionary.rb'
-require_relative './stats_brief.rb'
-require_relative './parser_selection_options.rb'
+require_relative './dictionary/dictionary_validation.rb'
+require_relative './dictionary/stats_dictionary.rb'
+require_relative './dictionary/stats_brief.rb'
+require_relative './dictionary/parser_selection_options.rb'
 
 module Research::Controllers::Analysis
   class Dictionary
