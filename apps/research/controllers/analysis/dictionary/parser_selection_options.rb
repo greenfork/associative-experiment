@@ -16,7 +16,7 @@ module Research::Controllers::Analysis::Parser
     end
 
     def parse_reactions
-      {}
+      raw[:type] == 'reversed' ? { reaction: raw[:word].strip } : {}
     end
 
     def parse_people

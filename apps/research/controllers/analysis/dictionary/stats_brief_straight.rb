@@ -1,6 +1,6 @@
 module Research::Controllers::Analysis::Stats
   # Straight means the relation Stimulus -> Reaction. It gets a number of
-  # reactions if the stimulus is specified. Reverse is the opposite.
+  # reactions if the stimulus is specified. Reversed is the opposite.
   class BriefStraight
     attr_reader :dictionary, :brief
 

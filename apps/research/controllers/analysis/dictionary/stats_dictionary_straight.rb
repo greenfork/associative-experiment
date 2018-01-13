@@ -1,6 +1,6 @@
 module Research::Controllers::Analysis::Stats
   # Straight means the relation Stimulus -> Reaction. It gets a number of
-  # reactions if the stimulus is specified. Reverse is the opposite.
+  # reactions if the stimulus is specified. Reversed is the opposite.
   class DictionaryStraight
     attr_reader :reactions, :dictionary
 
@@ -30,6 +30,7 @@ module Research::Controllers::Analysis::Stats
         next if @reaction_list.include? reaction
         @reaction_list.push reaction
         count = count_occurences(reaction)
+        reaction = 'nil' if reaction.nil?
         hash = { reaction: reaction,
                  count: count,
                  translation: reac.translation,
