@@ -1,6 +1,6 @@
 require_relative './dictionary/dictionary_validation.rb'
-require_relative './dictionary/stats_dictionary.rb'
-require_relative './dictionary/stats_brief.rb'
+require_relative './dictionary/stats_dictionary_straight.rb'
+require_relative './dictionary/stats_brief_straight.rb'
 require_relative './dictionary/parser_selection_options.rb'
 
 module Research::Controllers::Analysis
@@ -28,8 +28,8 @@ module Research::Controllers::Analysis
           parsed_options
         )
 
-        @dictionary = Stats::Dictionary.new(reactions).dictionary
-        @brief = Stats::Brief.new(@dictionary).brief
+        @dictionary = Stats::DictionaryStraight.new(reactions).dictionary
+        @brief = Stats::BriefStraight.new(@dictionary).brief
       end
     end
 

@@ -1,5 +1,7 @@
 module Research::Controllers::Analysis::Stats
-  class Dictionary
+  # Straight means the relation Stimulus -> Reaction. It gets a number of
+  # reactions if the stimulus is specified. Reverse is the opposite.
+  class DictionaryStraight
     attr_reader :reactions, :dictionary
 
     def initialize(reactions)

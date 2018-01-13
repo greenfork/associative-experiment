@@ -1,11 +1,11 @@
 # coding: utf-8
 
 require 'spec_helper'
-require_relative '../../../../apps/research/controllers/analysis/dictionary/stats_brief.rb'
+require_relative '../../../../apps/research/controllers/analysis/dictionary/stats_brief_straight.rb'
 require 'support/dictionary_statistics'
 
-describe Research::Controllers::Analysis::Stats::Brief do
-  let(:brief) { Research::Controllers::Analysis::Stats::Brief }
+describe Research::Controllers::Analysis::Stats::BriefStraight do
+  let(:brief) { Research::Controllers::Analysis::Stats::BriefStraight }
   let(:params) { Hash[] }
 
   before do
