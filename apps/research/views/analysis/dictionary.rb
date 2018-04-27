@@ -120,11 +120,11 @@ module Research::Views::Analysis
           end
           label t('.date'), for: 'selection-date-from',
                 class: 'col-sm-2 control-label'
-          div(class: 'col-sm-2') do
+          div(class: 'col-sm-3') do
             text_field :date_from, class: 'form-control',
                        placeholder: t('.from'), autocomplete: 'off'
           end
-          div(class: 'col-sm-2') do
+          div(class: 'col-sm-3') do
             text_field :date_to, class: 'form-control',
                        placeholder: t('.to'), autocomplete: 'off'
           end
