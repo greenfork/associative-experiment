@@ -41,29 +41,74 @@ class ReactionRepository < Hanami::Repository
 
   def get_dictionary(quiz_id: nil,
                      options: { reactions: {}, people: {} },
-                     type: :straight)
-    # TODO: add sex, age, native_language, date where clauses
+                     type: :straight,
+                     reversed_with_translation: false,
+                     word_list: [])
     reaction = options[:reactions][:reaction]
     nationality1 = options[:people][:nationality1]
-    unless reaction.nil?
-      w_reaction = " AND reaction = '#{reaction.gsub("'", "''")}'"
-    end
+    sex = options[:people][:sex]
+    region = options[:people][:region]
+    native_language = options[:people][:native_language]
+    age_from = options[:people][:age_from]
+    age_to = options[:people][:age_to]
+    date_from = options[:people][:date_from]
+    date_to = options[:people][:date_to]
+    w_reaction = " AND reaction = '#{sqlc(reaction)}'" unless reaction.nil?
     unless nationality1.nil?
-      w_nationality1 = " AND nationality1 = '#{nationality1.gsub("'", "''")}'"
+      w_nationality1 = " AND nationality1 = '#{sqlc(nationality1)}'"
+    end
+    w_sex = " AND sex = '#{sqlc(sex)}'" unless sex.nil?
+    w_region = " AND region = '#{sqlc(region)}'" unless region.nil?
+    unless native_language.nil?
+      w_native_language = " AND native_language = '#{sqlc(native_language)}'"
+    end
+    unless age_from.nil? && age_to.nil?
+      age_from = 0 if age_from.nil?
+      age_to = 1_000 if age_to.nil?
+      w_age = " AND (age BETWEEN #{Integer(age_from)} AND #{Integer(age_to)})"
+    end
+    unless date_from.nil? && date_to.nil?
+      date_from = Time.new(date_from).to_i unless date_from.nil?
+      date_to = Time.new(date_to).to_i unless date_to.nil?
+      date_from = 0 if date_from.nil?
+      date_to = 2_147_483_647 if date_to.nil?
+      error = "Wrong time format: date_from = #{date_from} and \
+date_to = #{date_to}"
+      raise error if date_from < 0 || date_to < 0
+      w_date = " AND (date BETWEEN #{date_from} AND #{date_to})"
     end
     w_quiz_id = " AND r.quiz_id = #{Integer(quiz_id)}" unless quiz_id.nil?
     order = 'stimulus, pair_count DESC, reaction' if type == :straight
     order = 'reaction, pair_count DESC, stimulus' if type == :reversed
+    order = 'stimulus, reaction, pair_count DESC' if type == :incidence
+    if reversed_with_translation
+      with_st_translation = ', s.translation as st_translation'
+      order = 'r.translation, pair_count DESC, st_translation'
+    end
+    w_list = if word_list.empty?
+               ''
+             else
+               ' AND stimulus IN (' +
+                 word_list.map { |w| "'#{w}'" }.join(', ') + ')'
+             end
 
     sql = <<-SQL.gsub(/^ */, '')
         SELECT r.reaction, r.translation, s.stimulus, COUNT(*) as pair_count
+        #{with_st_translation}
         FROM reactions r
         JOIN stimuli s ON s.id = r.stimulus_id
         JOIN people p ON p.id = r.person_id
-        WHERE 1 = 1#{w_quiz_id}#{w_reaction}#{w_nationality1}
+        WHERE 1 = 1#{w_quiz_id}#{w_reaction}#{w_nationality1}#{w_sex}#{w_list}
+        #{w_region}#{w_age}#{w_native_language}#{w_date}
         GROUP BY reaction, stimulus
         ORDER BY #{order}
     SQL
     root.read(sql).to_a
+  end
+
+  private
+
+  def sqlc(string)
+    string.gsub("'", "''")
   end
 end
