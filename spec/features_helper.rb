@@ -6,6 +6,7 @@ require 'capybara/dsl'
 require 'capybara-webkit'
 
 Capybara.javascript_driver = :webkit
+Capybara.server = :webrick
 
 Capybara::Webkit.configure do |config|
   config.timeout = 5

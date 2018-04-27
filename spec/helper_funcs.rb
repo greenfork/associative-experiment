@@ -50,7 +50,7 @@ module HelperFuncs
       person_repository.create(
         id: 1,
         uuid: SecureRandom.uuid,
-        date: Time.now.to_i,
+        date: Time.new('2018-01-03').to_i,
         is_reviewed: true,
         total_time: Time.now.to_i,
         quiz_id: quiz_id,
