@@ -44,7 +44,7 @@ class ReactionRepository < Hanami::Repository
                      type: :straight,
                      reversed_with_translation: false,
                      word_list: [])
-    reaction = options[:reactions][:reaction]
+    reaction = options[:reactions][:reaction] # word in case of reversed dict
     nationality1 = options[:people][:nationality1]
     sex = options[:people][:sex]
     region = options[:people][:region]
@@ -68,8 +68,8 @@ class ReactionRepository < Hanami::Repository
       w_age = " AND (age BETWEEN #{Integer(age_from)} AND #{Integer(age_to)})"
     end
     unless date_from.nil? && date_to.nil?
-      date_from = Time.new(date_from).to_i unless date_from.nil?
-      date_to = Time.new(date_to).to_i unless date_to.nil?
+      date_from = date_from.to_i unless date_from.nil?
+      date_to = date_to.to_i unless date_to.nil?
       date_from = 0 if date_from.nil?
       date_to = 2_147_483_647 if date_to.nil?
       error = "Wrong time format: date_from = #{date_from} and \
@@ -85,7 +85,7 @@ date_to = #{date_to}"
       with_st_translation = ', s.translation as st_translation'
       order = 'r.translation, pair_count DESC, st_translation'
     end
-    w_list = if word_list.empty?
+    w_list = if word_list.empty? # word in case of straight dict
                ''
              else
                ' AND stimulus IN (' +
@@ -93,7 +93,8 @@ date_to = #{date_to}"
              end
 
     sql = <<-SQL.gsub(/^ */, '')
-        SELECT r.reaction, r.translation, s.stimulus, COUNT(*) as pair_count
+        SELECT r.reaction, r.translation, r.translation_comment,
+        s.stimulus, COUNT(*) as pair_count
         #{with_st_translation}
         FROM reactions r
         JOIN stimuli s ON s.id = r.stimulus_id

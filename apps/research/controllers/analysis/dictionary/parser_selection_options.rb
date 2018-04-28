@@ -4,48 +4,55 @@ module Research::Controllers::Analysis::Parser
 
     def initialize(raw_options)
       @raw = raw_options
-      @parsed_options = { people: {}, reactions: {} }
-      parse_options
+      @parsed_options = {
+        quiz_id: nil,
+        options: { people: {}, reactions: {} },
+        type: :straight,
+        reversed_with_translation: false,
+        word_list: []
+      }
+      parse_type
+      parse_people
+      parse_word
     end
 
     private
 
-    def parse_options
-      parsed_options[:people] = parse_people
-      parsed_options[:reactions] = parse_reactions
-    end
-
-    def parse_reactions
-      raw[:type] == 'reversed' ? { reaction: raw[:word].strip } : {}
+    def parse_type
+      parsed_options[:type] = :straight if raw[:type] == 'straight'
+      parsed_options[:type] = :reversed if raw[:type] == 'reversed'
+      parsed_options[:type] = :incidence if raw[:type] == 'incidence'
     end
 
     def parse_people
-      {
+      parsed_options[:options][:people] = {
         sex: sex_param(raw[:sex]),
-        age: age_param(raw[:age_from], raw[:age_to]),
-        nationality1: raw[:nationality1],
-        native_language: raw[:native_language],
-        date: date_param(raw[:date_from], raw[:date_to])
+        age_from: raw[:age_from],
+        age_to: raw[:age_to],
+        nationality1: disabled?(raw[:nationality1]),
+        native_language: disabled?(raw[:native_language]),
+        region: disabled?(raw[:region]),
+        date_from: raw[:date_from],
+        date_to: raw[:date_to]
       }
+    end
+
+    def disabled?(param)
+      return nil if param == '--'
+      param
+    end
+
+    def parse_word
+      if raw[:type] == 'straight'
+        parsed_options[:word_list] = [raw[:word]]
+      elsif raw[:type] == 'reversed'
+        parsed_options[:options][:reactions][:reaction] = raw[:word]
+      end
     end
 
     def sex_param(sex)
       return nil if sex == 'all'
       sex
-    end
-
-    def age_param(age_from, age_to)
-      return nil if age_from.nil? && age_to.nil?
-      return (age_from.to_i..1000) if age_to.nil?
-      return (0..age_to.to_i) if age_from.nil?
-      (age_from.to_i..age_to.to_i)
-    end
-
-    def date_param(date_from, date_to)
-      return nil if date_from.nil? && date_to.nil?
-      return (date_from..(Time.now + (60 * 60 * 24))) if date_to.nil?
-      return (0..date_to) if date_from.nil?
-      (date_from..date_to)
     end
   end
 end

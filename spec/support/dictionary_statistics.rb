@@ -77,5 +77,41 @@ module HelperFuncs
     def expected_brief
       { total: 4, distinct: 3, single: 2, null: 0 }
     end
+
+    def reactions2
+      [
+        OpenStruct.new(
+          reaction: 'reac1',
+          translation: nil,
+          translation_comment: nil,
+          stimulus: 'stim1',
+          pair_count: 22
+        ),
+        OpenStruct.new(
+          reaction: 'reac2',
+          translation: nil,
+          translation_comment: nil,
+          stimulus: 'stim1',
+          pair_count: 18
+        )
+      ]
+    end
+
+    def expected_dictionary2
+      [
+        {
+          reaction: 'reac1',
+          count: 22,
+          translation: nil,
+          translation_comment: nil
+        },
+        {
+          reaction: 'reac2',
+          count: 18,
+          translation: nil,
+          translation_comment: nil
+        }
+      ]
+    end
   end
 end

@@ -1,5 +1,5 @@
 require_relative './dictionary/dictionary_validation.rb'
-require_relative './dictionary/stats_dictionary_straight.rb'
+require_relative './dictionary/stats_dictionary.rb'
 require_relative './dictionary/stats_brief_straight.rb'
 require_relative './dictionary/parser_selection_options.rb'
 
@@ -21,14 +21,10 @@ module Research::Controllers::Analysis
         )
         params.errors.add(:word) && return if stimulus_id.nil?
 
-        parsed_options =
-          Parser::SelectionOptions.new(params[:selection]).parsed_options
-        reactions = ReactionRepository.new.find_by_params(
-          stimulus_id,
-          parsed_options
-        )
+        parsed_options = Parser::SelectionOptions.new(params[:selection])
+                                                 .parsed_options
 
-        @dictionary = Stats::DictionaryStraight.new(reactions).dictionary
+        @dictionary = Stats::Dictionary.new(options: parsed_options).dictionary
         @brief = Stats::BriefStraight.new(@dictionary).brief
       end
     end

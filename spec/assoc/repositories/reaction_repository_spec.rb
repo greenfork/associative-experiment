@@ -128,7 +128,7 @@ describe ReactionRepository do
 
     it 'shows selection according to date' do
       result = repository.get_dictionary(
-        options: { reactions: {}, people: { date_to: '2018-01-04' } }
+        options: { reactions: {}, people: { date_to: Time.new('2018-01-04') } }
       )
       assert_reactions_belong_to_person1(result)
     end
