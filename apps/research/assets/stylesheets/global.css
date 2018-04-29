@@ -36,3 +36,6 @@ body {
 kbd { background-color: #026500; }
 .form-horizontal .radio {padding-top: 0;}
 .radio-inline span {font-size: 17px;}
+.ui-widget-header .ui-icon {
+    background-image: url("ui-icons_444444_256x240.png");
+}

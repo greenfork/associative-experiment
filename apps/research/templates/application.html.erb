@@ -5,12 +5,16 @@
     <title>Research</title>
     <%= favicon %>
     <%= stylesheet 'bootstrap' %>
+    <%= stylesheet 'jquery-ui.min.css' %>
     <%= stylesheet 'global' %>
   </head>
   <body>
-    <%= yield %>
+      <%= yield %>
 
-    <%= javascript 'jquery' %>
-    <%= javascript 'bootstrap' %>
+      <%= javascript 'jquery2' %>
+      <%= javascript 'jquery-ui.min.js' %>
+      <%= javascript 'jquery-ui-i18n.min.js' %>
+      <%= javascript 'bootstrap' %>
+      <%= local :js_analysis_dictionary %>
   </body>
 </html>
