@@ -2,6 +2,10 @@ module Research::Views::Analysis
   class Dictionary
     include Research::View
 
+    def js_analysis_dictionary
+      javascript 'analysis_dictionary'
+    end
+
     def selection_form
       form_for :selection, routes.dict_path, class: 'form-horizontal' do
         # word
@@ -85,7 +89,8 @@ module Research::Views::Analysis
           label t('.region'), for: 'selection-region',
                 class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
-            options = t('regions')
+            options = { '--' => '--' }
+            options.merge! t('regions')
             select :region, options, class: 'form-control'
           end
         end
@@ -104,7 +109,7 @@ module Research::Views::Analysis
           label t('.native-language'), for: 'selection-native-language',
                 class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
-            options = {}
+            options = {'--' => '--'}
             t('languages').each do |language|
               options.merge!(Hash[h(language) => h(language)])
             end
@@ -113,7 +118,7 @@ module Research::Views::Analysis
         end
 
         # date
-        div(class: 'form-group') do
+        div(class: 'form-group', id: 'date-selection') do
           if params.errors.dig(:selection, :date_from) ||
              params.errors.dig(:selection, :date_to)
             div(show_error(t('.errors.bad_date_format')))
@@ -121,7 +126,7 @@ module Research::Views::Analysis
           label t('.date'), for: 'selection-date-from',
                 class: 'col-sm-2 control-label'
           div(class: 'col-sm-3') do
-            text_field :date_from, class: 'form-control',
+            text_field :date_from, class: 'form-control datepicker',
                        placeholder: t('.from'), autocomplete: 'off'
           end
           div(class: 'col-sm-3') do
@@ -139,38 +144,78 @@ module Research::Views::Analysis
       end
     end
 
-    def brief_table
+    def brief_table_straight
       html.table(class: 'table table-striped table-hover', id: 'brief') do
         tr do
-          td t('.total')
+          th t('.total')
           td brief[:total]
         end
         tr do
-          td t('.distinct')
-          td brief[:distinct]
+          th t('.distinct')
+          td format('%d / %.2f%', brief[:distinct],
+                    brief[:distinct].to_f / brief[:total] * 100)
         end
         tr do
-          td t('.single')
-          td brief[:single]
+          th t('.single')
+          td format('%d / %.2f%', brief[:single],
+                    brief[:single].to_f / brief[:total] * 100)
         end
         tr do
-          td t('.nil')
-          td brief[:null]
+          th t('.nil')
+          td format('%d / %.2f%', brief[:null],
+                    brief[:null].to_f / brief[:total] * 100)
         end
       end
     end
 
-    def dictionary_table
+    def brief_table_reversed
+      html.table(class: 'table table-striped table-hover', id: 'brief') do
+        tr do
+          th t('.total')
+          td brief[:total]
+        end
+        tr do
+          th t('.distinct')
+          td format('%d / %.2f%', brief[:distinct],
+                    brief[:distinct].to_f / brief[:total] * 100)
+        end
+        tr do
+          th t('.single')
+          td format('%d / %.2f%', brief[:single],
+                    brief[:single].to_f / brief[:total] * 100)
+        end
+      end
+    end
+
+    def dictionary_table_straight
       html.table(class: 'table table-striped table-hover', id: 'dictionary') do
         tr do
-          td t('.reaction')
-          td t('.count')
-          td t('.percent')
+          th t('.reaction')
+          th t('.count')
+          th t('.percent')
         end
         dictionary.each do |hash|
           tr do
             td hash[:reaction]
             td hash[:count]
+            td format('%.2f', hash[:count].to_f / brief[:total] * 100)
+          end
+        end
+      end
+    end
+
+    def dictionary_table_reversed
+      html.table(class: 'table table-striped table-hover', id: 'dictionary') do
+        tr do
+          th t('.stimulus')
+          th t('.count')
+          th t('.percent')
+        end
+        dictionary.each do |hash|
+          tr do
+            td hash[:stimulus]
+            td hash[:count]
+            td format('%.2f', hash[:count].to_f / brief[:total] * 100)
           end
         end
       end

@@ -13,6 +13,7 @@ module Research::Controllers::Analysis::Stats
       @repository.get_dictionary(options).each do |pair|
         @dictionary << {
           reaction: pair.reaction,
+          stimulus: pair.stimulus,
           count: pair.pair_count,
           translation: pair.translation,
           translation_comment: pair.translation_comment

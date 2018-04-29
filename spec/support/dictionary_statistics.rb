@@ -101,12 +101,14 @@ module HelperFuncs
       [
         {
           reaction: 'reac1',
+          stimulus: 'stim1',
           count: 22,
           translation: nil,
           translation_comment: nil
         },
         {
           reaction: 'reac2',
+          stimulus: 'stim1',
           count: 18,
           translation: nil,
           translation_comment: nil

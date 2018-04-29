@@ -1,8 +1,8 @@
 module Research::Controllers::Analysis::Stats
-  # Straight means the relation Stimulus -> Reaction. It gets a number of
-  # reactions if the stimulus is specified. Reversed is the opposite.
-  class BriefStraight
+  class Brief
     attr_reader :dictionary, :brief
+
+    NIL_VALUES = ['', 'nil', '/', '?', '??', '???', nil]
 
     def initialize(dictionary)
       @dictionary = dictionary
@@ -17,7 +17,7 @@ module Research::Controllers::Analysis::Stats
         brief[:total] += hash[:count]
         brief[:distinct] += 1
         brief[:single] += 1 if hash[:count] == 1
-        brief[:null] += hash[:count] if hash[:reaction] == 'nil'
+        brief[:null] += hash[:count] if NIL_VALUES.include? hash[:reaction]
       end
     end
   end

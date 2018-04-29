@@ -1,6 +1,6 @@
 require_relative './dictionary/dictionary_validation.rb'
 require_relative './dictionary/stats_dictionary.rb'
-require_relative './dictionary/stats_brief_straight.rb'
+require_relative './dictionary/stats_brief.rb'
 require_relative './dictionary/parser_selection_options.rb'
 
 module Research::Controllers::Analysis
@@ -8,7 +8,7 @@ module Research::Controllers::Analysis
     include Research::Action
     params DictionaryValidation
 
-    expose :dictionary, :brief, :datalist_stimuli
+    expose :dictionary, :brief, :datalist_stimuli, :type
 
     def call(params)
       @datalist_stimuli = all_stimuli || []
@@ -24,8 +24,9 @@ module Research::Controllers::Analysis
         parsed_options = Parser::SelectionOptions.new(params[:selection])
                                                  .parsed_options
 
+        @type = parsed_options[:type]
         @dictionary = Stats::Dictionary.new(options: parsed_options).dictionary
-        @brief = Stats::BriefStraight.new(@dictionary).brief
+        @brief = Stats::Brief.new(@dictionary).brief
       end
     end
 

@@ -43,7 +43,8 @@ describe Research::Views::Analysis::Dictionary do
           single: 0,
           null: 0
         },
-        datalist_stimuli: []
+        datalist_stimuli: [],
+        type: :straight
       ]
     }
 

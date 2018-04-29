@@ -5,8 +5,14 @@
   <%= selection_form %>
   <% if dictionary %>
     <h2><%= t('.word') %> <%= params[:selection][:word] %></h2>
-    <%= brief_table %>
-    <h2><%= t('.word-article') %></h2>
-    <%= dictionary_table %>
+    <% if type == :straight %>
+        <%= brief_table_straight %>
+        <h2><%= t('.word-article') %></h2>
+        <%= dictionary_table_straight %>
+    <% elsif type == :reversed %>
+        <%= brief_table_reversed %>
+        <h2><%= t('.word-article') %></h2>
+        <%= dictionary_table_reversed %>
+    <% end %>
   <% end %>
 </div>
