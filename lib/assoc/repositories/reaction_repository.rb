@@ -52,21 +52,16 @@ class ReactionRepository < Hanami::Repository
       w_age = " AND (age BETWEEN #{Integer(age_from)} AND #{Integer(age_to)})"
     end
     unless date_from.nil? && date_to.nil?
-      date_from = date_from.to_i unless date_from.nil?
-      date_to = date_to.to_i unless date_to.nil?
-      date_from = 0 if date_from.nil?
-      date_to = 2_147_483_647 if date_to.nil?
-      error = "Wrong time format: date_from = #{date_from} and \
-date_to = #{date_to}"
-      raise error if date_from < 0 || date_to < 0
-      w_date = " AND (date BETWEEN #{date_from} AND #{date_to})"
+      date_from = Time.new(0, 1, 1) if date_from.nil?
+      date_to = Time.new(3000, 1, 1) if date_to.nil?
+      w_date = " AND (date BETWEEN '#{date_from}' AND '#{date_to}')"
     end
     w_quiz_id = " AND r.quiz_id = #{Integer(quiz_id)}" unless quiz_id.nil?
     order = 'stimulus, pair_count DESC, reaction' if type == :straight
     order = 'reaction, pair_count DESC, stimulus' if type == :reversed
     order = 'stimulus, reaction, pair_count DESC' if type == :incidence
     if reversed_with_translation
-      with_st_translation = ', s.translation as st_translation'
+      st_translation = ', s.translation as st_translation'
       order = 'r.translation, pair_count DESC, st_translation'
     end
     w_list = if word_list.empty? # word in case of straight dict
@@ -76,10 +71,25 @@ date_to = #{date_to}"
                  word_list.map { |w| "'#{w}'" }.join(', ') + ')'
              end
 
+    if ENV['DATABASE_NAME'] == 'mysql-5.7'
+      translation = 'ANY_VALUE(r.translation) as translation'
+      translation_comment = 'ANY_VALUE(r.translation_comment) as translation_comment'
+      if reversed_with_translation
+        st_translation = ', ANY_VALUE(s.translation) as st_translation'
+      end
+    else
+      translation = 'r.translation'
+      translation_comment = 'r.translation_comment'
+    end
+
     sql = <<-SQL.gsub(/^ */, '')
-        SELECT r.reaction, r.translation, r.translation_comment,
-        s.stimulus, COUNT(*) as pair_count
-        #{with_st_translation}
+        SELECT
+          r.reaction,
+          #{translation},
+          #{translation_comment},
+          s.stimulus,
+          COUNT(*) as pair_count
+          #{st_translation}
         FROM reactions r
         JOIN stimuli s ON s.id = r.stimulus_id
         JOIN people p ON p.id = r.person_id
