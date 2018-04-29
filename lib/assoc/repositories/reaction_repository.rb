@@ -17,22 +17,6 @@ class ReactionRepository < Hanami::Repository
     end
   end
 
-  def find_by_params(stimulus_id, options = { reactions: {}, people: {} })
-    query_options = {
-      relations[:reactions][:stimulus_id].qualified => stimulus_id
-    }
-
-    options.each do |entity, opts|
-      opts.each do |column, value|
-        unless value.nil?
-          query_options.merge!(relations[entity][column].qualified => value)
-        end
-      end
-    end
-
-    aggregate(:person).join(:person).where(query_options).map_to(Reaction)
-  end
-
   def create_many(list)
     time = Time.now
     list = list.map { |r| r.merge(created_at: time, updated_at: time) }

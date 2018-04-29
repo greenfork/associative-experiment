@@ -16,18 +16,6 @@ describe ReactionRepository do
     repository.get_reactions_of(1).to_a.size.must_equal 2
   end
 
-  it 'queries reactions with the following params' do
-    result = repository.find_by_params(1).to_a
-    ['reac1', 'reac1-2'].must_include result[0].reaction
-    ['reac1', 'reac1-2'].must_include result[1].reaction
-
-    result = repository.find_by_params(1, people: { sex: 'male', age: 17..20, profession: 'profession',
-      region: 'Moscow', residence_place: 'Moscow', birth_place: 'Moscow', nationality1: 'Russian',
-      spoken_languages: 1, native_language: 'Russian', communication_language: 'Russian',
-      education_language: 'Russian', quiz_language_level: 'good' }).one!
-    result.reaction.must_equal 'reac1'
-  end
-
   it 'inserts multiple records at once' do
     list = [
       {
