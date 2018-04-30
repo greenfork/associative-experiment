@@ -23,11 +23,11 @@ class ReactionRepository < Hanami::Repository
     command(:create, reactions, result: :many).call(list)
   end
 
-  def get_dictionary(quiz_id: nil,
-                     options: { reactions: {}, people: {} },
+  def get_dictionary(options: { reactions: {}, people: {} },
                      type: :straight,
                      reversed_with_translation: false,
                      word_list: [])
+    quiz_id = options[:reactions][:quiz_id]
     reaction = options[:reactions][:reaction] # word in case of reversed dict
     nationality1 = options[:people][:nationality1]
     sex = options[:people][:sex]

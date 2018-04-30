@@ -8,10 +8,11 @@ module Research::Controllers::Analysis
     include Research::Action
     params DictionaryValidation
 
-    expose :dictionary, :brief, :datalist_stimuli, :type
+    expose :dictionary, :brief, :stimuli, :type, :quizzes, :nationalities,
+           :regions, :native_languages
 
     def call(params)
-      @datalist_stimuli = all_stimuli || []
+      expose_possible_values
 
       if request.post?
         authorized?
@@ -37,8 +38,17 @@ module Research::Controllers::Analysis
       check_for_logged_in_user
     end
 
-    def all_stimuli
-      StimulusRepository.new.all.map(&:stimulus)
+    def expose_possible_values
+      @stimuli = StimulusRepository.new.all.map(&:stimulus).sort || []
+      @quizzes = QuizRepository.new.all.map do |quiz|
+        { "#{quiz.title}, #{quiz.language}" => quiz.id }
+      end
+      @nationalities    = PersonRepository.new.distinct(:nationality1)
+                                          .map { |n| { n => n } }
+      @regions          = PersonRepository.new.distinct(:region)
+                                          .map { |r| { r => r } }
+      @native_languages = PersonRepository.new.distinct(:native_language)
+                                          .map { |nl| { nl => nl } }
     end
   end
 end

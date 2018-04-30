@@ -93,6 +93,13 @@ describe ReactionRepository do
       assert_reactions_belong_to_person1(result)
     end
 
+    it 'shows selection according to quiz id' do
+      result = repository.get_dictionary(
+        options: { reactions: { quiz_id: 1 }, people: {} }
+      )
+      assert_reactions_belong_to_person1(result)
+    end
+
     it 'shows selection according to region' do
       result = repository.get_dictionary(
         options: { reactions: {}, people: { region: 'Moscow' } }

@@ -20,7 +20,7 @@ module Research::Views::Analysis
           end
           label t('.word'), for: 'selection-word', class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
-            datalist :word, datalist_stimuli, 'stimuli', class: 'form-control',
+            datalist :word, stimuli, 'stimuli', class: 'form-control',
                      autocomplete: 'off', required: true
           end
         end
@@ -84,13 +84,26 @@ module Research::Views::Analysis
           end
         end
 
+        # quiz_id
+        div(class: 'form-group') do
+          label t('.quiz'), for: 'selection-quiz-id',
+                class: 'col-sm-2 control-label'
+          div(class: 'col-sm-10') do
+            options = { '--' => '--' }
+            quizzes.each do |quiz|
+              options.merge! quiz
+            end
+            select :quiz_id, options, class: 'form-control'
+          end
+        end
+
         # region
         div(class: 'form-group') do
           label t('.region'), for: 'selection-region',
                 class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
             options = { '--' => '--' }
-            options.merge! t('regions')
+            regions.each { |r| options.merge! r }
             select :region, options, class: 'form-control'
           end
         end
@@ -100,7 +113,9 @@ module Research::Views::Analysis
           label t('.nationality'), for: 'selection-nationality1',
                 class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
-            text_field :nationality1, class: 'form-control', autocomplete: 'off'
+            options = { '--' => '--' }
+            nationalities.each { |n| options.merge! n }
+            select :nationality1, options, class: 'form-control'
           end
         end
 
@@ -109,10 +124,8 @@ module Research::Views::Analysis
           label t('.native-language'), for: 'selection-native-language',
                 class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
-            options = {'--' => '--'}
-            t('languages').each do |language|
-              options.merge!(Hash[h(language) => h(language)])
-            end
+            options = { '--' => '--' }
+            native_languages.each { |nl| options.merge! nl }
             select :native_language, options, class: 'form-control'
           end
         end

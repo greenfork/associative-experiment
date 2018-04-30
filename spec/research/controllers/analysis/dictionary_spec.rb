@@ -19,6 +19,15 @@ describe Research::Controllers::Analysis::Dictionary do
     action.params.errors.must_equal Hash.new
   end
 
+  it 'exposes possible values for form inputs' do
+    action.call(params)
+    action.exposures.keys.must_include :stimuli
+    action.exposures.keys.must_include :quizzes
+    action.exposures.keys.must_include :nationalities
+    action.exposures.keys.must_include :regions
+    action.exposures.keys.must_include :native_languages
+  end
+
   describe 'with UNauthenticated user' do
     let(:params) {
       Hash[
@@ -86,8 +95,8 @@ describe Research::Controllers::Analysis::Dictionary do
       it 'exposes dictionary and brief' do
         response = action.call(params)
         response[0].must_equal 200
-        action.exposures.key? :dictionary
-        action.exposures.key? :brief
+        action.exposures.keys.must_include :dictionary
+        action.exposures.keys.must_include :brief
       end
     end
   end

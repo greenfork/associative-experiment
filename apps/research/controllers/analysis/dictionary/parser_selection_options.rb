@@ -5,13 +5,13 @@ module Research::Controllers::Analysis::Parser
     def initialize(raw_options)
       @raw = raw_options
       @parsed_options = {
-        quiz_id: nil,
         options: { people: {}, reactions: {} },
         type: :straight,
         reversed_with_translation: false,
         word_list: []
       }
       parse_type
+      parse_reactions
       parse_people
       parse_word
     end
@@ -22,6 +22,10 @@ module Research::Controllers::Analysis::Parser
       parsed_options[:type] = :straight if raw[:type] == 'straight'
       parsed_options[:type] = :reversed if raw[:type] == 'reversed'
       parsed_options[:type] = :incidence if raw[:type] == 'incidence'
+    end
+
+    def parse_reactions
+      parsed_options[:options][:reactions][:quiz_id] = disabled?(raw[:quiz_id])
     end
 
     def parse_people

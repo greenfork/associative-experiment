@@ -3,7 +3,7 @@ require_relative '../../../../apps/research/views/analysis/dictionary'
 require 'helper_funcs'
 
 describe Research::Views::Analysis::Dictionary do
-  let(:exposures) { Hash[params: params, dictionary: nil, brief: nil, datalist_stimuli: []] }
+  let(:exposures) { Hash[params: params, dictionary: nil, brief: nil, stimuli: [], quizzes: [], nationalities: [], regions: [], native_languages: []] }
   let(:template)  { Hanami::View::Template.new('apps/research/templates/analysis/dictionary.html.erb') }
   let(:view)      { Research::Views::Analysis::Dictionary.new(template, exposures) }
   let(:rendered)  { view.render }
@@ -15,6 +15,7 @@ describe Research::Views::Analysis::Dictionary do
     rendered.scan(/name="selection\[sex\]"/).count.must_equal 3
     rendered.scan(/name="selection\[age_from\]"/).count.must_equal 1
     rendered.scan(/name="selection\[age_to\]"/).count.must_equal 1
+    rendered.scan(/name="selection\[quiz_id\]"/).count.must_equal 1
     rendered.scan(/name="selection\[region\]"/).count.must_equal 1
     rendered.scan(/name="selection\[nationality1\]"/).count.must_equal 1
     rendered.scan(/name="selection\[native_language\]"/).count.must_equal 1
@@ -43,7 +44,7 @@ describe Research::Views::Analysis::Dictionary do
           single: 0,
           null: 0
         },
-        datalist_stimuli: [],
+        stimuli: [], quizzes: [], nationalities: [], regions: [], native_languages: [],
         type: :straight
       ]
     }
@@ -65,7 +66,7 @@ describe Research::Views::Analysis::Dictionary do
   end
 
   describe 'with errors present' do
-    let(:exposures) { Hash[params: params, dictionary: nil, brief: nil, datalist_stimuli: []] }
+    let(:exposures) { Hash[params: params, dictionary: nil, brief: nil, stimuli: [], quizzes: [], nationalities: [], regions: [], native_languages: []] }
     let(:params) do
       pampam = HelperFuncs::Pampam.new(selection: {})
       pampam[:selection][:word] = 'abc'

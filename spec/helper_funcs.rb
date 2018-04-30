@@ -7,10 +7,33 @@ module HelperFuncs
       reaction_repository = ReactionRepository.new
       user_repository = UserRepository.new
       quiz_id = 1
+      quiz_id2 = 2
 
       quiz_repository.clear
       quiz_repository.create(
         id: quiz_id,
+        title: 'QuizA',
+        language: 'rus',
+        is_active: true,
+        is_reviewed_automatically: false,
+        available_time: 300,
+        number_of_words: 3,
+        sex_flag: true,
+        age_flag: true,
+        profession_flag: false,
+        region_flag: false,
+        residence_place_flag: false,
+        birth_place_flag: false,
+        nationality1_flag: false,
+        nationality2_flag: false,
+        spoken_languages_flag: false,
+        native_language_flag: false,
+        communication_language_flag: false,
+        education_language_flag: false,
+        quiz_language_level_flag: false
+      )
+      quiz_repository.create(
+        id: quiz_id2,
         title: 'QuizA',
         language: 'rus',
         is_active: true,
@@ -75,7 +98,7 @@ module HelperFuncs
         date: Time.now,
         is_reviewed: false,
         total_time: Time.now.to_i,
-        quiz_id: quiz_id
+        quiz_id: quiz_id2
       )
       reaction_repository.clear
       reaction_list = []
@@ -101,19 +124,19 @@ module HelperFuncs
         reaction: 'reac1-2',
         person_id: 2,
         stimulus_id: 1,
-        quiz_id: quiz_id
+        quiz_id: quiz_id2
       ]
       reaction_list << Hash[
         reaction: 'reac2-2',
         person_id: 2,
         stimulus_id: 2,
-        quiz_id: quiz_id
+        quiz_id: quiz_id2
       ]
       reaction_list << Hash[
         reaction: 'reac3-2',
         person_id: 2,
         stimulus_id: 3,
-        quiz_id: quiz_id
+        quiz_id: quiz_id2
       ]
       reaction_repository.create_many(reaction_list)
       user_repository.clear
@@ -137,6 +160,7 @@ module HelperFuncs
     def fill_with_reactions
       reaction_repository = ReactionRepository.new
       quiz_id = 1
+      quiz_id2 = 2
       reaction_list = []
 
       10.times do
@@ -171,7 +195,7 @@ module HelperFuncs
           reaction: 'reac2',
           person_id: 2,
           stimulus_id: 1,
-          quiz_id: quiz_id
+          quiz_id: quiz_id2
         ]
         reaction_list << Hash[
           reaction: 'reac4',
@@ -186,13 +210,13 @@ module HelperFuncs
           reaction: 'reac5',
           person_id: 2,
           stimulus_id: 1,
-          quiz_id: quiz_id
+          quiz_id: quiz_id2
         ]
         reaction_list << Hash[
           reaction: 'reac6',
           person_id: 2,
           stimulus_id: 1,
-          quiz_id: quiz_id
+          quiz_id: quiz_id2
         ]
         reaction_list << Hash[
           reaction: 'reac3',
