@@ -20,10 +20,8 @@ module Research::Views::Analysis
           end
           label t('.word'), for: 'selection-word', class: 'col-sm-2 control-label'
           div(class: 'col-sm-10') do
-            # text_field :word, class: 'form-control', autocomplete: 'off',
-                       # list: 'stimuli'
             datalist :word, datalist_stimuli, 'stimuli', class: 'form-control',
-                     autocomplete: 'off'
+                     autocomplete: 'off', required: true
           end
         end
 
@@ -75,12 +73,14 @@ module Research::Views::Analysis
           label t('.age'), for: 'selection-age-from',
                 class: 'col-sm-2 control-label'
           div(class: 'col-sm-2') do
-            text_field :age_from, class: 'form-control',
-                       placeholder: t('.from'), autocomplete: 'off'
+            number_field :age_from, class: 'form-control',
+                         placeholder: t('.from'), autocomplete: 'off',
+                         min: 1, max: 200
           end
           div(class: 'col-sm-2') do
-            text_field :age_to, class: 'form-control',
-                       placeholder: t('.to'), autocomplete: 'off'
+            number_field :age_to, class: 'form-control',
+                       placeholder: t('.to'), autocomplete: 'off',
+                       min: 1, max: 200
           end
         end
 
@@ -126,12 +126,14 @@ module Research::Views::Analysis
           label t('.date'), for: 'selection-date-from',
                 class: 'col-sm-2 control-label'
           div(class: 'col-sm-3') do
-            text_field :date_from, class: 'form-control datepicker',
-                       placeholder: t('.from'), autocomplete: 'off'
+            text_field :date_from, class: 'form-control',
+                       placeholder: t('.from'), autocomplete: 'off',
+                       pattern: '\d\d\.\d\d\.\d\d\d\d'
           end
           div(class: 'col-sm-3') do
             text_field :date_to, class: 'form-control',
-                       placeholder: t('.to'), autocomplete: 'off'
+                       placeholder: t('.to'), autocomplete: 'off',
+                       pattern: '\d\d\.\d\d\.\d\d\d\d'
           end
         end
 

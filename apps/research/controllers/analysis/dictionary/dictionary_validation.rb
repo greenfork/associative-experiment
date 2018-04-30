@@ -25,8 +25,8 @@ module Research::Controllers::Analysis
         optional(:communication_language).filled(:str?, included_in?: LANGUAGES)
         optional(:education_language).filled(:str?, included_in?: LANGUAGES)
         optional(:quiz_language_level).filled(:str?, included_in?: QUIZ_LANGUAGE_LEVELS)
-        optional(:date_from).maybe(:time?)
-        optional(:date_to).maybe(:time?)
+        optional(:date_from).maybe(:str?)
+        optional(:date_to).maybe(:str?)
       end
     end
   end

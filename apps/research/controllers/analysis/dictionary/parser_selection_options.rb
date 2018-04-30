@@ -32,8 +32,8 @@ module Research::Controllers::Analysis::Parser
         nationality1: disabled?(raw[:nationality1]),
         native_language: disabled?(raw[:native_language]),
         region: disabled?(raw[:region]),
-        date_from: raw[:date_from],
-        date_to: raw[:date_to]
+        date_from: to_time(raw[:date_from]),
+        date_to: to_time(raw[:date_to])
       }
     end
 
@@ -53,6 +53,12 @@ module Research::Controllers::Analysis::Parser
     def sex_param(sex)
       return nil if sex == 'all'
       sex
+    end
+
+    def to_time(ru_string)
+      return nil if ru_string.nil?
+      day, month, year = ru_string.split('.')
+      Time.new(year, month, day)
     end
   end
 end
