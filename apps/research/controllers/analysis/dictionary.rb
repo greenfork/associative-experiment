@@ -2,6 +2,7 @@ require_relative './dictionary/dictionary_validation.rb'
 require_relative './dictionary/stats_dictionary.rb'
 require_relative './dictionary/stats_brief.rb'
 require_relative './dictionary/parser_selection_options.rb'
+require_relative './dictionary/xlsx_export.rb'
 
 module Research::Controllers::Analysis
   class Dictionary
@@ -17,6 +18,7 @@ module Research::Controllers::Analysis
       if request.post?
         authorized?
         return unless params.valid? && params[:selection]
+        params[:selection][:word] = params[:selection][:word].strip
         stimulus_id = StimulusRepository.new.find_id(
           params[:selection][:word].strip
         )
@@ -28,6 +30,20 @@ module Research::Controllers::Analysis
         @type = parsed_options[:type]
         @dictionary = Stats::Dictionary.new(options: parsed_options).dictionary
         @brief = Stats::Brief.new(@dictionary).brief
+
+        if params[:selection][:output] == 'xlsx'
+          self.status = 200
+          headers['Content-Type'] =
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+          headers['Content-Disposition'] =
+            "attachment; filename=#{params[:selection][:word]}.xlsx"
+          self.body = XlsxExport.new(
+            params: params[:selection],
+            dictionary: @dictionary,
+            brief: @brief,
+            quizz_names: @quizz_names
+          ).xlsx
+        end
       end
     end
 
@@ -43,6 +59,8 @@ module Research::Controllers::Analysis
       @quizzes = QuizRepository.new.all.map do |quiz|
         { "#{quiz.title}, #{quiz.language}" => quiz.id }
       end
+      @quizz_names = { '--' => '--' }
+      @quizzes.each { |q| @quizz_names[q.values[0]] = q.keys[0] }
       @nationalities    = PersonRepository.new.distinct(:nationality1)
                                           .map { |n| { n => n } }
       @regions          = PersonRepository.new.distinct(:region)

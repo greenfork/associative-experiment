@@ -154,8 +154,16 @@ module Research::Views::Analysis
         div(class: 'form-group') do
           div(class: 'col-sm-offset-2 col-sm-10') do
             submit t('.submit'), id: 'submit', class: 'btn btn-default'
+            button(
+              t('.xlsx-export'),
+              class: 'btn btn-default',
+              id: 'xlsx-export'
+            )
           end
         end
+
+        # output
+        hidden_field :output, value: 'html'
       end
     end
 

@@ -22,6 +22,8 @@ describe Research::Views::Analysis::Dictionary do
     rendered.scan(/name="selection\[date_from\]"/).count.must_equal 1
     rendered.scan(/name="selection\[date_to\]"/).count.must_equal 1
     rendered.scan(/type="submit"/).count.must_equal 1
+    rendered.scan(/id="xlsx-export"/).count.must_equal 1
+    rendered.scan(/name="selection\[output\]"/).count.must_equal 1
   end
 
   it 'doesnt show summary and dictionary tables' do

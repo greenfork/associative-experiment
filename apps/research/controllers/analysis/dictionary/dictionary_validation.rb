@@ -11,6 +11,7 @@ module Research::Controllers::Analysis
       optional(:selection).schema do
         required(:word).filled(:str?)
         required(:type).filled(:str?, included_in?: %w[straight reversed])
+        required(:output).filled(:str?, included_in?: %w[html xlsx])
         optional(:sex).filled(:str?, included_in?: %w[male female all])
         optional(:age_from).maybe(:int?, included_in?: 1..200)
         optional(:age_to).maybe(:int?, included_in?: 1..200)

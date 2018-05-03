@@ -50,7 +50,8 @@ describe Research::Controllers::Analysis::Dictionary do
         Hash[
           selection: {
             word: 'stim1',
-            type: 'straight'
+            type: 'straight',
+            output: 'html'
           },
           'REQUEST_METHOD' => 'POST',
           'rack.session' => {
@@ -97,6 +98,42 @@ describe Research::Controllers::Analysis::Dictionary do
         response[0].must_equal 200
         action.exposures.keys.must_include :dictionary
         action.exposures.keys.must_include :brief
+      end
+    end
+
+    describe 'with a word provided [POST], request for xlsx document' do
+      let(:params) {
+        Hash[
+          selection: {
+            word: 'stim1',
+            type: 'straight',
+            output: 'xlsx'
+          },
+          'REQUEST_METHOD' => 'POST',
+          'rack.session' => {
+            current_user: @user
+          }
+        ]
+      }
+      let(:quizz_names) { Hash[] }
+
+      it 'offers xlsx file for download' do
+        response = action.call(params)
+        response[0].must_equal 200
+        response[1]['Content-Type'].must_equal(
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        response[1]['Content-Disposition'].must_equal(
+          "attachment; filename=#{params[:selection][:word]}.xlsx"
+        )
+        response[2][0].must_equal(
+          Research::Controllers::Analysis::XlsxExport.new(
+            params: action.exposures[:params][:selection],
+            dictionary: action.exposures[:dictionary],
+            brief: action.exposures[:brief],
+            quizz_names: quizz_names
+          ).xlsx
+        )
       end
     end
   end

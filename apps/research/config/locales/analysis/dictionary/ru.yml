@@ -18,7 +18,8 @@ ru:
         nationality: Национальность
         native-language: Родной язык
         date: Дата
-        submit: Отправить
+        submit: Анализировать
+        xlsx-export: Экспорт в Excel
         # brief
         total: Всего
         distinct: Различные
