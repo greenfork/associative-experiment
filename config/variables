@@ -15,7 +15,8 @@ export SMTP_HOST=
 export SMTP_PORT=
 
 # DATABASE
-export DATABASE_NAME='mysql-5.7'
+# Currently DATABASE_NAME has these useful values: mysql-5.7
+export DATABASE_NAME='not-mysql-5.7'
 export DATABASE_ADAPTER=mysql2
 export DATABASE_USER=
 export DATABASE_PASSWORD=
