@@ -1,17 +1,56 @@
 # Associative linguistic experiment
-This experiment is briefly described on the [wiki](https://en.wikipedia.org/wiki/Pair_by_association). But in contrary to psychology this experiment focuses mainly on language and words which is closer to psycholinguistics.
+This experiment is briefly described on the
+[wiki](https://en.wikipedia.org/wiki/Pair_by_association). But in contrary to
+psychology this experiment focuses mainly on language and words which is
+closer to
+[psycholinguistics](https://en.wikipedia.org/wiki/Psycholinguistics).
 
 ## Brief history
-Usually this experiment is conducted in the way that respondents are given questionnaire sheets where they fill in their age, sex, native language and nationality leaving name and surname, hence the experiment is conducted anonymously. Next they see a list of words (usually around 100) and an empty field to fill beside these words. The respondents write their association to the word next to it in the field and repeat till all the 100 fields are filled.
+Usually this experiment is conducted in the way that respondents are given
+questionnaire sheets where they fill in their age, sex, native language and
+nationality leaving name and surname, hence the experiment is conducted
+anonymously. Next they see a list of words (usually around 100) and an empty
+field to fill next to these words. The respondents write their association to
+the word next to it in the field and repeat until all the 100 fields are done.
 
 ## Purpose
-The main purpose of this software is to automate acquisition of the respondents' reactions and provide convenient tools to view and administer this process and the results including research specific statistics and metrics.
+The main purpose of this software is to automate acquisition of the
+respondents' reactions and provide convenient tools to view and administer
+this process and the results including research specific statistics and
+metrics.
+
+## Prerequisites
+You will need `ruby 2.3+` with `bundle` to run this application in production.
+
+You will need to edit config/variables and config/unicorn.rb to your needs for
+production usage.
+
+If you want to run tests, you will need additionally to install backend for
+[capybara-webkit](https://github.com/thoughtbot/capybara-webkit) and possibly
+change database to sqlite in .env.development and .env.test.
+
 
 ## Usage
-This software is effectively useless without the data of the respondents. So far there are no freely available interfaces for interaction with users and respondents beside collecting their reactions but this is a feature to be added soon!
+```
+git clone https://github.com/greenfork/associative-experiment.git
+cd associative-experiment
 
-## Contributing
-Feel free to suggest any ideas on how you, as a respondent, would like to view your results, compare it to other results and whatever makes you want to complete this experiment.
+# for production
+bundle install --deployment
+bundle exec hanami assets precompile
+source config/variables
+bundle exec unicorn -c config/unicorn.rb -E production -D
+
+# for development
+bundle install
+bundle exec hanami db prepare
+HANAMI_ENV=test bundle exec hanami db prepare
+bundle exec rake
+bundle exec hanami server
+```
+
+Unicorn server works well with nginx in production.
 
 ## License
-Everything is licensed under GNU General Public License v3.0. See the LICENSE file.
+Everything is licensed under GNU General Public License v3.0. See the LICENSE
+file.
