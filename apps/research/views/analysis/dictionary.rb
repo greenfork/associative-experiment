@@ -151,6 +151,21 @@ module Research::Views::Analysis
           end
         end
 
+        # translation
+        div(class: 'form-group') do
+          label t('.translation'), class: 'col-sm-2 control-label'
+          div(class: 'col-sm-10') do
+            div(class: 'checkbox') do
+              label('translation', class: 'radio-inline') do
+                check_box :translation,
+                          checked_value: true,
+                          unchecked_value: false
+                span(t('.switch-on'))
+              end
+            end
+          end
+        end
+
         # submit
         div(class: 'form-group') do
           div(class: 'col-sm-offset-2 col-sm-10') do
@@ -215,12 +230,14 @@ module Research::Views::Analysis
       html.table(class: 'table table-striped table-hover', id: 'dictionary') do
         tr do
           th t('.reaction')
+          th t('.translation') if with_translation
           th t('.count')
           th t('.percent')
         end
         dictionary.each do |hash|
           tr do
             td hash[:reaction]
+            td hash[:translation] if with_translation
             td hash[:count]
             td format('%.2f', hash[:count].to_f / brief[:total] * 100)
           end
@@ -232,12 +249,14 @@ module Research::Views::Analysis
       html.table(class: 'table table-striped table-hover', id: 'dictionary') do
         tr do
           th t('.stimulus')
+          th t('.translation') if with_translation
           th t('.count')
           th t('.percent')
         end
         dictionary.each do |hash|
           tr do
             td hash[:stimulus]
+            td hash[:st_translation] if with_translation
             td hash[:count]
             td format('%.2f', hash[:count].to_f / brief[:total] * 100)
           end

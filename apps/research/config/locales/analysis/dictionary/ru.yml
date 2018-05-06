@@ -18,6 +18,8 @@ ru:
         nationality: Национальность
         native-language: Родной язык
         date: Дата
+        translation: Перевод
+        switch-on: Включить
         submit: Анализировать
         xlsx-export: Экспорт в Excel
         # brief

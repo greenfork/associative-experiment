@@ -12,6 +12,7 @@ module Research::Controllers::Analysis
         required(:word).filled(:str?)
         required(:type).filled(:str?, included_in?: %w[straight reversed])
         required(:output).filled(:str?, included_in?: %w[html xlsx])
+        required(:translation).filled(:bool?)
         optional(:sex).filled(:str?, included_in?: %w[male female all])
         optional(:age_from).maybe(:int?, included_in?: 1..200)
         optional(:age_to).maybe(:int?, included_in?: 1..200)

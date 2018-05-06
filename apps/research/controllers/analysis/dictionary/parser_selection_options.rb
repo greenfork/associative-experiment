@@ -7,7 +7,6 @@ module Research::Controllers::Analysis::Parser
       @parsed_options = {
         options: { people: {}, reactions: {} },
         type: :straight,
-        reversed_with_translation: false,
         word_list: []
       }
       parse_type

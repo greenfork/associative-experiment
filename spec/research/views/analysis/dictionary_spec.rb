@@ -26,6 +26,7 @@ describe Research::Views::Analysis::Dictionary do
     rendered.scan(/name="selection\[native_language\]"/).count.must_equal 1
     rendered.scan(/name="selection\[date_from\]"/).count.must_equal 1
     rendered.scan(/name="selection\[date_to\]"/).count.must_equal 1
+    rendered.scan(/name="selection\[translation\]"/).count.must_equal 2
     rendered.scan(/type="submit"/).count.must_equal 1
     rendered.scan(/id="xlsx-export"/).count.must_equal 1
     rendered.scan(/name="selection\[output\]"/).count.must_equal 1
@@ -70,6 +71,7 @@ describe Research::Views::Analysis::Dictionary do
       rendered.scan(/\b86\b/).count.must_equal 1
       rendered.scan(/\b128\b/).count.must_equal 1
       rendered.scan(/\bРеакция\b/).count.must_equal 1
+      rendered.scan(/\bПеревод\b/).count.must_equal 2
       rendered.scan(/\bКоличество\b/).count.must_equal 1
       rendered.scan(/\bПроцент\b/).count.must_equal 1
     end

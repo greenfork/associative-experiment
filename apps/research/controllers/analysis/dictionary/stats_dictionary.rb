@@ -16,7 +16,8 @@ module Research::Controllers::Analysis::Stats
           stimulus: pair.stimulus,
           count: pair.pair_count,
           translation: pair.translation,
-          translation_comment: pair.translation_comment
+          translation_comment: pair.translation_comment,
+          st_translation: pair.st_translation
         }
       end
     end

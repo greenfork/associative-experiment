@@ -18,14 +18,11 @@ class ReactionRepository < Hanami::Repository
   end
 
   def create_many(list)
-    time = Time.now
-    list = list.map { |r| r.merge(created_at: time, updated_at: time) }
     command(:create, reactions, result: :many).call(list)
   end
 
   def get_dictionary(options: { reactions: {}, people: {} },
                      type: :straight,
-                     reversed_with_translation: false,
                      word_list: [])
     quiz_id = options[:reactions][:quiz_id]
     reaction = options[:reactions][:reaction] # word in case of reversed dict
@@ -57,13 +54,14 @@ class ReactionRepository < Hanami::Repository
       w_date = " AND (date BETWEEN '#{date_from}' AND '#{date_to}')"
     end
     w_quiz_id = " AND r.quiz_id = #{Integer(quiz_id)}" unless quiz_id.nil?
+
     order = 'stimulus, pair_count DESC, reaction' if type == :straight
     order = 'reaction, pair_count DESC, stimulus' if type == :reversed
     order = 'stimulus, reaction, pair_count DESC' if type == :incidence
-    if reversed_with_translation
-      st_translation = ', s.translation as st_translation'
+    if type == :reversed_with_translation
       order = 'r.translation, pair_count DESC, st_translation'
     end
+
     w_list = if word_list.empty? # word in case of straight dict
                ''
              else
@@ -74,12 +72,11 @@ class ReactionRepository < Hanami::Repository
     if ENV['DATABASE_NAME'] == 'mysql-5.7'
       translation = 'ANY_VALUE(r.translation) as translation'
       translation_comment = 'ANY_VALUE(r.translation_comment) as translation_comment'
-      if reversed_with_translation
-        st_translation = ', ANY_VALUE(s.translation) as st_translation'
-      end
+      st_translation = 'ANY_VALUE(s.translation) as st_translation'
     else
       translation = 'r.translation'
       translation_comment = 'r.translation_comment'
+      st_translation = 's.translation as st_translation'
     end
 
     sql = <<-SQL.gsub(/^ */, '')
@@ -88,7 +85,7 @@ class ReactionRepository < Hanami::Repository
           #{translation},
           #{translation_comment},
           s.stimulus,
-          COUNT(*) as pair_count
+          COUNT(*) as pair_count,
           #{st_translation}
         FROM reactions r
         JOIN stimuli s ON s.id = r.stimulus_id

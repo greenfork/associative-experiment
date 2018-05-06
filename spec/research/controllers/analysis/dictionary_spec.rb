@@ -26,6 +26,7 @@ describe Research::Controllers::Analysis::Dictionary do
     action.exposures.keys.must_include :nationalities
     action.exposures.keys.must_include :regions
     action.exposures.keys.must_include :native_languages
+    action.exposures.keys.must_include :with_translation
   end
 
   describe 'with UNauthenticated user' do
@@ -51,7 +52,8 @@ describe Research::Controllers::Analysis::Dictionary do
           selection: {
             word: 'stim1',
             type: 'straight',
-            output: 'html'
+            output: 'html',
+            translation: false
           },
           'REQUEST_METHOD' => 'POST',
           'rack.session' => {
@@ -79,9 +81,11 @@ describe Research::Controllers::Analysis::Dictionary do
           selection: {
             word: 'stim1',
             type: 'straight',
+            output: 'html',
+            translation: false,
             sex: 'all',
-            age_from: 10,
-            age_to: 20,
+            age_from: 1,
+            age_to: 100,
             region: 'Москва',
             nationality1: 'Russian',
             native_language: 'русский'
@@ -96,8 +100,8 @@ describe Research::Controllers::Analysis::Dictionary do
       it 'exposes dictionary and brief' do
         response = action.call(params)
         response[0].must_equal 200
-        action.exposures.keys.must_include :dictionary
-        action.exposures.keys.must_include :brief
+        action.exposures[:dictionary].wont_be_nil
+        action.exposures[:brief].wont_be_nil
       end
     end
 
@@ -107,7 +111,8 @@ describe Research::Controllers::Analysis::Dictionary do
           selection: {
             word: 'stim1',
             type: 'straight',
-            output: 'xlsx'
+            output: 'xlsx',
+            translation: false
           },
           'REQUEST_METHOD' => 'POST',
           'rack.session' => {
@@ -132,7 +137,8 @@ describe Research::Controllers::Analysis::Dictionary do
             dictionary: action.exposures[:dictionary],
             brief: action.exposures[:brief],
             quizz_names: quizz_names
-          ).xlsx
+          ).xlsx,
+          "\nThis can sometimes fail :(\n"
         )
       end
     end

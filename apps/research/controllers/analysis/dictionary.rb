@@ -10,7 +10,7 @@ module Research::Controllers::Analysis
     params DictionaryValidation
 
     expose :dictionary, :brief, :stimuli, :type, :quizzes, :nationalities,
-           :regions, :native_languages, :selection
+           :regions, :native_languages, :with_translation, :selection
 
     def call(params)
       expose_possible_values
@@ -62,7 +62,7 @@ module Research::Controllers::Analysis
 
     def expose_possible_values
       @stimuli = StimulusRepository.new.all.map(&:stimulus).sort || []
-      @quizzes = QuizRepository.new.all.map do |quiz|
+      @quizzes = QuizRepository.new.all.sort_by(&:title).map do |quiz|
         { "#{quiz.title}, #{quiz.language}" => quiz.id }
       end
       @quizz_names = { '--' => '--' }
@@ -73,6 +73,7 @@ module Research::Controllers::Analysis
                                           .map { |r| { r => r } }
       @native_languages = PersonRepository.new.distinct(:native_language)
                                           .map { |nl| { nl => nl } }
+      @with_translation = params.dig(:selection, :translation)
     end
   end
 end
