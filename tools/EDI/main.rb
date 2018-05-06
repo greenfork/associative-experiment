@@ -5,7 +5,7 @@ module EDI
   # Takes results of an associative linguistic experiment and puts in into
   # the database creating records for quiz, stimuli, people and reactions
   class Main
-    attr_reader :stimuli_array, :quiz_settings, :people
+    attr_reader :stimuli, :quiz_settings, :people
 
     # @param stimuli_array [Array<String>] array of stimuli
     # @param quiz_settings [Hash] hash of flag values corresponding to the
@@ -20,14 +20,14 @@ module EDI
     #  :stimulus keys and optional :translation, :translation_comment keys with
     #  values of a class String
     def initialize(stimuli:, quiz_settings:, people:)
-      @stimuli_array = stimuli
+      @stimuli = stimuli
       @quiz_settings = quiz_settings
       @people = people
     end
 
     # Writes all data to the database
     def persist
-      quiz = create_quiz(stimuli_array, quiz_settings)
+      quiz = create_quiz(stimuli, quiz_settings)
       quiz_id = quiz.id
       stimuli = quiz.stimuli
 
@@ -43,12 +43,15 @@ module EDI
 
     private
 
-    def create_quiz(stimuli_array, quiz_settings)
+    def create_quiz(stimuli, quiz_settings)
       quiz = EDI::Quiz.new(settings: quiz_settings,
-                           stimuli_list: stimuli_array)
+                           stimuli_list: stimuli)
 
       quiz.missing_stimuli do |s|
-        StimulusRepository.new.create(stimulus: s)
+        StimulusRepository.new.create(
+          stimulus: s.stimulus,
+          translation: s.translation
+        )
       end
 
       quiz.bind_stimuli

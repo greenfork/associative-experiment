@@ -20,7 +20,7 @@ module EDI
     # @yield all the stimuli missing in the database
     # @yieldparam s [String] stimulus which is not present in the database
     def missing_stimuli
-      stimuli.each { |s| yield s.stimulus if s.id.nil? }
+      stimuli.each { |s| yield s if s.id.nil? }
     end
 
     # Connects all the stimuli to the current quiz via join table in database
@@ -44,8 +44,12 @@ module EDI
       return @stimuli unless @stimuli.nil? || refetch
       @stimuli = []
       stimuli_list.each do |s|
-        id = stimulus_repository.find_id(s)
-        @stimuli << Stimulus.new(id: id, stimulus: s)
+        id = stimulus_repository.find_id(s[:stimulus])
+        @stimuli << Stimulus.new(
+          id: id,
+          stimulus: s[:stimulus],
+          translation: s[:translation]
+        )
       end
       @stimuli
     end

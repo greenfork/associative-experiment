@@ -3,7 +3,7 @@ require_relative '../quiz.rb'
 
 describe EDI::Quiz do
   let(:quiz_id) { 1 }
-  let(:settings) {
+  let(:settings) do
     Hash[
       id: quiz_id,
       title: 'QuizB',
@@ -27,8 +27,15 @@ describe EDI::Quiz do
       quiz_language_level_flag: false,
       created_at: 1_505_331_469, updated_at: 1_505_331_469
     ]
-  }
-  let(:stimuli_list) { %w[apple peach grapefruit banana] }
+  end
+  let(:stimuli_list) do
+    [
+      { stimulus: 'apple', translation: 'yabloko' },
+      { stimulus: 'peach', translation: 'persik' },
+      { stimulus: 'grapefruit', translation: nil },
+      { stimulus: 'banana', translation: 'banan' }
+    ]
+  end
   let(:stimulus_repository) { StimulusRepository.new }
   let(:quiz_repository) { QuizRepository.new }
 
@@ -36,7 +43,8 @@ describe EDI::Quiz do
     quiz_repository.clear
     @quiz = EDI::Quiz.new(settings: settings, stimuli_list: stimuli_list)
     stimulus_repository.clear
-    stimulus_repository.create(stimulus: stimuli_list[0],
+    stimulus_repository.create(stimulus: stimuli_list[0][:stimulus],
+                               translation: stimuli_list[0][:translation],
                                created_at: Time.now,
                                updated_at: Time.now)
     @expected_quiz = Quiz.new(
@@ -70,7 +78,10 @@ describe EDI::Quiz do
   end
 
   it 'yields missing stimuli' do
-    @quiz.missing_stimuli { |s| stimuli_list[1..-1].must_include s }
+    @quiz.missing_stimuli do |s|
+      s = { stimulus: s.stimulus, translation: s.translation }
+      stimuli_list[1..-1].must_include s
+    end
   end
 
   it 'throws exception if stimuli are missing' do
@@ -79,13 +90,19 @@ describe EDI::Quiz do
 
   it 'binds stimuli to the current quiz via join table' do
     @quiz.missing_stimuli do |s|
-      stimulus_repository.create(stimulus: s)
+      stimulus_repository.create(
+        stimulus: s.stimulus,
+        translation: s.translation
+      )
     end
     @quiz.bind_stimuli
     stim = stimulus_repository.get_stimuli_of(quiz_id)
     stim.wont_be_empty
     stim.each do |s|
-      stimuli_list.must_include s.stimulus
+      stimuli_list.must_include(
+        stimulus: s.stimulus,
+        translation: s.translation
+      )
     end
   end
 end

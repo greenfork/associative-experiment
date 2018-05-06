@@ -30,7 +30,13 @@ describe EDI::Main do
       created_at: 1_505_331_469, updated_at: 1_505_331_469
     ]
   }
-  let(:stimuli_list) { %w[молоко дерево облако] }
+  let(:stimuli_list) {
+    [
+      { stimulus: 'молоко', translation: nil },
+      { stimulus: 'дерево', translation: 'derevo' },
+      { stimulus: 'облако', translation: 'oblako' }
+    ]
+  }
   let(:reaction_list) { %w[корова смола белое яблоко] }
   let(:people) {
     [
@@ -44,13 +50,13 @@ describe EDI::Main do
         reactions: [
           {
             reaction: reaction_list[0],
-            stimulus: stimuli_list[0],
+            stimulus: stimuli_list[0][:stimulus],
             translation: 'без перевода',
             translation_comment: 'без комментариев'
           },
           {
             reaction: reaction_list[1],
-            stimulus: stimuli_list[1]
+            stimulus: stimuli_list[1][:stimulus]
           }
         ]
       },
@@ -64,11 +70,11 @@ describe EDI::Main do
         reactions: [
           {
             reaction: reaction_list[2],
-            stimulus: stimuli_list[0]
+            stimulus: stimuli_list[0][:stimulus]
           },
           {
             reaction: reaction_list[3],
-            stimulus: stimuli_list[2]
+            stimulus: stimuli_list[2][:stimulus]
           }
         ]
       }
@@ -95,7 +101,7 @@ describe EDI::Main do
   end
 
   it 'exists' do
-    @main.stimuli_array.must_equal stimuli_list
+    @main.stimuli.must_equal stimuli_list
     @main.quiz_settings.must_equal settings
     @main.people.must_equal people
   end
@@ -117,7 +123,7 @@ describe EDI::Main do
     person_id = person_repository.first.id
     reaction.person_id.must_equal person_id
     reaction.quiz_id.must_equal quiz_id
-    stimulus_id = stimulus_repository.find_id(stimuli_list[0])
+    stimulus_id = stimulus_repository.find_id(stimuli_list[0][:stimulus])
     reaction.stimulus_id.must_equal stimulus_id
 
     reaction = reaction_repository.all[1]
@@ -125,7 +131,7 @@ describe EDI::Main do
     person_id = person_repository.first.id
     reaction.person_id.must_equal person_id
     reaction.quiz_id.must_equal quiz_id
-    stimulus_id = stimulus_repository.find_id(stimuli_list[1])
+    stimulus_id = stimulus_repository.find_id(stimuli_list[1][:stimulus])
     reaction.stimulus_id.must_equal stimulus_id
 
     reaction = reaction_repository.all[2]
@@ -133,7 +139,7 @@ describe EDI::Main do
     person_id = person_repository.last.id
     reaction.person_id.must_equal person_id
     reaction.quiz_id.must_equal quiz_id
-    stimulus_id = stimulus_repository.find_id(stimuli_list[0])
+    stimulus_id = stimulus_repository.find_id(stimuli_list[0][:stimulus])
     reaction.stimulus_id.must_equal stimulus_id
 
     reaction = reaction_repository.all[3]
@@ -141,7 +147,7 @@ describe EDI::Main do
     person_id = person_repository.last.id
     reaction.person_id.must_equal person_id
     reaction.quiz_id.must_equal quiz_id
-    stimulus_id = stimulus_repository.find_id(stimuli_list[2])
+    stimulus_id = stimulus_repository.find_id(stimuli_list[2][:stimulus])
     reaction.stimulus_id.must_equal stimulus_id
   end
 end
