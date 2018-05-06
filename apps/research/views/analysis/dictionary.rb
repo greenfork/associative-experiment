@@ -7,7 +7,8 @@ module Research::Views::Analysis
     end
 
     def selection_form
-      form_for :selection, routes.dict_path, class: 'form-horizontal' do
+      form_for :selection, routes.dict_path, class: 'form-horizontal',
+               values: { selection: selection } do
         # word
         div(class: 'form-group') do
           if params.errors.dig(:word)

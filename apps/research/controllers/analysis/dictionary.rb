@@ -10,10 +10,14 @@ module Research::Controllers::Analysis
     params DictionaryValidation
 
     expose :dictionary, :brief, :stimuli, :type, :quizzes, :nationalities,
-           :regions, :native_languages
+           :regions, :native_languages, :selection
 
     def call(params)
       expose_possible_values
+      unless session[:selection].nil?
+        @selection = session[:selection]
+        session[:selection] = nil
+      end
 
       if request.post?
         authorized?
@@ -51,7 +55,9 @@ module Research::Controllers::Analysis
 
     def authorized?
       @redirect_url = routes.auth_path
-      check_for_logged_in_user
+      session[:selection] = params[:selection]
+      check_for_logged_in_user # this redirects if user is not authorized
+      session[:selection] = nil # this is only executed when user is authorized
     end
 
     def expose_possible_values

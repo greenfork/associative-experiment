@@ -1,13 +1,18 @@
+# coding: utf-8
 require 'spec_helper'
 require_relative '../../../../apps/research/views/analysis/dictionary'
 require 'helper_funcs'
 
 describe Research::Views::Analysis::Dictionary do
-  let(:exposures) { Hash[params: params, dictionary: nil, brief: nil, stimuli: [], quizzes: [], nationalities: [], regions: [], native_languages: []] }
+  let(:exposures) { Hash[params: params, dictionary: nil, brief: nil, stimuli: [], quizzes: [], nationalities: [], regions: [], native_languages: [], with_translation: nil, selection: nil] }
   let(:template)  { Hanami::View::Template.new('apps/research/templates/analysis/dictionary.html.erb') }
   let(:view)      { Research::Views::Analysis::Dictionary.new(template, exposures) }
   let(:rendered)  { view.render }
   let(:params)    { HelperFuncs::Pampam.new(selection: {}) }
+
+  before do
+    ::I18n.locale = :ru
+  end
 
   it 'shows selection form' do
     rendered.scan(/name="selection\[word\]"/).count.must_equal 1
@@ -46,7 +51,7 @@ describe Research::Views::Analysis::Dictionary do
           single: 0,
           null: 0
         },
-        stimuli: [], quizzes: [], nationalities: [], regions: [], native_languages: [],
+        stimuli: [], quizzes: [], nationalities: [], regions: [], native_languages: [], with_translation: true, selection: nil,
         type: :straight
       ]
     }
@@ -64,11 +69,14 @@ describe Research::Views::Analysis::Dictionary do
       rendered.scan(/\b18\b/).count.must_equal 1
       rendered.scan(/\b86\b/).count.must_equal 1
       rendered.scan(/\b128\b/).count.must_equal 1
+      rendered.scan(/\bРеакция\b/).count.must_equal 1
+      rendered.scan(/\bКоличество\b/).count.must_equal 1
+      rendered.scan(/\bПроцент\b/).count.must_equal 1
     end
   end
 
   describe 'with errors present' do
-    let(:exposures) { Hash[params: params, dictionary: nil, brief: nil, stimuli: [], quizzes: [], nationalities: [], regions: [], native_languages: []] }
+    let(:exposures) { Hash[params: params, dictionary: nil, brief: nil, stimuli: [], quizzes: [], nationalities: [], regions: [], native_languages: [], with_translation: false, selection: nil] }
     let(:params) do
       pampam = HelperFuncs::Pampam.new(selection: {})
       pampam[:selection][:word] = 'abc'
