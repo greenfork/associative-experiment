@@ -3,6 +3,7 @@ ru:
     analysis:
       dictionary:
         header: Словарные статьи
+        comparison-header: Сравнение ассоциативных дефиниций
         # form
         word: Слово
         type: Тип
@@ -33,6 +34,23 @@ ru:
         stimulus: Стимул
         count: Количество
         percent: Процент
+        # comparison-result
+        comparison-characteristics: Характеристики сравнения
+        title: Название
+        value: Значение
+        pearson: Коэффициент корреляции Пирсона
+        spearman: Коэффициент корреляции Спирмана
+        kendall: Коэффициент корреляции Кендалла
+        # comparison-brief
+        comparison-brief: Сводная таблица
+        all-words: Сумма всех частот
+        distinct-words: Различные слова
+        same-words: Совпадающие
+        different-words: Несовпадающие
+        # comparison-dictionary
+        comparison-dictionary: Словарь совпадающих слов
+        for-first: для первого
+        for-second: для второго
         ###
         # placeholders
         from: от

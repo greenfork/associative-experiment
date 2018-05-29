@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="page-header">
+        <h1><%=  t('.comparison-header') %></h1>
+    </div>
+    <%= selection_form %>
+    <% unless correlation.nil? %>
+        <h2><%= t('.comparison-brief') %></h2>
+        <%= brief_table %>
+        <h2><%= t('.comparison-characteristics') %></h2>
+        <%= comparison_table %>
+        <h2><%= t('.comparison-dictionary') %></h2>
+        <%= dictionary_table %>
+    <% end %>
+</div>

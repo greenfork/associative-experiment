@@ -5,6 +5,7 @@ require_relative '../lib/assoc'
 require_relative '../apps/research/application'
 require_relative '../apps/web/application'
 require_relative 'initializers/inflector.rb'
+require_relative 'R.rb'
 
 Hanami.configure do
   mount Research::Application, at: '/research'

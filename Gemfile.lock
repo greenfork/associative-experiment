@@ -144,6 +144,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    rinruby (2.0.3)
     rom (3.3.3)
       concurrent-ruby (~> 1.0)
       dry-core (~> 0.3)
@@ -222,6 +223,7 @@ DEPENDENCIES
   pry
   pry-byebug
   rake
+  rinruby
   rubocop
   rubyXL
   sass
