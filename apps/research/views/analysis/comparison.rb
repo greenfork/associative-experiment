@@ -1,3 +1,4 @@
+# coding: utf-8
 module Research::Views::Analysis
   class Comparison
     include Research::View
@@ -299,8 +300,16 @@ module Research::Views::Analysis
           td correlation[:spearman].round(6)
         end
         tr do
-          td t('.kendall')
+          td "#{t('.kendall')} (τ-a)"
           td correlation[:kendall].round(6)
+        end
+        tr do
+          td "#{t('.function')} f"
+          td correlation[:f_function]
+        end
+        tr do
+          td "#{t('.function')} g"
+          td correlation[:g_function].round(6)
         end
       end
     end

@@ -18,6 +18,8 @@ module Thesaurus
         @result[:pearson] = res[0]
         @result[:spearman] = res[1]
         @result[:kendall] = res[2]
+        @result[:f_function] = common_reactions.size
+        @result[:g_function] = res[3]
         result
       end
 
@@ -53,10 +55,17 @@ module Thesaurus
 
       def calculate
         R.eval <<-EOF
+g <- function(x, y) {
+  avg <- (sum(x) + sum(y)) / 2
+  minima <- pmin(x, y)
+  sum(minima) / avg
+}
+
+g_function <- g(x, y)
 pearson <- cor(x, y, method = "pearson")
 spearman <- cor(x, y, method = "spearman")
 kendall <- cor(x, y, method = "kendall")
-result <- c(pearson, spearman, kendall)
+result <- c(pearson, spearman, kendall, g_function)
 EOF
       end
     end
