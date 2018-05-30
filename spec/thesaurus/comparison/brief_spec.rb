@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'spec_helper'
 require_relative '../../../lib/thesaurus/comparison/brief.rb'
 describe Thesaurus::Comparison::Brief do
@@ -7,7 +8,7 @@ describe Thesaurus::Comparison::Brief do
                       ) }
   let(:dictionary1) {
     [
-      { reaction: 'memes', count: 56 },
+      { reaction: 'мемы', count: 56 },
       { reaction: 'are', count: 47 },
       { reaction: 'funtastic', count: 95 },
       { reaction: '!', count: 7 }
@@ -17,7 +18,7 @@ describe Thesaurus::Comparison::Brief do
     [
       { reaction: 'no', count: 170 },
       { reaction: 'all', count: 44 },
-      { reaction: 'memes', count: 53 },
+      { reaction: 'мемы', count: 53 },
       { reaction: 'are', count: 13 },
       { reaction: 'dead', count: 44 },
       { reaction: '!', count: 76 }

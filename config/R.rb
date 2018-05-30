@@ -4,6 +4,5 @@ if ENV['HANAMI_ENV'] == 'production'
   R = RinRuby.new(false)
 end
 
-R.eval <<CONFIG
-library(tidyverse)
-CONFIG
+# R.eval <<CONFIG
+# CONFIG

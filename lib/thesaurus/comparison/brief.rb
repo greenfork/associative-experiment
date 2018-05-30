@@ -22,7 +22,6 @@ module Thesaurus
       end
 
       def move_to_R
-        R.eval 'library(tidyverse)'
         ['dictionary1', 'dictionary2'].each do |string_dictionary|
           dictionary = eval(string_dictionary)
           reactions = []
@@ -34,18 +33,19 @@ module Thesaurus
           end
           R.reactions = reactions
           R.counts = counts
-          R.eval "#{string_dictionary} <- tibble(reactions = reactions, "\
+          R.eval "#{string_dictionary} <- data.frame(reactions = reactions, "\
                  'counts = counts)'
         end
       end
 
       def calculate
         R.eval <<-EOF
-joined <- inner_join(dictionary1, dictionary2, by="reactions",
-                     suffix = c("1", "2"))
+joined <- merge(dictionary1, dictionary2, by="reactions",
+                     suffixes = c("1", "2"))
 all_first <- sum(dictionary1$counts)
 all_second <- sum(dictionary2$counts)
-distinct <- length(table(c(dictionary1$reactions, dictionary2$reactions)))
+distinct <- length(table(c(as.character(dictionary1$reactions),
+                           as.character(dictionary2$reactions))))
 same <- length(joined$reactions)
 EOF
       end
