@@ -12,11 +12,12 @@ module Thesaurus
       def call
         move_to_R
         calculate
-        @result[:all_first] = R.all_first
-        @result[:all_second] = R.all_second
+        res = R.result
+        @result[:all_first] = res[0]
+        @result[:all_second] = res[1]
         @result[:all] = result[:all_first] + result[:all_second]
-        @result[:distinct] = R.distinct
-        @result[:same] = R.same
+        @result[:distinct] = res[2]
+        @result[:same] = res[3]
         @result[:different] = result[:distinct] - result[:same]
         result
       end
@@ -47,6 +48,7 @@ all_second <- sum(dictionary2$counts)
 distinct <- length(table(c(as.character(dictionary1$reactions),
                            as.character(dictionary2$reactions))))
 same <- length(joined$reactions)
+result <- c(all_first, all_second, distinct, same)
 EOF
       end
     end

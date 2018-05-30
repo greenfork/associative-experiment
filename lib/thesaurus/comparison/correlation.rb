@@ -14,9 +14,10 @@ module Thesaurus
         extract_common_reactions
         move_to_R
         calculate
-        @result[:pearson] = R.pearson
-        @result[:spearman] = R.spearman
-        @result[:kendall] = R.kendall
+        res = R.result
+        @result[:pearson] = res[0]
+        @result[:spearman] = res[1]
+        @result[:kendall] = res[2]
         result
       end
 
@@ -55,6 +56,7 @@ module Thesaurus
 pearson <- cor(x, y, method = "pearson")
 spearman <- cor(x, y, method = "spearman")
 kendall <- cor(x, y, method = "kendall")
+result <- c(pearson, spearman, kendall)
 EOF
       end
     end
