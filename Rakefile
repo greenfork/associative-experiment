@@ -15,7 +15,10 @@ task :server do
 end
 
 task script: :environment do
-  require_relative 'path/to/script'
+  # edit for your needs
+  $path_to_project = `pwd`.chomp
+  basepath = '/home/greenfork/code/assoc_quest/'
+  require_relative basepath + 'path/to/script.rb'
 end
 
 task default: :test
