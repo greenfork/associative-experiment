@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
-gem 'hanami', '~> 1.2'
+gem 'hanami', '~> 1.3'
 gem 'hanami-bootstrap', '0.4.0'
-gem 'hanami-model', '~> 1.2'
+gem 'hanami-model', '~> 1.3'
+gem 'sequel'
 gem 'i18n', '~> 0.8.6'
 gem 'jquery-hanami'
 gem 'rake'
