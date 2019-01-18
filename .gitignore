@@ -10,3 +10,4 @@ tmp/
 _site/
 doc/
 .yardoc/
+.bundle
