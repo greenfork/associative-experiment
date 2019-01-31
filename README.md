@@ -1,62 +1,66 @@
-# Associative linguistic experiment
-This experiment is briefly described on the
-[wiki](https://en.wikipedia.org/wiki/Pair_by_association). But in contrary to
-psychology this experiment focuses mainly on language and words which is
-closer to
-[psycholinguistics](https://en.wikipedia.org/wiki/Psycholinguistics).
+# Associative Linguistic Experiment
+This is a program that helps scientists to conduct an Associative Linguistic Experiment.
 
-## Brief history
-Usually this experiment is conducted in the way that respondents are given
-questionnaire sheets where they fill in their age, sex, native language and
-nationality leaving name and surname, hence the experiment is conducted
-anonymously. Next they see a list of words (usually around 100) and an empty
-field to fill next to these words. The respondents write their association to
-the word next to it in the field and repeat until all the 100 fields are done.
+The experiment is briefly described on the [wiki][1]. But contrary to the
+psychology this experiment focuses mainly on the language and words which is
+closer to [psycholinguistics][2].
 
-## Purpose
-The main purpose of this software is to automate acquisition of the
-respondents' reactions and provide convenient tools to view and administer
-this process and the results including research specific statistics and
-metrics.
+[1]: https://en.wikipedia.org/wiki/Pair_by_association
+[2]: https://en.wikipedia.org/wiki/Psycholinguistics
+
+## Structure
+There are 2 main blocks:
+
+- `apps/web` is a web questionnaire that asks a respondent to fill in his/her
+  reaction to the provided word.
+  
+- `apps/research` is a web interface to the database which helps querying
+  and acquiring knowledge gathered from the collected data.
+  
+And there are 2 supplementary parts:
+
+- `tools/EDI` is for Electronic Data Interchange which is not exactly what it
+  really means, but it is designed to transfer data from paper into the
+  Database.
+  
+- `tools/export_to_excel` is a couple of helpful SQL scripts to export data to
+  CSV which can be freely converted to Excel files.
 
 ## Prerequisites
-You will need `ruby 2.3+` with `bundle` and `MySQL` or `MariaDB`
-to run this application in production.
+`ruby 2.3+` with `bundle`, `MySQL`/`MariaDB` for production.
 
-You will need to edit config/variables and config/unicorn.rb to your needs for
-production usage.
+`ruby 2.3+` with `bundle`, `sqlite3` or `MySQL`/`MariaDB`, [capybara-webkit][3]
+for development and testing.
 
-If you want to run tests, you will need additionally to install backend for
-[capybara-webkit](https://github.com/thoughtbot/capybara-webkit) and possibly
-change database to sqlite in .env.development and .env.test.
+[3]: https://github.com/thoughtbot/capybara-webkit
 
+## Deplyment
+Edit `config/variables` and `config/unicorn.rb` for your needs.
 
-## Usage
 ```
 $ git clone https://github.com/greenfork/associative-experiment.git
 $ cd associative-experiment
-
-# for production
 $ bundle install --deployment
 $ bundle exec hanami assets precompile
 $ source config/variables
 $ bundle exec unicorn -c config/unicorn.rb -E production -D
+```
 
-# for development
+This application uses Unicorn as a server, consider using a web-server
+such as Nginx to serve static files and cache requests.
+
+## Development
+Change a database to the desired one in `.env.development` and `.env.test`.
+
+```
+$ git clone https://github.com/greenfork/associative-experiment.git
+$ cd associative-experiment
 $ bundle install
 $ bundle exec hanami db prepare
 $ HANAMI_ENV=test bundle exec hanami db prepare
 $ bundle exec rake # run tests
 $ bundle exec rake s # run server, visit it at localhost:7000
 ```
-
-Unicorn server works well with nginx in production.
-
-## Also
-Take a look at `tools/EDI` if you need to import data into the system.
-
-Take a look at `tools/export_to_excel` if you need to export data to Excel
-or CSV files.
 
 ## License
 Everything is licensed under GNU General Public License v3.0. See the LICENSE
