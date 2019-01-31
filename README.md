@@ -34,7 +34,7 @@ for development and testing.
 
 [3]: https://github.com/thoughtbot/capybara-webkit
 
-## Deplyment
+## Deployment
 Edit `config/variables` and `config/unicorn.rb` for your needs.
 
 ```
