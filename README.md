@@ -27,10 +27,22 @@ And there are 2 supplementary parts:
   CSV which can be freely converted to Excel files.
 
 ## Prerequisites
-`ruby 2.3+` with `bundle`, `MySQL`/`MariaDB` for production.
+`ruby 2.3.6` with `bundle`, `MySQL`/`MariaDB` for production.
 
-`ruby 2.3+` with `bundle`, `sqlite3` or `MySQL`/`MariaDB`, [capybara-webkit][3]
+`ruby 2.3.6` with `bundle`, `sqlite3` or `MySQL`/`MariaDB`, [capybara-webkit][3]
 for development and testing.
+
+Additionally set up the user in database to be used during development and
+grant it superuser access.
+
+For MariaDB:
+
+```shell
+$ mysql -u root # add -P <password> if password is used
+MariaDB [(none)]> CREATE USER 'grfork'@'localhost';
+MariaDB [(none)]> GRANT ALL ON *.* TO 'grfork'@'localhost';
+MariaDB [(none)]> quit
+```
 
 [3]: https://github.com/thoughtbot/capybara-webkit
 
