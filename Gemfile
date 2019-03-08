@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.3.6'
+
 gem 'hanami', '~> 1.3'
 gem 'hanami-bootstrap', '0.4.0'
 gem 'hanami-model', '~> 1.3'
