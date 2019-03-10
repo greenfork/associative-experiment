@@ -1,0 +1,6 @@
+#!/bin/sh
+exec 2>&1
+DIR=/home/std/associative-experiment
+cd $DIR
+. $DIR/variables
+exec chpst -u std:std /usr/local/bin/bundle exec unicorn -c $DIR/unicorn.rb -E production -D
