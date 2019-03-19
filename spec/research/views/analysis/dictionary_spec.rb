@@ -71,9 +71,7 @@ describe Research::Views::Analysis::Dictionary do
       rendered.scan(/\b86\b/).count.must_equal 1
       rendered.scan(/\b128\b/).count.must_equal 1
       rendered.scan(/\bРеакция\b/).count.must_equal 1
-      rendered.scan(/\bПеревод\b/).count.must_equal 2
       rendered.scan(/\bКоличество\b/).count.must_equal 1
-      rendered.scan(/\bПроцент\b/).count.must_equal 1
     end
   end
 
