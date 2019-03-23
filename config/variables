@@ -9,6 +9,7 @@ export HOST_URI=127.0.0.1
 export HANAMI_ENV=production
 export WEB_SESSIONS_SECRET=
 export RESEARCH_SESSIONS_SECRET=
+export ADMIN_SESSIONS_SECRET=
 
 # MAIL
 export SMTP_HOST=
