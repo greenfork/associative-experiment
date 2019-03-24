@@ -4,6 +4,14 @@ module Admin
       class Upload
         include Admin::View
 
+        def login_notice
+          return unless successful_login_notice
+
+          html.div class: 'alert alert-success' do
+            successful_login_notice
+          end
+        end
+
         def form
           form_for :form, routes.upload_path, class: 'form-horizontal',
                    enctype: 'multipart/form-data' do
