@@ -3,3 +3,7 @@ ru:
     forms:
       upload:
         header: Загрузка анкет в базу данных
+        quiz: Опрос
+        respondents: Респонденты
+        forms: Анкеты
+        check: Проверить файлы
