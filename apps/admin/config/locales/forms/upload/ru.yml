@@ -1,0 +1,5 @@
+ru:
+  admin:
+    forms:
+      upload:
+        header: Загрузка анкет в базу данных
