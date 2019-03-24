@@ -1,5 +1,7 @@
 # Repository for running raw SQL queries tuned for specific task
 class RawRepository < Hanami::Repository
+  schema {}
+
   def associative_core(person: {}, word_list: [])
     unless person[:sex].nil?
       w_sex = " AND sex = '#{person[:sex]}'"
