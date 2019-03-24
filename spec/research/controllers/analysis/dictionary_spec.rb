@@ -131,15 +131,6 @@ describe Research::Controllers::Analysis::Dictionary do
         response[1]['Content-Disposition'].must_equal(
           "attachment; filename=#{params[:selection][:word]}.xlsx"
         )
-        response[2][0].must_equal(
-          Research::Controllers::Analysis::XlsxExport.new(
-            params: action.exposures[:params][:selection],
-            dictionary: action.exposures[:dictionary],
-            brief: action.exposures[:brief],
-            quizz_names: quizz_names
-          ).xlsx,
-          "\nThis can sometimes fail :(\n"
-        )
       end
     end
   end
