@@ -100,6 +100,7 @@ module Admin
                      type: 'button'
             end
             ul id: 'forms-attributes', class: 'collapse' do
+              li t('.forms.person_id')
               li t('.forms.stimulus')
               li t('.forms.stimulus_translation')
               li t('.forms.reaction')
