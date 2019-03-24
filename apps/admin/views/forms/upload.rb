@@ -43,7 +43,7 @@ module Admin
 
             div class: 'form-group' do
               div(class: 'col-sm-offset-2 col-sm-10') do
-                submit t('.check'), id: 'submit', class: 'btn btn-primary'
+                submit t('.upload'), id: 'submit', class: 'btn btn-primary'
               end
             end
           end
