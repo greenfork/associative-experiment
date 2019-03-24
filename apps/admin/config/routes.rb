@@ -3,4 +3,7 @@
 #
 # Example:
 # get '/hello', to: ->(env) { [200, {}, ['Hello from Hanami!']] }
+root to: 'forms#upload'
 get '/forms/upload', to: 'forms#upload', as: 'upload'
+get '/login', to: 'authentication#login', as: 'auth'
+post '/login', to: 'authentication#login'

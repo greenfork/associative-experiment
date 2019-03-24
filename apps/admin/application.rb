@@ -253,6 +253,7 @@ module Admin
       controller.prepare do
         # include MyAuthentication # included in all the actions
         # before :authenticate!    # run an authentication before callback
+        include Authentication
       end
 
       # Configure the code that will yield each time Admin::View is included

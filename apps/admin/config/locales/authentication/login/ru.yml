@@ -1,0 +1,10 @@
+ru:
+  admin:
+    authentication:
+      login:
+        header: Форма входа для исследователя
+        login_label: Логин
+        password_label: Пароль
+        send_button: Войти
+        error: Вы ввели неправильный логин или пароль
+        success: Вы успешно вошли в систему

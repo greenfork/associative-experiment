@@ -4,8 +4,8 @@ describe Admin::Controllers::Forms::Upload do
   let(:action) { Admin::Controllers::Forms::Upload.new }
   let(:params) { Hash[] }
 
-  it 'is successful' do
+  it 'is fails with no login' do
     response = action.call(params)
-    response[0].must_equal 200
+    response[0].must_equal 302
   end
 end
