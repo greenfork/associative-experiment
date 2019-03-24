@@ -64,6 +64,13 @@ module Admin
             p t('.respondents.title') << ':'
             p t('.respondents.description')
             p do
+              span link_to(t('.respondents.example1'),
+                           '/assets/admin/respondents1.xlsx')
+              span ','
+              span link_to(t('.respondents.example2'),
+                           '/assets/admin/respondents2.xlsx')
+            end
+            p do
               button t('.respondents.attributes_button'),
                      class: 'btn btn-default',
                      'data-toggle': 'collapse',
@@ -92,6 +99,13 @@ module Admin
           html.div do
             p t('.forms.title') << ':'
             p t('.forms.description')
+            p do
+              span link_to(t('.forms.example1'),
+                           '/assets/admin/forms1.xlsx')
+              span ','
+              span link_to(t('.forms.example2'),
+                           '/assets/admin/forms2.xlsx')
+            end
             p do
               button t('.forms.attributes_button'),
                      class: 'btn btn-default',
