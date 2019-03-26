@@ -22,11 +22,11 @@ class AddFormsFromExcel
     @forms_xlsx = parse_xlsx(forms_xlsx, forms_headers)
   end
 
-  # Returns array of 3 elements:
+  # Returns a hash of 3 elements:
   #
-  # 1. Array of stimuli in the provided forms
-  # 2. Options of a quiz which are documented in the tools/EDI
-  # 3. Array of person hashes which are documented in the tools/EDI
+  # +stimului+:: Array of stimuli in the provided forms
+  # +quiz_settings+:: Options of a quiz which are documented in the tools/EDI
+  # +people+:: Array of person hashes which are documented in the tools/EDI
 
   def call
   end
