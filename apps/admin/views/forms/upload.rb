@@ -63,6 +63,7 @@ module Admin
             ul do
               li t('.file_requirements.point1')
               li t('.file_requirements.point2')
+              li t('.file_requirements.point3')
             end
           end
         end
