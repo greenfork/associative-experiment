@@ -4,6 +4,8 @@ require 'hanami/interactor'
 require 'rubyXL'
 require File.join(Hanami.root, 'tools', 'EDI', 'main')
 
+# Takes excel files and their headers as input and persists the data
+# provided to the database.
 class AddFormsFromExcel
   include Hanami::Interactor
 
