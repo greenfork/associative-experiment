@@ -22,11 +22,17 @@ module Research::Controllers::Analysis
       if request.post?
         authorized?
         return unless params.valid? && params[:selection]
+
         params[:selection][:word] = params[:selection][:word].strip
-        stimulus_id = StimulusRepository.new.find_id(
-          params[:selection][:word].strip
-        )
-        params.errors.add(:word) && return if stimulus_id.nil?
+        if params[:selection][:type] == 'straight'
+          stimulus_id = StimulusRepository.new.find_id(
+            params[:selection][:word].strip
+          )
+          params.errors.add(:word) && return if stimulus_id.nil?
+        elsif !ReactionRepository.new.exists?(params[:selection][:word])
+          params.errors.add(:word)
+          return
+        end
 
         parsed_options = Parser::SelectionOptions.new(params[:selection])
                                                  .parsed_options

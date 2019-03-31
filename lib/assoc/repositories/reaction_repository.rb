@@ -5,6 +5,10 @@ class ReactionRepository < Hanami::Repository
     belongs_to :quiz
   end
 
+  def exists?(reaction)
+    reactions.where(reaction: reaction).count.positive?
+  end
+
   def get_reactions_of(stimulus_id, person_id = nil, quiz_id = nil)
     if !quiz_id.nil?
       reactions.where(
