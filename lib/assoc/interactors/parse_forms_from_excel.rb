@@ -2,16 +2,21 @@
 
 require 'hanami/interactor'
 require 'rubyXL'
-require File.join(Hanami.root, 'tools', 'EDI', 'main')
 
-# Takes excel files and their headers as input and persists the data
-# provided to the database.
-class AddFormsFromExcel
+# Takes excel files and their headers as input and returns
+# a bunch of artifacts after parsing it.
+class ParseFormsFromExcel
   include Hanami::Interactor
 
   attr_reader :respondents_xlsx, :respondents_headers,
               :forms_xlsx, :forms_headers
-  expose :respondents, :forms
+
+  # * +respondents+ - just parsed respondents_xlsx hash
+  # * +forms+ - just parsed forms_xlsx hash
+  # * +stimulu+ - array of all stimuli used
+  # * +people+ - array of objects which are suitable for consumption
+  #   by tools/EDI library
+  expose :respondents, :forms, :stimuli, :people
 
   # `respondents_xlsx` and `forms_xlsx` are StringIO buffers which
   # can be acquired with `File.read` or read from the incoming HTTP
@@ -28,18 +33,25 @@ class AddFormsFromExcel
     @forms_headers = forms_headers
   end
 
-  # Returns a hash of 3 elements:
-  #
-  # +stimului+:: Array of stimuli in the provided forms
-  # +quiz_settings+:: Options of a quiz which are documented in the tools/EDI
-  # +people+:: Array of person hashes which are documented in the tools/EDI
-
   def call
     @respondents = parse_xlsx(respondents_xlsx, respondents_headers)
     @forms = parse_xlsx(forms_xlsx, forms_headers)
+    @stimuli = @forms.map { |f| f['stimulus'] }.uniq
+    @people = construct_people(@respondents, @forms)
   end
 
   private
+
+  def construct_people(respondents, forms)
+    people = []
+    respondents.each do |respondent|
+      people << {
+        data: respondent,
+        reactions: forms.select { |f| f['person_id'] == respondent['id'] }
+      }
+    end
+    people
+  end
 
   # Returns an array of hashes, each key in the hash is header,
   # each value is the corresponding field in the `xlsx_file`
@@ -81,7 +93,7 @@ class AddFormsFromExcel
 
   # rubocop:disable Metrics/MethodLength
   def valid?
-    if not_sting_or_file? respondents_xlsx
+    if not_string_or_file? respondents_xlsx
       error! 'respondents_xlsx should be a string '
     elsif not_string_or_file? forms_xlsx
       error! 'forms_xlsx should be a string buffer of an xlsx document'
