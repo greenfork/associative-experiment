@@ -56,9 +56,9 @@ class ParseFormsFromExcel
   # Returns an array of hashes, each key in the hash is header,
   # each value is the corresponding field in the `xlsx_file`
   def parse_xlsx(xlsx_file, headers)
-    worksheet = if xlsx_file.is_a? File
+    worksheet = if xlsx_file.is_a?(File) || xlsx_file.is_a?(Tempfile)
                   RubyXL::Parser.parse(xlsx_file)[0]
-                elsif xlsx_file.is_a? String
+                elsif xlsx_file.is_a?(String)
                   RubyXL::Parser.parse_buffer(xlsx_file)[0]
                 end
     base_headers = extract_headers(worksheet[0], headers)
@@ -108,7 +108,7 @@ class ParseFormsFromExcel
   # rubocop:enable Metrics/MethodLength
 
   def not_string_or_file?(obj)
-    !(obj.is_a?(String) || obj.is_a?(File))
+    !(obj.is_a?(String) || obj.is_a?(File) || obj.is_a?(Tempfile))
   end
 
   def not_array_of_strings?(obj)
