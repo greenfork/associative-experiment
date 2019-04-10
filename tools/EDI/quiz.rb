@@ -43,12 +43,15 @@ module EDI
     def stimuli(stimulus_repository = nil, refetch: false)
       return @stimuli unless @stimuli.nil? || refetch
       @stimuli = []
+      # TODO: `s` should be an array of hashes. Change readme to indicate
+      #       this requirement and change later its current implementation
       stimuli_list.each do |s|
-        id = stimulus_repository.find_id(s[:stimulus])
+        # s = s.is_a?(String) ? s : s[:stimulus]
+        id = stimulus_repository.find_id(s)
         @stimuli << Stimulus.new(
           id: id,
-          stimulus: s[:stimulus],
-          translation: s[:translation]
+          stimulus: s
+          # translation: s[:translation]
         )
       end
       @stimuli
