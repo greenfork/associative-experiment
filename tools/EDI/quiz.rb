@@ -26,7 +26,7 @@ module EDI
     # Connects all the stimuli to the current quiz via join table in database
     def bind_stimuli
       stimulus_repository = StimulusRepository.new
-      stim = stimuli(stimulus_repository, refetch: true)
+      stim = stimuli(stimulus_repository)
       if stim.any? { |s| s.id.nil? }
         raise MissingStimuliException, 'Some stimuli are missing from database'
       end
@@ -40,12 +40,9 @@ module EDI
     # @param stimulus_repository an object that has a method #find_id(s)
     #   which returns stimulus' id from database where param 's' is the
     #   stimulus itself
-    # @param refetch [Boolean] if true it refreshes the cached value of
-    #   all stimuli, false by default
     # @return [Array<Stimulus>] objects with IDs corresponding to records
     #   in database or with ID = nil if there's no such record
-    def stimuli(stimulus_repository = nil, refetch: false)
-      return @stimuli unless @stimuli.nil? || refetch
+    def stimuli(stimulus_repository = StimulusRepository.new)
       @stimuli = []
       # TODO: `s` should be an array of hashes. Change readme to indicate
       #       this requirement and change later its current implementation
