@@ -84,7 +84,7 @@ class ParseFormsFromExcel
       row.cells.zip(headers).each do |cell, (k, _v)|
         next if cell&.value.nil?
 
-        hash[k] = cell.value
+        hash[k] = cell.value.to_s.strip
       end
       result << hash
     end
