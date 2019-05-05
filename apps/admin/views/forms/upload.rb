@@ -12,6 +12,14 @@ module Admin
           end
         end
 
+        def data_loading
+          return unless flash[:successful_data_loading]
+
+          html.div class: 'alert alert-success' do
+            flash[:successful_data_loading]
+          end
+        end
+
         def form
           form_for :form, routes.upload_path, class: 'form-horizontal',
                    enctype: 'multipart/form-data' do
