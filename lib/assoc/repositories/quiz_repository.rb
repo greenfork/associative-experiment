@@ -12,6 +12,10 @@ class QuizRepository < Hanami::Repository
     end
   end
 
+  def find_by_title(title)
+    quizzes.where(title: title).first
+  end
+
   def insert_stimuli_into(quiz_id, stimuli)
     sql = 'INSERT INTO quizzes_stimuli_join (quiz_id, stimulus_id) VALUES '
     stimuli.each do |s|

@@ -25,11 +25,15 @@ module EDI
 
     # Connects all the stimuli to the current quiz via join table in database
     def bind_stimuli
-      stim = stimuli(StimulusRepository.new, refetch: true)
+      stimulus_repository = StimulusRepository.new
+      stim = stimuli(stimulus_repository, refetch: true)
       if stim.any? { |s| s.id.nil? }
         raise MissingStimuliException, 'Some stimuli are missing from database'
       end
-      QuizRepository.new.insert_stimuli_into(quiz.id, stim)
+      stim.select! { |s| stimulus_repository.find(s.id).nil? }
+      if !stim.empty?
+        QuizRepository.new.insert_stimuli_into(quiz.id, stim)
+      end
     end
 
     # Returns an array of Stimulus objects
@@ -60,7 +64,8 @@ module EDI
     private
 
     def create_quiz(quiz_repository)
-      @quiz = quiz_repository.create(settings)
+      @quiz = quiz_repository.find_by_title(settings[:title])
+      @quiz ||= quiz_repository.create(settings)
       @id = @quiz.id
     end
   end
