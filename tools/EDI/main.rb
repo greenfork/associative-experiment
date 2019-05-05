@@ -33,8 +33,21 @@ module EDI
 
       people.each do |person|
         person = person[1] if people.is_a? Hash
-        person_id = add_person(person[:data], quiz_id: quiz_id)
-        add_reactions(person[:reactions],
+        person_data = person[:data].map { |k, v| [k.to_sym, v] }.to_h
+        person_reactions = person[:reactions].map do |r|
+          r.map do |k, v|
+            key = if k == 'reaction_translation'
+                    :translation
+                  elsif k == 'reaction_translation_comment'
+                    :translation_comment
+                  else
+                    k.to_sym
+                  end
+            [key, v]
+          end.to_h
+        end
+        person_id = add_person(person_data, quiz_id: quiz_id)
+        add_reactions(person_reactions,
                       quiz_id: quiz_id,
                       person_id: person_id,
                       stimuli: stimuli)
