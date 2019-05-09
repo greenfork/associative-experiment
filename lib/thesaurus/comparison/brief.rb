@@ -12,7 +12,7 @@ module Thesaurus
       def call
         move_to_R
         calculate
-        res = R.result
+        # res = R.result
         @result[:all_first] = res[0]
         @result[:all_second] = res[1]
         @result[:all] = result[:all_first] + result[:all_second]
@@ -32,24 +32,24 @@ module Thesaurus
             reactions << dict[:reaction]
             counts << dict[:count]
           end
-          R.reactions = reactions
-          R.counts = counts
-          R.eval "#{string_dictionary} <- data.frame(reactions = reactions, "\
-                 'counts = counts)'
+          # R.reactions = reactions
+          # R.counts = counts
+          # R.eval "#{string_dictionary} <- data.frame(reactions = reactions, "\
+          #        'counts = counts)'
         end
       end
 
       def calculate
-        R.eval <<-EOF
-joined <- merge(dictionary1, dictionary2, by="reactions",
-                     suffixes = c("1", "2"))
-all_first <- sum(dictionary1$counts)
-all_second <- sum(dictionary2$counts)
-distinct <- length(table(c(as.character(dictionary1$reactions),
-                           as.character(dictionary2$reactions))))
-same <- length(joined$reactions)
-result <- c(all_first, all_second, distinct, same)
-EOF
+#         R.eval <<-EOF
+# joined <- merge(dictionary1, dictionary2, by="reactions",
+#                      suffixes = c("1", "2"))
+# all_first <- sum(dictionary1$counts)
+# all_second <- sum(dictionary2$counts)
+# distinct <- length(table(c(as.character(dictionary1$reactions),
+#                            as.character(dictionary2$reactions))))
+# same <- length(joined$reactions)
+# result <- c(all_first, all_second, distinct, same)
+# EOF
       end
     end
   end

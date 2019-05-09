@@ -43,7 +43,8 @@ module Admin
               communication_language_flag: false,
               education_language_flag: false,
               quiz_language_level_flag: false,
-              created_at: 1_505_331_469, updated_at: 1_505_331_469
+              created_at: Date.new(2018, 11, 19),
+              updated_at: Date.new(2018, 11, 19)
             }
 
             EDI::Main.new(

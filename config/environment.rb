@@ -5,7 +5,6 @@ require_relative '../lib/assoc'
 require_relative '../apps/research/application'
 require_relative '../apps/web/application'
 require_relative 'initializers/inflector.rb'
-require_relative 'R.rb'
 require_relative '../apps/admin/application'
 
 Hanami.configure do

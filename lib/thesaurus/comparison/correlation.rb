@@ -14,7 +14,7 @@ module Thesaurus
         extract_common_reactions
         move_to_R
         calculate
-        res = R.result
+        # res = R.result
         @result[:pearson] = res[0]
         @result[:spearman] = res[1]
         @result[:kendall] = res[2]
@@ -49,24 +49,24 @@ module Thesaurus
           @x << v[0]
           @y << v[1]
         end
-        R.x = x
-        R.y = y
+        # R.x = x
+        # R.y = y
       end
 
       def calculate
-        R.eval <<-EOF
-g <- function(x, y) {
-  avg <- (sum(x) + sum(y)) / 2
-  minima <- pmin(x, y)
-  sum(minima) / avg
-}
+#         R.eval <<-EOF
+# g <- function(x, y) {
+#   avg <- (sum(x) + sum(y)) / 2
+#   minima <- pmin(x, y)
+#   sum(minima) / avg
+# }
 
-g_function <- g(x, y)
-pearson <- cor(x, y, method = "pearson")
-spearman <- cor(x, y, method = "spearman")
-kendall <- cor(x, y, method = "kendall")
-result <- c(pearson, spearman, kendall, g_function)
-EOF
+# g_function <- g(x, y)
+# pearson <- cor(x, y, method = "pearson")
+# spearman <- cor(x, y, method = "spearman")
+# kendall <- cor(x, y, method = "kendall")
+# result <- c(pearson, spearman, kendall, g_function)
+# EOF
       end
     end
   end
