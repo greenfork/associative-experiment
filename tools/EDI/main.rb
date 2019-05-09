@@ -74,7 +74,7 @@ module EDI
     def add_person(person_data, quiz_id:)
       person_data[:quiz_id] = quiz_id
       person_data[:uuid] = SecureRandom.uuid
-      person_data[:is_reviewed] = 1
+      person_data[:is_reviewed] = true
       person_data.delete(:id)
       person = PersonRepository.new.create(person_data)
       person.id
