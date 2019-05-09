@@ -77,10 +77,14 @@ class ReactionRepository < Hanami::Repository
       translation = 'ANY_VALUE(r.translation) as translation'
       translation_comment = 'ANY_VALUE(r.translation_comment) as translation_comment'
       st_translation = 'ANY_VALUE(s.translation) as st_translation'
-    else
+    elsif ENV['DATABASE_NAME'] == 'sqlite'
       translation = 'r.translation'
       translation_comment = 'r.translation_comment'
       st_translation = 's.translation as st_translation'
+    else
+      translation = 'MAX(r.translation)'
+      translation_comment = 'MAX(r.translation_comment)'
+      st_translation = 'MAX(s.translation) as st_translation'
     end
 
     sql = <<-SQL.gsub(/^ */, '')
