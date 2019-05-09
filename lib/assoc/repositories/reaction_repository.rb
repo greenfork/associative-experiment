@@ -82,8 +82,8 @@ class ReactionRepository < Hanami::Repository
       translation_comment = 'r.translation_comment'
       st_translation = 's.translation as st_translation'
     else
-      translation = 'MAX(r.translation)'
-      translation_comment = 'MAX(r.translation_comment)'
+      translation = 'MAX(r.translation) as translation'
+      translation_comment = 'MAX(r.translation_comment) as translation_comment'
       st_translation = 'MAX(s.translation) as st_translation'
     end
 

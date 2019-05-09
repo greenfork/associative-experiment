@@ -55,15 +55,15 @@ module Research::Controllers::Analysis
       @ws.add_cell(11, 1, brief[:total])
       @ws.add_cell(12, 0, t('.distinct'))
       @ws.add_cell(12, 1, brief[:distinct])
-      @ws.add_cell(12, 2, format('%.2f%',
+      @ws.add_cell(12, 2, format('%.2f%%',
                                  brief[:distinct].to_f / brief[:total] * 100))
       @ws.add_cell(13, 0, t('.single'))
       @ws.add_cell(13, 1, brief[:single])
-      @ws.add_cell(13, 2, format('%.2f%',
+      @ws.add_cell(13, 2, format('%.2f%%',
                                  brief[:single].to_f / brief[:total] * 100))
       @ws.add_cell(14, 0, t('.nil'))
       @ws.add_cell(14, 1, brief[:null])
-      @ws.add_cell(14, 2, format('%.2f%',
+      @ws.add_cell(14, 2, format('%.2f%%',
                                  brief[:null].to_f / brief[:total] * 100))
     end
 
