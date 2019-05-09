@@ -191,17 +191,17 @@ module Research::Views::Analysis
         end
         tr do
           th t('.distinct')
-          td format('%d / %.2f%', brief[:distinct],
+          td format('%d / %.2f%%', brief[:distinct],
                     brief[:distinct].to_f / brief[:total] * 100)
         end
         tr do
           th t('.single')
-          td format('%d / %.2f%', brief[:single],
+          td format('%d / %.2f%%', brief[:single],
                     brief[:single].to_f / brief[:total] * 100)
         end
         tr do
           th t('.nil')
-          td format('%d / %.2f%', brief[:null],
+          td format('%d / %.2f%%', brief[:null],
                     brief[:null].to_f / brief[:total] * 100)
         end
       end
@@ -215,12 +215,12 @@ module Research::Views::Analysis
         end
         tr do
           th t('.distinct')
-          td format('%d / %.2f%', brief[:distinct],
+          td format('%d / %.2f%%', brief[:distinct],
                     brief[:distinct].to_f / brief[:total] * 100)
         end
         tr do
           th t('.single')
-          td format('%d / %.2f%', brief[:single],
+          td format('%d / %.2f%%', brief[:single],
                     brief[:single].to_f / brief[:total] * 100)
         end
       end
